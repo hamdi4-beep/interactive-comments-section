@@ -1,8 +1,58 @@
 @media (max-width: 768px) {
 
-    body {
-        display: block;
-        padding: 0;
+    .comments-section {
+        padding: 1em;
+    }
+
+    #root div.flex {
+        position: relative;
+        flex-direction: column-reverse;
+
+        &.currentUser {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            input {
+                grid-column: 1 / 3;
+                grid-row: 1;
+                width: 100%;
+            }
+
+            .cta-btn {
+                place-self: flex-start;
+                margin-left: auto;
+                padding: 1em 2em;
+            }
+        }
+
+        &.reply-wrapper {
+            margin-left: 1em;
+
+            &::after {
+                left: -1rem;
+            }
+        }
+
+        .score-wrapper {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            button {
+                padding: 0;
+            }
+        }
+
+        .reply-btn,
+        .btns {
+            position: absolute;
+            bottom: 2rem;
+            right: 1rem;
+        }
+
+        .content {
+            margin-bottom: 1em;
+        }
     }
 
 }

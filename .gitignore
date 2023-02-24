@@ -13,7 +13,8 @@ dist-ssr
 design
 *.local
 
-**.md
+README-template.md
+style-guide.md
 
 # Config files
 tsconfig.json

@@ -6,6 +6,7 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 1em;
+    flex-wrap: wrap;
 
     .user-img img {
         width: 30px;
@@ -21,8 +22,25 @@
 
     .reply-btn {
         color: $clr-moderate-blue;
-        font-weight: $fw-500;
         margin-left: auto;
+    }
+
+    .edit-btn {
+        color: $clr-moderate-blue;
+    }
+
+    .delete-btn {
+        color: $clr-soft-red;
+    }
+
+    .btns {
+        display: flex;
+        gap: 1rem;
+        margin-left: auto;
+    }
+
+    .btn {
+        font-weight: $fw-500;
 
         img {
             margin-right: .5em;
