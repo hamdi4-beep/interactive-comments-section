@@ -1,0 +1,42 @@
+@use './variables' as *;
+
+.user {
+    display: flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1em;
+
+    .user-img img {
+        width: 30px;
+    }
+
+    .username {
+        font-weight: $fw-700;
+    }
+
+    .created_at {
+        color: $clr-grayish-blue;
+    }
+
+    .reply-btn {
+        color: $clr-moderate-blue;
+        font-weight: $fw-500;
+        margin-left: auto;
+
+        img {
+            margin-right: .5em;
+        }
+    }
+
+    .label {
+        display: inline-block;
+        background-color: $clr-moderate-blue;
+        padding: .4em;
+        margin-left: .5em;
+        color: $clr-white;
+        line-height: .5;
+        border-radius: 5px;
+        font-weight: $fw-500;
+    }
+}

@@ -1,0 +1,103 @@
+@use './variables' as *;
+
+.comments-section {
+    max-width: 48rem;
+    width: 100%;
+    padding-inline: 4em;
+    padding-block: 1em;
+    margin-inline: auto;
+
+    .comment {
+
+        &:not(:last-of-type) {
+            margin-bottom: 1em;
+        }
+
+        .flex {
+            display: flex;
+            background-color: $clr-white;
+            padding: 1.5em;
+            border-radius: 5px;
+
+            input {
+                width: 100%;
+                padding: 1em;
+                padding-top: .5em;
+                padding-bottom: 3em;
+                align-self: flex-start;
+                border: 1px solid $clr-grayish-blue;
+                border-radius: 5px;
+            }
+            
+            .cta-btn {
+                background-color: $clr-moderate-blue;
+                align-self: flex-start;
+                padding: .5em 1.5em;
+                color: $clr-white;
+                border-radius: 5px;
+                text-transform: uppercase;
+            }
+        }
+
+        .reply-wrapper {
+            position: relative;
+            margin-top: 1em;
+            margin-left: 5.5em;
+
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: -3em;
+                width: 1px;
+                height: 100%;
+                background: $clr-moderate-blue;
+                opacity: .5;
+            }
+
+            &:last-of-type {
+
+                &::after {
+                    margin-top: -1em;
+                    height: calc(100% + 1em);
+                }
+            }
+        }
+
+        .score-wrapper {
+            background-color: $clr-light-gray;
+            text-align: center;
+            border-radius: 8px;
+            padding: .5em;
+            margin-right: 1.5em;
+            align-self: flex-start;
+
+            button {
+                text-align: center;
+                width: 100%;
+                color: $clr-soft-red;
+                padding: .5em;
+            }
+
+            .score {
+                display: inline-block;
+                margin-block: .3em;
+                font-weight: $fw-700;
+                color: $clr-moderate-blue;
+            }
+        }
+
+        .content {
+
+            p {
+                line-height: 1.5;
+            }
+
+            .replyingTo {
+                color: $clr-moderate-blue;
+                font-weight: $fw-700;
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+@use './variables' as *;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $ff-base;
+    font-size: $fs-base;
+    min-height: 100vh;
+    background-color: $clr-very-light-gray;
+    display: grid;
+    place-content: center;
+}
+
+button {
+    display: block;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+input {
+    font: inherit;
+    background-color: none;
+    outline: none;
+}
