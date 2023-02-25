@@ -1,5 +1,5 @@
 import { getData } from '../service/getData'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { useQuery, QueryClient, QueryClientProvider } from 'react-query'
 import * as React from 'react'
 
 import Comment from './Comment'
@@ -10,30 +10,14 @@ import { CommentInterface } from '../interfaces/CommentInterface'
 const queryClient = new QueryClient()
 
 export default function Section() {
-    const [comments, setComments] = React.useState([])
-
-    const [currentUser, setCurrentUser] = React.useState({
-        image: {
-            png: '',
-            webp: ''
-        },
-
-        username: ''
-    })
-    
-    React.useEffect(() => {
-        (async () => {
-            const comments = await getData('http://localhost:3000/comments')
-            const currentUser = await getData('http://localhost:3000/currentUser')
-
-            setCurrentUser(currentUser)
-            setComments(comments)
-        })()
-    }, [])
+    const queryComments = useQuery('comments', () => getData('http://localhost:3000/comments'))
+    const queryCurrentUser = useQuery('currentUser', () => getData('http://localhost:3000/currentUser'))
   
+    const isReady = queryComments.status === 'success' && queryComments.data.length > 0
+
     return (
         <div className='comments-section'>
-            {comments.length > 0 && comments.map((comment: CommentInterface, i: number) => {
+            {isReady && queryComments.data.map((comment: CommentInterface, i: number) => {
                 return (
                     <QueryClientProvider client={queryClient} key={i}>
                         <Comment comment={comment} />
@@ -41,8 +25,8 @@ export default function Section() {
                 )
             })}
 
-            {currentUser && (
-                <Reply user={currentUser} />
+            {queryCurrentUser.status === 'success' && (
+                <Reply user={queryCurrentUser.data} />
             )}
         </div>
     )
