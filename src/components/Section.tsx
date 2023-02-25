@@ -1,6 +1,5 @@
 import { getData } from '../service/getData'
 import { useQuery, QueryClient, QueryClientProvider } from 'react-query'
-import * as React from 'react'
 
 import Comment from './Comment'
 import Reply from './Reply'
@@ -14,6 +13,9 @@ export default function Section() {
     const queryCurrentUser = useQuery('currentUser', () => getData('http://localhost:3000/currentUser'))
   
     const isReady = queryComments.status === 'success' && queryComments.data.length > 0
+
+    if (queryCurrentUser.error) console.log('Could not fetch current user!')
+    if (queryComments.error) console.log('Could not fetch comments!')
 
     return (
         <div className='comments-section'>

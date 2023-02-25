@@ -1,7 +1,4 @@
-import { getData } from '../service/getData'
 import * as React from 'react'
-
-import Reply from './Reply'
 
 import { UserContext } from '../context/UserContext'
 import { CommentInterface } from "../interfaces/CommentInterface"
@@ -11,6 +8,8 @@ type CommentProp = {
     children?: Function
 }
 
+type EventHandler = (e: React.SyntheticEvent) => void
+
 export function Card({ comment, children }: CommentProp) {
     const [score, setScore] = React.useState(comment.score)
     const currentUser = React.useContext(UserContext)
@@ -19,6 +18,8 @@ export function Card({ comment, children }: CommentProp) {
     const { image } = user
 
     const isCurrentUser = currentUser.username === user.username
+
+    const handleClick: EventHandler = (e) => children && children()
 
     return (
         <div className={comment.replyingTo ? 'flex reply-wrapper' : 'flex'}>
@@ -42,7 +43,7 @@ export function Card({ comment, children }: CommentProp) {
 
                     {isCurrentUser ? (
                         <span className='username'>{currentUser.username}
-                            <span className='label'> you</span>
+                            <span className='label'>you</span>
                         </span>
                     ) : (<span className='username'>{user.username}</span>)}
 
@@ -61,7 +62,7 @@ export function Card({ comment, children }: CommentProp) {
                             </button>
                         </div>
                     ) : (
-                        <button className='btn reply-btn' onClick={() => children && children()}>
+                        <button className='btn reply-btn' onClick={handleClick}>
                             <img src="./images/icon-reply.svg" alt="reply icon" />
                             Reply
                         </button>
@@ -70,7 +71,7 @@ export function Card({ comment, children }: CommentProp) {
 
                 {comment.replyingTo ? (
                     <p>
-                        <span className="replyingTo">@{comment.replyingTo} </span>
+                        <span className="replyingTo">@{comment.replyingTo}</span>
                         {comment.content}
                     </p>
                 ) : (

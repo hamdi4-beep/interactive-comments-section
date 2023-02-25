@@ -97,6 +97,11 @@
             .replyingTo {
                 color: $clr-moderate-blue;
                 font-weight: $fw-700;
+
+                &::after {
+                    display: inline;
+                    content: ' '
+                }
             }
         }
     }
