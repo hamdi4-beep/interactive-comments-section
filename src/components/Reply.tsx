@@ -9,7 +9,7 @@ export default function Reply({ user }: UserProp) {
 
     return (
         <div className='comment'>
-            <div className="flex currentUser" style={{gap: '1rem'}}>
+            <div className="flex currentUser" style={{marginTop: '.5em', gap: '1rem'}}>
                 <div className="user">
                     <div className='user-img'>
                         <img src={image.png} alt='' />

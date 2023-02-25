@@ -1,10 +1,13 @@
 import { getData } from '../service/getData'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import * as React from 'react'
 
 import Comment from './Comment'
 import Reply from './Reply'
 
 import { CommentInterface } from '../interfaces/CommentInterface'
+
+const queryClient = new QueryClient()
 
 export default function Section() {
     const [comments, setComments] = React.useState([])
@@ -32,7 +35,9 @@ export default function Section() {
         <div className='comments-section'>
             {comments.length > 0 && comments.map((comment: CommentInterface, i: number) => {
                 return (
-                    <Comment comment={comment} key={i} />
+                    <QueryClientProvider client={queryClient} key={i}>
+                        <Comment comment={comment} />
+                    </QueryClientProvider>
                 )
             })}
 

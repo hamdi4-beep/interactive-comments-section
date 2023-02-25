@@ -6,6 +6,6 @@ export interface CommentInterface {
     createdAt: string,
     score: number,
     user: UserInterface,
-    replies: Array<any>
+    replies: Array<CommentInterface>
     replyingTo?: string
 }

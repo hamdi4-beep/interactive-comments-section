@@ -1,30 +1,19 @@
 import { getData } from '../service/getData'
 import * as React from 'react'
 
+import Reply from './Reply'
+
+import { UserContext } from '../context/UserContext'
 import { CommentInterface } from "../interfaces/CommentInterface"
 
 type CommentProp = {
-    comment: CommentInterface
+    comment: CommentInterface,
+    children?: Function
 }
 
-export function Card({ comment }: CommentProp) {
+export function Card({ comment, children }: CommentProp) {
     const [score, setScore] = React.useState(comment.score)
-
-    const [currentUser, setCurrentUser] = React.useState({
-        image: {
-            png: '',
-            webp: ''
-        },
-
-        username: ''
-    })
-
-    React.useEffect(() => {
-        (async () => {
-            const currentUser = await getData('http://localhost:3000/currentUser')
-            setCurrentUser(currentUser)
-        })()
-    }, [])
+    const currentUser = React.useContext(UserContext)
 
     const { user } = comment
     const { image } = user
@@ -72,7 +61,7 @@ export function Card({ comment }: CommentProp) {
                             </button>
                         </div>
                     ) : (
-                        <button className='btn reply-btn'>
+                        <button className='btn reply-btn' onClick={() => children && children()}>
                             <img src="./images/icon-reply.svg" alt="reply icon" />
                             Reply
                         </button>
