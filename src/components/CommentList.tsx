@@ -1,35 +1,27 @@
 import { getData } from '../service/getData'
-import { useQuery, QueryClient, QueryClientProvider } from 'react-query'
+import { useQuery } from 'react-query'
 
 import Comment from './Comment'
-import Reply from './Reply'
 
 import { CommentInterface } from '../interfaces/CommentInterface'
-
-const queryClient = new QueryClient()
+import Reply from './Reply'
 
 export default function CommentList() {
-    const queryComments = useQuery('comments', () => getData('http://localhost:3000/comments'))
-    const queryCurrentUser = useQuery('currentUser', () => getData('http://localhost:3000/currentUser'))
+    const { status, data, error } = useQuery('comments', () => getData('http://localhost:3000/comments'))
   
-    const isReady = queryComments.status === 'success' && queryComments.data.length > 0
+    const isReady = status === 'success' && data.length > 0
 
-    if (queryCurrentUser.error) console.log('Could not fetch current user!')
-    if (queryComments.error) console.log('Could not fetch comments!')
+    if (error) console.log('Could not fetch comments!')
 
     return (
         <div className='comments-section'>
-            {isReady && queryComments.data.map((comment: CommentInterface, i: number) => {
+            {isReady && data.map((comment: CommentInterface, i: number) => {
                 return (
-                    <QueryClientProvider client={queryClient} key={i}>
-                        <Comment comment={comment} />
-                    </QueryClientProvider>
+                    <Comment comment={comment} key={i} />
                 )
             })}
 
-            {queryCurrentUser.status === 'success' && (
-                <Reply data={[queryCurrentUser.data]} />
-            )}
+            <Reply />
         </div>
     )
 }

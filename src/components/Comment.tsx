@@ -27,7 +27,7 @@ export default function Comment({ comment }: CommentProp) {
         <div className="comment">
             <React.Fragment>
                 <Card comment={comment}>{() => setIsReplying(!isReplying)}</Card>
-                {isReplying && (<Reply data={[data, user]} />)}
+                {isReplying && (<Reply receiver={user} />)}
             </React.Fragment>
             
             {replies.length > 0 && replies.map((reply: CommentInterface, i: number) => {

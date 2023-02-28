@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react"
+
 export async function getData(endpoint: string) {
     try {
         const res = await fetch(endpoint)
