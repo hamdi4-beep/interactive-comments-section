@@ -1,0 +1,47 @@
+@use './variables' as *;
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1.7em 1.5em;
+    border-radius: 10px;
+    z-index: 999;
+    display: grid;
+    justify-content: center;
+    max-width: 23rem;
+
+    h3 {
+        color: $clr-dark-blue;
+        line-height: 1;
+        margin-bottom: 1em;
+    }
+
+    button {
+        display: inline-block;
+        margin-top: 1.5em;
+        padding: .8em 2em;
+        border-radius: 5px;
+        text-transform: uppercase;
+        color: white;
+    }
+
+    .btns {
+        display: flex;
+
+        & > * {
+            flex-basis: 50%;
+        }
+    }
+
+    .cancel-btn {
+        background-color: $clr-grayish-blue;
+        margin-right: .7em;
+    }
+
+    .delete-btn {
+        background-color: $clr-soft-red;
+    }
+}

@@ -1,11 +1,16 @@
+import * as React from 'react'
 import { UserInterface } from '../interfaces/UserInterface'
 
 type UserProp = {
-    user: UserInterface
+    data: UserInterface[]
 }
 
-export default function Reply({ user }: UserProp) {
+export default function Reply({ data: [user, receiver]}: UserProp) {
     const { image } = user
+
+    const handleClick = (e: React.SyntheticEvent) => console.log('Gotcha!')
+
+    const isReply = receiver && `@${receiver.username} `
 
     return (
         <div className='comment'>
@@ -16,8 +21,8 @@ export default function Reply({ user }: UserProp) {
                     </div>
                 </div>
 
-                <input type="text" placeholder='Add a comment...' />
-                <button className='cta-btn'>Send</button>
+                <input type="text" placeholder='Add a comment...' defaultValue={isReply} />
+                <button className='cta-btn' onClick={handleClick}>{isReply ? 'Reply' : 'Send'}</button>
             </div>
         </div>
     )

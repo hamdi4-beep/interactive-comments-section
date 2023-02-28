@@ -8,7 +8,7 @@ import { CommentInterface } from '../interfaces/CommentInterface'
 
 const queryClient = new QueryClient()
 
-export default function Section() {
+export default function CommentList() {
     const queryComments = useQuery('comments', () => getData('http://localhost:3000/comments'))
     const queryCurrentUser = useQuery('currentUser', () => getData('http://localhost:3000/currentUser'))
   
@@ -28,7 +28,7 @@ export default function Section() {
             })}
 
             {queryCurrentUser.status === 'success' && (
-                <Reply user={queryCurrentUser.data} />
+                <Reply data={[queryCurrentUser.data]} />
             )}
         </div>
     )

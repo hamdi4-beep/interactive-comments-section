@@ -18,9 +18,7 @@ export default function Comment({ comment }: CommentProp) {
         return getData('http://localhost:3000/currentUser')
     })
 
-    const { replies } = comment
-
-    const handle = () => setIsReplying(!isReplying)
+    const { replies, user } = comment
 
     if (isLoading) return (<p>Loading...</p>)
     if (error) return (<p>Error occured!</p>)
@@ -28,16 +26,14 @@ export default function Comment({ comment }: CommentProp) {
     return (
         <div className="comment">
             <React.Fragment>
-                <Card comment={comment}>{handle}</Card>
-                {isReplying && (<Reply user={data} />)}
+                <Card comment={comment}>{() => setIsReplying(!isReplying)}</Card>
+                {isReplying && (<Reply data={[data, user]} />)}
             </React.Fragment>
             
             {replies.length > 0 && replies.map((reply: CommentInterface, i: number) => {
                 return (
                     <UserContext.Provider value={data} key={i}>
-                        <Card comment={reply}>
-                            {() => console.log('Heya!')}
-                        </Card>
+                        <Card comment={reply} />
                     </UserContext.Provider>
                 )
             })}
