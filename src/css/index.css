@@ -1,0 +1,12 @@
+:root {
+    --primary-purple-600: hsl(238, 40%, 52%);
+    --primary-pink-400: hsl(358, 79%, 66%);
+    --primary-purple-200: hsl(239, 57%, 85%);
+    --primary-pink-200: hsl(357, 100%, 86%);
+
+    --neutral-grey-800: hsl(212, 24%, 26%);
+    --neutral-grey-500: hsl(211, 10%, 45%);
+    --neutral-grey-100: hsl(223, 19%, 93%);
+    --neutral-grey-50: hsl(228, 33%, 97%);
+    --neutral-white: hsl(0, 100%, 100%);
+}
