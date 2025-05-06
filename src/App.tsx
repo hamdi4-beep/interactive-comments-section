@@ -1,11 +1,12 @@
+import Comment from "./components/Comment"
 import data from './data.json'
 
 function App() {
-  console.log(data)
-
   return (
     <div className="App">
-      <img src={data.currentUser.image.png} alt="" />
+      {data.comments.map(comment => (
+        <Comment comment={comment} key={comment.id} />
+      ))}
     </div>
   )
 }
