@@ -8,11 +8,13 @@ function Comment({
                     <div className="icon-wrapper">
                         <img src='/images/icon-plus.svg' alt="" />
                     </div>
+                </button>
 
-                    <span>{comment.score}</span>
+                <span>{comment.score}</span>
 
+                <button>
                     <div className="icon-wrapper">
-                        <img src="/images/icon-ninus.svg" alt="" />
+                        <img src="/images/icon-minus.svg" alt="" />
                     </div>
                 </button>
             </div>
@@ -26,7 +28,7 @@ function Comment({
                     <h3>{comment.user.username}</h3>
                     <span>{comment.createdAt}</span>
 
-                    <div>
+                    <div className="buttons-wrapper">
                         <button>
                             <div className="icon-wrapper">
                                 <img src="/images/icon-reply.svg" alt="" />

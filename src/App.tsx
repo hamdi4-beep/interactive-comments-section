@@ -5,7 +5,10 @@ function App() {
   return (
     <div className="App">
       {data.comments.map(comment => (
-        <Comment comment={comment} key={comment.id} />
+        <Comment
+          comment={comment}
+          key={comment.id}
+        />
       ))}
     </div>
   )

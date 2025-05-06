@@ -1,12 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 :root {
+    /* primary colors */
     --primary-purple-600: hsl(238, 40%, 52%);
     --primary-pink-400: hsl(358, 79%, 66%);
     --primary-purple-200: hsl(239, 57%, 85%);
     --primary-pink-200: hsl(357, 100%, 86%);
 
+    /* neutral colors */
     --neutral-grey-800: hsl(212, 24%, 26%);
     --neutral-grey-500: hsl(211, 10%, 45%);
     --neutral-grey-100: hsl(223, 19%, 93%);
     --neutral-grey-50: hsl(228, 33%, 97%);
     --neutral-white: hsl(0, 100%, 100%);
+}
+
+body {
+    background-color: var(--neutral-grey-50);
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+    font-family: Rubik;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    gap: .5em;
+    font: inherit;
+}
+
+.App {
+    width: 768px;
+    max-width: 100%;
+}
+
+.comment {
+    background-color: var(--neutral-white);
+    display: flex;
+    padding: 1em;
+    margin-bottom: 1em;
+    align-items: flex-start;
+    border-radius: .5em;
+}
+
+.user-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.buttons-wrapper {
+    margin-left: auto;
+}
+
+.buttons-wrapper button {
+    color: var(--primary-purple-600);
+    font-weight: bold;
+}
+
+.user-img {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.user-img img {
+    display: block;
+    object-fit: cover;
+    max-width: 100%;
+}
+
+.user-img, .user-wrapper h3 {
+    margin-right: 1em;
+}
+
+.score-wrapper {
+    background-color: var(--neutral-grey-50);
+    display: flex;
+    flex-direction: column;
+    margin-right: 1em;
+    padding: .5em;
+    text-align: center;
+    border-radius: .5em;
+    font-weight: bold;
+    font-size: 1em;
+    color: var(--primary-purple-600);
+
+}
+
+.score-wrapper button {
+    margin-block: .5em;
 }
