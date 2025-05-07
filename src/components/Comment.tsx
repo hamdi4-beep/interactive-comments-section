@@ -1,3 +1,5 @@
+import { currentUser } from "./CommentsList"
+
 type UserComment = {
     id: number
     content: string
@@ -10,19 +12,8 @@ type UserComment = {
       }
       username: string
     }
-    replies?: Array<{
-      id: number
-      content: string
-      createdAt: string
-      score: number
-      replyingTo: string
-      user: {
-        image: {
-          png: string
-          webp: string
-        }
-        username: string
-      }
+    replies?: Array<Omit<UserComment, 'replies'> & {
+        replyingTo: string
     }>
 }
 
@@ -32,6 +23,8 @@ function Comment({
     comment: UserComment
 }) {
     const hasReplies = comment.replies && comment.replies.length > 0
+
+    if (comment.user.username == currentUser.username) console.log(comment)
 
     return (
         <div className="comment-wrapper">

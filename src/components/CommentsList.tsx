@@ -1,6 +1,8 @@
 import Comment from './Comment'
 import data from '../data.json'
 
+export const currentUser = data.currentUser
+
 function CommentsList() {
     return (
         <div className="comments-list">
