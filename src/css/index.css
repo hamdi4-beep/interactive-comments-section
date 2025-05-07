@@ -98,7 +98,10 @@ button {
     font-weight: bold;
     font-size: 1em;
     color: var(--primary-purple-600);
+}
 
+.replies-list {
+    margin-left: 4em;
 }
 
 .score-wrapper button {
