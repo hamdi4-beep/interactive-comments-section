@@ -21,12 +21,12 @@ function Comment({
 
             <div className="content">
                 <div className="user-wrapper">
-                    <div className="user-img">
+                    <div className="user-avatar">
                         <img src={comment.user.image.png} alt="" />
                     </div>
 
                     <h3>{comment.user.username}</h3>
-                    <span>{comment.createdAt}</span>
+                    <span className="comment-date">{comment.createdAt}</span>
 
                     <div className="buttons-wrapper">
                         <button>

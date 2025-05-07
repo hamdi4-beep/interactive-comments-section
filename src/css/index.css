@@ -13,6 +13,12 @@
     --neutral-grey-100: hsl(223, 19%, 93%);
     --neutral-grey-50: hsl(228, 33%, 97%);
     --neutral-white: hsl(0, 100%, 100%);
+
+    /* spacing */
+    --spacing: 1em;
+
+    /* rounded corners */
+    --rounded-corners: .5em;
 }
 
 body {
@@ -26,9 +32,10 @@ body {
 button {
     background-color: transparent;
     border: none;
-    display: flex;
+    display: inline-flex;
     gap: .5em;
     font: inherit;
+    cursor: pointer;
 }
 
 .App {
@@ -36,13 +43,15 @@ button {
     max-width: 100%;
 }
 
+/* Comment Component */
+
 .comment {
     background-color: var(--neutral-white);
     display: flex;
-    padding: 1em;
+    padding: var(--spacing);
     margin-bottom: 1em;
     align-items: flex-start;
-    border-radius: .5em;
+    border-radius: var(--rounded-corners);
 }
 
 .user-wrapper {
@@ -59,19 +68,23 @@ button {
     font-weight: bold;
 }
 
-.user-img {
+.user-avatar {
     width: 2.5em;
     height: 2.5em;
 }
 
-.user-img img {
+.user-avatar img {
     display: block;
     object-fit: cover;
     max-width: 100%;
 }
 
-.user-img, .user-wrapper h3 {
+.user-avatar, .user-wrapper h3 {
     margin-right: 1em;
+}
+
+.user-wrapper .comment-date {
+    color: var(--neutral-grey-500);
 }
 
 .score-wrapper {
@@ -90,4 +103,43 @@ button {
 
 .score-wrapper button {
     margin-block: .5em;
+}
+
+/* Form Component */
+
+.form-component {
+    background-color: var(--neutral-white);
+    display: flex;
+    padding: var(--spacing);
+    border-radius: var(--rounded-corners);
+    align-items: flex-start;
+}
+
+.form-component form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.form-component textarea {
+    outline: none;
+    border: none;
+    font: inherit;
+    padding-top: 1em;
+    padding-inline: 1em;
+    padding-bottom: 2em;
+    margin-right: 1em;
+    border: 1px solid var(--neutral-grey-100);
+    border-radius: .5em;
+    width: 100%;
+    color: var(--neutral-grey-500);
+}
+
+.form-component button {
+    background-color: var(--primary-purple-600);
+    color: white;
+    padding: .5em 1em;
+    border-radius: .5em;
+    text-transform: uppercase;
 }

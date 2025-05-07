@@ -1,4 +1,5 @@
 import Comment from "./components/Comment"
+import FormComponent from "./components/FormComponent"
 import data from './data.json'
 
 function App() {
@@ -10,6 +11,8 @@ function App() {
           key={comment.id}
         />
       ))}
+
+      <FormComponent />
     </div>
   )
 }
