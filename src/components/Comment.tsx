@@ -1,5 +1,3 @@
-import { currentUser } from "./CommentsList"
-
 type UserComment = {
     id: number
     content: string
@@ -12,9 +10,90 @@ type UserComment = {
       }
       username: string
     }
-    replies?: Array<Omit<UserComment, 'replies'> & {
-        replyingTo: string
-    }>
+    replies?: Array<UserReply>
+}
+
+type UserReply = Omit<UserComment, 'replies'> & {
+    replyingTo: string
+}
+
+function ReplyButton() {
+    return (
+        <button>
+            <div className="icon-wrapper">
+                <img src="/images/icon-reply.svg" alt="" />
+            </div>
+
+            Reply
+        </button>
+    )
+}
+
+export const ButtonsWrapper = () => (
+    <div className="buttons-wrapper">
+        <ReplyButton />
+    </div>
+)
+
+export const ScoreComponent = ({
+    score
+}: {
+    score: number
+}) => (
+    <div className="score-wrapper">
+        <button>
+            <div className="icon-wrapper">
+                <img src='/images/icon-plus.svg' alt="" />
+            </div>
+        </button>
+
+        <span>{score}</span>
+
+        <button>
+            <div className="icon-wrapper">
+                <img src="/images/icon-minus.svg" alt="" />
+            </div>
+        </button>
+    </div>
+)
+
+export const User = ({
+    user
+}: {
+    user: UserComment['user']
+}) => (
+    <>
+        <div className="user-avatar">
+            <img src={user.image.png} alt="" />
+        </div>
+
+        <h3>{user.username}</h3>
+    </>
+)
+
+function Reply({
+    reply
+}: {
+    reply: UserReply
+}) {
+    return (
+        <div className="comment">
+            <ScoreComponent score={reply.score} />
+
+            <div className="content">
+                <div className="user-wrapper">
+                    <User user={reply.user} />
+                    <span className="comment-date">{reply.createdAt}</span>
+                    <ReplyButton />
+                </div>
+
+                <p>
+                    <span>@{reply.replyingTo} </span>
+                    {reply.content}
+                </p>
+            </div>
+        </div>
+    )
 }
 
 function Comment({
@@ -24,45 +103,16 @@ function Comment({
 }) {
     const hasReplies = comment.replies && comment.replies.length > 0
 
-    if (comment.user.username == currentUser.username) console.log(comment)
-
     return (
         <div className="comment-wrapper">
             <div className="comment">
-                <div className="score-wrapper">
-                    <button>
-                        <div className="icon-wrapper">
-                            <img src='/images/icon-plus.svg' alt="" />
-                        </div>
-                    </button>
-
-                    <span>{comment.score}</span>
-
-                    <button>
-                        <div className="icon-wrapper">
-                            <img src="/images/icon-minus.svg" alt="" />
-                        </div>
-                    </button>
-                </div>
+                <ScoreComponent score={comment.score} />
 
                 <div className="content">
                     <div className="user-wrapper">
-                        <div className="user-avatar">
-                            <img src={comment.user.image.png} alt="" />
-                        </div>
-
-                        <h3>{comment.user.username}</h3>
+                        <User user={comment.user} />
                         <span className="comment-date">{comment.createdAt}</span>
-
-                        <div className="buttons-wrapper">
-                            <button>
-                                <div className="icon-wrapper">
-                                    <img src="/images/icon-reply.svg" alt="" />
-                                </div>
-
-                                Reply
-                            </button>
-                        </div>
+                        <ReplyButton />
                     </div>
 
                     <p>{comment.content}</p>
@@ -72,8 +122,8 @@ function Comment({
             {hasReplies && (
                 <div className="replies-list">
                     {comment.replies?.map(reply => (
-                        <Comment
-                            comment={reply}
+                        <Reply
+                            reply={reply}
                             key={reply.id}
                         />
                     ))}
