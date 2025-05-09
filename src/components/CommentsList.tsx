@@ -1,5 +1,5 @@
-import Comment from './Comment'
 import data from '../data.json'
+import Composition from './Composition'
 
 export const currentUser = data.currentUser
 
@@ -7,7 +7,7 @@ function CommentsList() {
     return (
         <div className="comments-list">
             {data.comments.map(comment => (
-                <Comment 
+                <Composition
                     comment={comment}
                     key={comment.id}
                 />

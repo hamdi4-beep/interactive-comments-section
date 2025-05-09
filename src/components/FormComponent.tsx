@@ -8,7 +8,7 @@ function FormComponent() {
             </div>
 
             <form action="#">
-                <textarea name="comment" id="comment">Add a comment...</textarea>
+                <textarea name="comment" id="comment" placeholder="Add a comment..."></textarea>
                 <button>Send</button>
             </form>
         </div>
