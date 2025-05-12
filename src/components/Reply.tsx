@@ -1,4 +1,4 @@
-import { ComponentHeader } from "./Composition"
+import { ComponentHeader } from "./Comment"
 
 type UserComment = {
   id: number
