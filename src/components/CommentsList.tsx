@@ -1,5 +1,5 @@
-import data from '../data.json'
 import Composition from './Composition'
+import data from '../data.json'
 
 export const currentUser = data.currentUser
 

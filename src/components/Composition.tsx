@@ -1,80 +1,53 @@
-type UserComment = {
-    "id": number,
-    "content": string
-    "createdAt": string,
-    "score": number,
-    "user": {
-        "image": { 
-            "png": string,
-            "webp": string
-        },
-        "username": string
-    },
-    "replies": Array<Omit<UserComment, 'replies'> & {
-        replyingTo: string
-    }>
+type UserReply = {
+    replyingTo: string
 }
 
-const CommentHeader = ({
-    info
-}: {
-    info: {
-        username: string
-        image: string
-        createdAt: string
+type UserComment = {
+  id: number
+  content: string
+  createdAt: string
+  score: number
+  user: {
+    image: {
+      png: string
+      webp: string
     }
-}) => (
-    <div className="comment-header">
-        <div className="user">
-            <div className="user-img">
-                <img src={info.image} alt="" />
-            </div>
-
-            <h3>{info.username}</h3>
-        </div>
-
-        <span className="comment-date">{info.createdAt}</span>
-    </div>
-)
-
-function Reply({
-    reply
-}: {
-    reply: Omit<UserComment, 'replies'> & {
-        replyingTo: string
-    }
-}) {
-    return (
-        <div className="reply">
-            <CommentHeader
-                info={{
-                    username: reply.user.username,
-                    image: reply.user.image.png,
-                    createdAt: reply.createdAt
-                }}
-            />
-        </div>
-    )
+    username: string
+  }
+  replies: Array<Omit<UserComment, 'replies'> & UserReply>
 }
 
 function Comment({
-    comment
+    data,
+    children
 }: {
-    comment: UserComment
+    data: any,
+    children?: React.ReactNode
 }) {
     return (
         <div className="comment-wrapper">
             <div className="comment">
-                <CommentHeader
-                    info={{
-                        username: comment.user.username,
-                        image: comment.user.image.png,
-                        createdAt: comment.createdAt
-                    }}
-                />
+                <div className="user-wrapper">
+                    <div className="user-img">
+                        <img src={data.image} alt="" />
+                    </div>
 
-                <p>{comment.content}</p>
+                    <h3>{data.username}</h3>
+                    <span>{data.date}</span>
+                </div>
+
+                <div className="buttons">
+                    <button>
+                        <div className="icon-wrapper">
+                            <img src="/images/icon-reply.svg" alt="reply icon" />
+                        </div>
+
+                        Reply
+                    </button>
+                </div>
             </div>
+
+            {children}
         </div>
     )
 }
@@ -84,11 +57,23 @@ function Composition({
 }: {
     comment: UserComment
 }) {
-    console.log(comment)
+    const hasReplies = comment.replies.length > 0
 
     return (
         <div className="composition">
-            <Comment comment={comment} />
+            <Comment
+                data={{
+                    username: comment.user.username,
+                    image: comment.user.image.png,
+                    date: comment.createdAt
+                }}
+            />
+
+            {hasReplies && (
+                <div className="replies-list">
+                    <p>The comment has replie(s)</p>
+                </div>
+            )}
         </div>
     )
 }
