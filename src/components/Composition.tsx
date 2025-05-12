@@ -1,4 +1,6 @@
-type UserReply = {
+import Reply from "./Reply"
+
+type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
@@ -14,68 +16,66 @@ type UserComment = {
     }
     username: string
   }
-  replies: Array<Omit<UserComment, 'replies'> & UserReply>
+  replies: Array<UserReply>
 }
 
-function Comment({
-    data,
-    children
-}: {
-    data: any,
-    children?: React.ReactNode
-}) {
+export const ComponentHeader = (props: {
+    avatar: string
+    username: string
+    date: string
+}) => {
     return (
-        <div className="comment-wrapper">
-            <div className="comment">
-                <div className="user-wrapper">
-                    <div className="user-img">
-                        <img src={data.image} alt="" />
-                    </div>
-
-                    <h3>{data.username}</h3>
-                    <span>{data.date}</span>
+        <div className="component-header">
+            <div className="user-wrapper">
+                <div className="user-avatar">
+                    <img src={props.avatar} alt="" />
                 </div>
 
-                <div className="buttons">
-                    <button>
-                        <div className="icon-wrapper">
-                            <img src="/images/icon-reply.svg" alt="reply icon" />
-                        </div>
-
-                        Reply
-                    </button>
-                </div>
+                <h3>{props.username}</h3>
+                <span className="comment-date">{props.date}</span>
             </div>
 
-            {children}
+            <div className="buttons-wrapper">
+                <button>
+                    <div className="icon-img">
+                        <img src="/images/icon-reply.svg" alt="" />
+                    </div>
+
+                    Reply
+                </button>
+            </div>
         </div>
     )
 }
 
-function Composition({
+function Comment({
     comment
 }: {
     comment: UserComment
 }) {
-    const hasReplies = comment.replies.length > 0
+    const props = {
+        avatar: comment.user.image.png,
+        date: comment.createdAt,
+        username: comment.user.username
+    }
 
     return (
-        <div className="composition">
-            <Comment
-                data={{
-                    username: comment.user.username,
-                    image: comment.user.image.png,
-                    date: comment.createdAt
-                }}
-            />
-
-            {hasReplies && (
-                <div className="replies-list">
-                    <p>The comment has replie(s)</p>
+        <div className="comment-wrapper">
+            <div className="comment">
+                <ComponentHeader {...props} />
+            
+                <div className="content">
+                    <p>{comment.content}</p>
                 </div>
-            )}
+            </div>
+
+            <div className="replies-list">
+                {comment.replies.map(reply => (
+                    <Reply reply={reply} key={reply.id} />
+                ))}
+            </div>
         </div>
     )
 }
 
-export default Composition
+export default Comment

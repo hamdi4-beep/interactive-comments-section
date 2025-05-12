@@ -45,12 +45,10 @@ button {
 
 /* Comment Component */
 
-.comment {
+.comment, .reply {
     background-color: var(--neutral-white);
-    display: flex;
     padding: var(--spacing);
     margin-bottom: 1em;
-    align-items: flex-start;
     border-radius: var(--rounded-corners);
 }
 
@@ -69,8 +67,8 @@ button {
 }
 
 .user-avatar {
-    width: 2.5em;
-    height: 2.5em;
+    width: 3em;
+    height: 3em;
 }
 
 .user-avatar img {
@@ -98,6 +96,12 @@ button {
     font-weight: bold;
     font-size: 1em;
     color: var(--primary-purple-600);
+}
+
+.component-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .replies-list {
