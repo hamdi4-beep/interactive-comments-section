@@ -1,4 +1,4 @@
-import { ComponentHeader } from "./Comment"
+import { ComponentHeader, ScoreComponent } from "./Comment"
 
 type UserComment = {
   id: number
@@ -32,10 +32,14 @@ function Reply({
 
     return (
         <div className="reply">
-            <ComponentHeader {...props} />
+            <ScoreComponent score={reply.score} />
+            
+            <div>
+                <ComponentHeader {...props} />
 
-            <div className="content">
-                <p>@{reply.replyingTo} {reply.content}</p>
+                <div className="content">
+                    <p>@{reply.replyingTo} {reply.content}</p>
+                </div>
             </div>
         </div>
     )

@@ -46,10 +46,17 @@ button {
 /* Comment Component */
 
 .comment, .reply {
+    display: flex;
     background-color: var(--neutral-white);
     padding: var(--spacing);
+    align-items: flex-start;
     margin-bottom: 1em;
     border-radius: var(--rounded-corners);
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
 }
 
 .user-wrapper {
@@ -87,8 +94,6 @@ button {
 
 .score-wrapper {
     background-color: var(--neutral-grey-50);
-    display: flex;
-    flex-direction: column;
     margin-right: 1em;
     padding: .5em;
     text-align: center;

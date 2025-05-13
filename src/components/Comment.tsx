@@ -48,6 +48,47 @@ export const ComponentHeader = (props: {
     )
 }
 
+const RepliesList = ({
+    replies
+}: {
+    replies: UserReply[]
+}) => {
+    return (
+        <div className="replies-list">
+            {replies.map(reply => (
+                <Reply
+                    reply={reply}
+                    key={reply.id} 
+                />
+            ))}
+        </div>
+    )
+}
+
+export const ScoreComponent = ({
+    score
+}: {
+    score: number
+}) => {
+    return (
+        <div className="score-wrapper">
+            <button>
+                <div className="icon-wrapper">
+                    <img src="/images/icon-plus.svg" alt="" />
+                </div>
+            </button>
+
+            <span>{score}</span>
+
+            <button>
+                <div className="icon-wrapper">
+                    <img src="/images/icon-minus.svg" alt="" />
+                </div>
+            </button>
+        </div>
+    )
+}
+
 function Comment({
     comment
 }: {
@@ -62,18 +103,18 @@ function Comment({
     return (
         <div className="comment-wrapper">
             <div className="comment">
-                <ComponentHeader {...props} />
-            
-                <div className="content">
-                    <p>{comment.content}</p>
+                <ScoreComponent score={comment.score} />
+
+                <div>
+                    <ComponentHeader {...props} />
+                
+                    <div className="content">
+                        <p>{comment.content}</p>
+                    </div>
                 </div>
             </div>
 
-            <div className="replies-list">
-                {comment.replies.map(reply => (
-                    <Reply reply={reply} key={reply.id} />
-                ))}
-            </div>
+            <RepliesList replies={comment.replies} />
         </div>
     )
 }
