@@ -96,7 +96,10 @@ function Comment({
                 <ScoreComponent score={comment.score} />
 
                 <div>
-                    <ComponentHeader handleReplyClick={e => setIsReplying(prev => !prev)} {...props} />
+                    <ComponentHeader
+                        handleReplyClick={e => setIsReplying(prev => !prev)}
+                        {...props}
+                    />
                 
                     <div className="content">
                         <p>{comment.content}</p>

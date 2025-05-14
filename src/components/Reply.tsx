@@ -1,4 +1,6 @@
+import { useState } from "react"
 import { ComponentHeader, ScoreComponent } from "./Comment"
+import FormComponent from "./FormComponent"
 
 type UserComment = {
   id: number
@@ -26,6 +28,8 @@ function Reply({
     reply: UserReply
     updateReply: Function
 }) {
+    const [isReplying, setIsReplying] = useState(false)
+
     const props = {
         avatar: reply.user.image.png,
         date: reply.createdAt,
@@ -33,19 +37,26 @@ function Reply({
     }
 
     return (
-        <div className="reply" onClick={e => updateReply()}>
-            <ScoreComponent score={reply.score} />
-            
-            <div>
-                <ComponentHeader {...props} />
+        <div className="reply-wrapper">
+            <div className="reply" onClick={e => updateReply()}>
+                <ScoreComponent score={reply.score} />
+                
+                <div>
+                    <ComponentHeader
+                        handleReplyClick={e => setIsReplying(prev => !prev)}
+                        {...props}
+                    />
 
-                <div className="content">
-                    <p>
-                        <span className="replying-to">@{reply.replyingTo} </span>
-                        {reply.content}
-                    </p>
+                    <div className="content">
+                        <p>
+                            <span className="replying-to">@{reply.replyingTo} </span>
+                            {reply.content}
+                        </p>
+                    </div>
                 </div>
             </div>
+
+            {isReplying && <FormComponent />}
         </div>
     )
 }
