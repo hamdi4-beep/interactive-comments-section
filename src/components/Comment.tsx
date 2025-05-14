@@ -1,4 +1,6 @@
+import * as React from 'react'
 import Reply from "./Reply"
+import FormComponent from './FormComponent'
 
 type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
@@ -23,6 +25,7 @@ export const ComponentHeader = (props: {
     avatar: string
     username: string
     date: string
+    handleReplyClick: React.MouseEventHandler
 }) => {
     return (
         <div className="component-header">
@@ -36,7 +39,7 @@ export const ComponentHeader = (props: {
             </div>
 
             <div className="buttons-wrapper">
-                <button>
+                <button onClick={props.handleReplyClick}>
                     <div className="icon-img">
                         <img src="/images/icon-reply.svg" alt="" />
                     </div>
@@ -48,39 +51,24 @@ export const ComponentHeader = (props: {
     )
 }
 
-const RepliesList = ({
-    replies
-}: {
-    replies: UserReply[]
-}) => {
-    return (
-        <div className="replies-list">
-            {replies.map(reply => (
-                <Reply
-                    reply={reply}
-                    key={reply.id} 
-                />
-            ))}
-        </div>
-    )
-}
-
 export const ScoreComponent = ({
     score
 }: {
     score: number
 }) => {
+    const [currentScore, setCurrentScore] = React.useState(score)
+
     return (
         <div className="score-wrapper">
-            <button>
+            <button onClick={e => setCurrentScore(previousScore => previousScore + 1)} title='increase score'>
                 <div className="icon-wrapper">
                     <img src="/images/icon-plus.svg" alt="" />
                 </div>
             </button>
 
-            <span>{score}</span>
+            <span>{currentScore}</span>
 
-            <button>
+            <button onClick={e => setCurrentScore(previousScore => previousScore - 1)} title='decrease score'>
                 <div className="icon-wrapper">
                     <img src="/images/icon-minus.svg" alt="" />
                 </div>
@@ -94,6 +82,8 @@ function Comment({
 }: {
     comment: UserComment
 }) {
+    const [isReplying, setIsReplying] = React.useState(false)
+
     const props = {
         avatar: comment.user.image.png,
         date: comment.createdAt,
@@ -106,7 +96,7 @@ function Comment({
                 <ScoreComponent score={comment.score} />
 
                 <div>
-                    <ComponentHeader {...props} />
+                    <ComponentHeader handleReplyClick={e => setIsReplying(prev => !prev)} {...props} />
                 
                     <div className="content">
                         <p>{comment.content}</p>
@@ -114,7 +104,17 @@ function Comment({
                 </div>
             </div>
 
-            <RepliesList replies={comment.replies} />
+            {isReplying && <FormComponent />}
+
+            <div className="replies-list">
+                {comment.replies.map(reply => (
+                    <Reply
+                        reply={reply}
+                        updateReply={() => console.log(comment.replies.includes(reply))}
+                        key={reply.id} 
+                    />
+                ))}
+            </div>
         </div>
     )
 }

@@ -100,6 +100,7 @@ button {
     border-radius: .5em;
     font-weight: bold;
     font-size: 1em;
+    width: 2.5em;
     color: var(--primary-purple-600);
 }
 
@@ -117,6 +118,26 @@ button {
     margin-block: .5em;
 }
 
+/* Reply Component */
+
+.reply .replying-to {
+    color: var(--primary-purple-600);
+    font-weight: bold;
+}
+
+.replies-list:has(.reply) {
+    position: relative;
+}
+
+.replies-list:has(.reply)::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -2em;
+    border-left: 1px solid var(--neutral-grey-100);
+    height: 100%;
+}
+
 /* Form Component */
 
 .form-component {
@@ -125,6 +146,14 @@ button {
     padding: var(--spacing);
     border-radius: var(--rounded-corners);
     align-items: flex-start;
+}
+
+.comment-wrapper .form-component {
+    margin-top: -2em;
+    margin-bottom: 1em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 1px solid var(--neutral-grey-100);
 }
 
 .form-component form {

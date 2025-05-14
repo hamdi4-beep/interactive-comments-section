@@ -20,9 +20,11 @@ type UserReply = Omit<UserComment, 'replies'> & {
 }
 
 function Reply({
-    reply
+    reply,
+    updateReply
 }: {
     reply: UserReply
+    updateReply: Function
 }) {
     const props = {
         avatar: reply.user.image.png,
@@ -31,14 +33,17 @@ function Reply({
     }
 
     return (
-        <div className="reply">
+        <div className="reply" onClick={e => updateReply()}>
             <ScoreComponent score={reply.score} />
             
             <div>
                 <ComponentHeader {...props} />
 
                 <div className="content">
-                    <p>@{reply.replyingTo} {reply.content}</p>
+                    <p>
+                        <span className="replying-to">@{reply.replyingTo} </span>
+                        {reply.content}
+                    </p>
                 </div>
             </div>
         </div>
