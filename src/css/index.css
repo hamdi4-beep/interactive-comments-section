@@ -45,7 +45,7 @@ button {
 
 /* Comment Component */
 
-.layout {
+.comment, .reply {
     background-color: var(--neutral-white);
     padding: var(--spacing);
     margin-bottom: 1em;
@@ -62,11 +62,11 @@ button {
     align-items: center;
 }
 
-.buttons-wrapper {
+.actions {
     margin-left: auto;
 }
 
-.buttons-wrapper button {
+.actions button {
     color: var(--primary-purple-600);
     font-weight: bold;
 }
@@ -102,7 +102,7 @@ button {
     color: var(--primary-purple-600);
 }
 
-.header {
+.profile-header, .user {
     display: flex;
     gap: 1em;
     align-items: center;
