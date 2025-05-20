@@ -17,51 +17,59 @@ type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
-const ProfileHeader = (props: {
-    avatar: string
-    username: string
-    date: string
-}) => (
-    <div className="profile-header">
-        <div className="user">
-            <div className="user-img">
-                <img src={props.avatar} alt="" />
-            </div>
+function Layout(props: {
+    info: {
+        avatar: string
+        date: string
+        username: string
+    }
+    children: React.ReactNode
+}) {
+    return (
+        <div className="layout">
+            <div className="profile-header">
+                <div className="user">
+                    <div className="user-img">
+                        <img src={props.info.avatar} alt="" />
+                    </div>
 
-            <h3>{props.username}</h3>
-            <span className="comment-date">{props.date}</span>
-        </div>
-
-        <div className="actions">
-            <button>
-                <div className="icon-img">
-                    <img src="/images/icon-reply" alt="" />
+                    <h3>{props.info.username}</h3>
+                    <span className="comment-date">{props.info.date}</span>
                 </div>
 
-                Reply
-            </button>
+                <div className="actions">
+                    <button>
+                        <div className="icon-img">
+                            <img src="/images/icon-reply" alt="" />
+                        </div>
+
+                        Reply
+                    </button>
+                </div>
+            </div>
+
+            {props.children}
         </div>
-    </div>
-)
+    )
+}
 
 function Reply({
     reply
 }: {
     reply: UserReply
 }) {
-    const info = {
-        avatar: reply.user.image.png,
-        username: reply.user.username,
-        date: reply.createdAt
-    }
-
     return (
         <div className="reply">
-            <ProfileHeader {...info} />
-            <p>
-                <span className="replying-to">@{reply.replyingTo} </span>
-                {reply.content}
-            </p>
+            <Layout info={{
+                avatar: reply.user.image.png,
+                username: reply.user.username,
+                date: reply.createdAt
+            }}>
+                <p>
+                    <span className="replying-to">@{reply.replyingTo} </span>
+                    {reply.content}
+                </p>
+            </Layout>
         </div>
     )
 }
@@ -71,17 +79,16 @@ function Comment({
 }: {
     comment: UserComment
 }) {
-    const info = {
-        avatar: comment.user.image.png,
-        username: comment.user.username,
-        date: comment.createdAt
-    }
-
     return (
         <div className="comment-wrapper">
             <div className="comment">
-                <ProfileHeader {...info} />
-                <p>{comment.content}</p>
+                <Layout info={{
+                    avatar: comment.user.image.png,
+                    username: comment.user.username,
+                    date: comment.createdAt
+                }}>
+                    <p>{comment.content}</p>
+                </Layout>
             </div>
 
             <div className="replies-list">
