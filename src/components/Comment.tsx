@@ -29,7 +29,7 @@ const ProfileHeader = (props: {
             </div>
 
             <h3>{props.username}</h3>
-            <span>{props.date}</span>
+            <span className="comment-date">{props.date}</span>
         </div>
 
         <div className="actions">
@@ -58,7 +58,10 @@ function Reply({
     return (
         <div className="reply">
             <ProfileHeader {...info} />
-            <p>@{reply.replyingTo} {reply.content}</p>
+            <p>
+                <span className="replying-to">@{reply.replyingTo} </span>
+                {reply.content}
+            </p>
         </div>
     )
 }
