@@ -46,6 +46,8 @@ button {
 /* Comment Component */
 
 .card {
+    display: flex;
+    align-items: flex-start;
     background-color: var(--neutral-white);
     padding: var(--spacing);
     margin-bottom: 1em;

@@ -1,8 +1,9 @@
-import { createProps } from "./CommentComponent"
+import { createProps } from "./Comment"
 import ProfileHeader from "./subcomponents/ProfileHeader"
 import ReplyButton from "./subcomponents/ReplyButton"
 import FormComponent from "./FormComponent"
 import * as React from 'react'
+import ScoreComponent from "./subcomponents/ScoreComponent"
 
 type Userreply = {
     id: number
@@ -29,19 +30,22 @@ function Reply({
     reply: UserReply
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
-    const props = createProps(reply)
 
     return (
         <div className="reply-wrapper">
             <div className="card">
-                <ProfileHeader {...props}>
-                    <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
-                </ProfileHeader>
+                <ScoreComponent score={reply.score} />
 
-                <p>
-                    <span className="replying-to">@{reply.replyingTo} </span>
-                    {reply.content}
-                </p>
+                <div className="content">
+                    <ProfileHeader {...createProps(reply)}>
+                        <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
+                    </ProfileHeader>
+
+                    <p>
+                        <span className="replying-to">@{reply.replyingTo} </span>
+                        {reply.content}
+                    </p>
+                </div>
             </div>
 
             {isReplying && <FormComponent />}

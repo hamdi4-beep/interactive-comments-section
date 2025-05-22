@@ -1,5 +1,5 @@
 import { Context } from '../App'
-import Comment from './CommentComponent'
+import Comment from './Comment'
 import * as React from 'react'
 
 function CommentsList() {
