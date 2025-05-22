@@ -57,24 +57,22 @@ function Comment({
     return (
         <div className="comment-wrapper">
             <div className="comment">
-                <div className="card">
-                    <ProfileHeader {...props}>
-                        <div className="actions">
-                            <button onClick={e => setIsReplying(prev => !prev)}>
-                                <div className="icon-img">
-                                    <img src="/images/icon-reply.svg" alt="" />
-                                </div>
+                <ProfileHeader {...props}>
+                    <div className="actions">
+                        <button onClick={e => setIsReplying(prev => !prev)}>
+                            <div className="icon-img">
+                                <img src="/images/icon-reply.svg" alt="" />
+                            </div>
 
-                                Reply
-                            </button>
-                        </div>
-                    </ProfileHeader>
+                            Reply
+                        </button>
+                    </div>
+                </ProfileHeader>
 
-                    <p>{comment.content}</p>
-                </div>
-
-                {isReplying && <FormComponent />}
+                <p>{comment.content}</p>
             </div>
+
+            {isReplying && <FormComponent />}
 
             <div className="replies-list">
                 {comment.replies.map(reply => (

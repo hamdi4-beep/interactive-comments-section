@@ -45,7 +45,7 @@ button {
 
 /* Comment Component */
 
-.card, .reply {
+.comment, .reply {
     background-color: var(--neutral-white);
     padding: var(--spacing);
     margin-bottom: 1em;
