@@ -1,4 +1,6 @@
-import { ProfileHeader, ReplyButton } from "./Comment"
+import { createProps } from "./CommentComponent"
+import ProfileHeader from "./subcomponents/ProfileHeader"
+import ReplyButton from "./subcomponents/ReplyButton"
 import FormComponent from "./FormComponent"
 import * as React from 'react'
 
@@ -27,16 +29,11 @@ function Reply({
     reply: UserReply
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
-
-    const props = {
-        avatar: reply.user.image.png,
-        username: reply.user.username,
-        date: reply.createdAt
-    }
+    const props = createProps(reply)
 
     return (
         <div className="reply-wrapper">
-            <div className="reply">
+            <div className="card">
                 <ProfileHeader {...props}>
                     <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
                 </ProfileHeader>

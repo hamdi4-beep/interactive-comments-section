@@ -1,5 +1,7 @@
 import FormComponent from "./FormComponent"
-import Reply from "./Reply"
+import ProfileHeader from "./subcomponents/ProfileHeader"
+import ReplyButton from "./subcomponents/ReplyButton"
+import Reply from "./ReplyComponent"
 import * as React from 'react'
 
 type UserComment = {
@@ -21,39 +23,19 @@ type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
-export const ProfileHeader = (props: {
-    avatar: string
-    username: string
-    date: string
-    children: React.ReactNode
-}) => (
-    <div className="profile-header">
-        <div className="user">
-            <div className="user-img">
-                <img src={props.avatar} alt="" />
-            </div>
-
-            <h3>{props.username}</h3>
-            <span className="comment-date">{props.date}</span>
-        </div>
-
-        <div className="actions">
-            {props.children}
-        </div>
-    </div>
-)
-
-export const ReplyButton = (props: {
-    toggleReply: React.MouseEventHandler
-}) => (
-    <button onClick={props.toggleReply}>
-        <div className="icon-img">
-            <img src="/images/icon-reply.svg" alt="" />
-        </div>
-
-        Reply
-    </button>
-)
+export const createProps = (info: {
+    user: {
+        image: {
+            png: string
+        }
+        username: string
+    }
+    createdAt: string
+}) => ({
+    avatar: info.user.image.png,
+    username: info.user.username,
+    date: info.createdAt
+})
 
 function Comment({
     comment
@@ -61,16 +43,11 @@ function Comment({
     comment: UserComment
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
-
-    const props = {
-        avatar: comment.user.image.png,
-        username: comment.user.username,
-        date: comment.createdAt
-    }
+    const props = createProps(comment)
 
     return (
         <div className="comment-wrapper">
-            <div className="comment">
+            <div className="card">
                 <ProfileHeader {...props}>
                     <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
                 </ProfileHeader>
