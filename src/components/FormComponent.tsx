@@ -2,7 +2,7 @@ function FormComponent() {
     return (
         <div className="form-component">
             <div className="current-user">
-                <div className="user-avatar">
+                <div className="user-img">
                     <img src="/images/avatars/image-juliusomo.png" alt="" />
                 </div>
             </div>

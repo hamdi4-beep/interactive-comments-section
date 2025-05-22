@@ -1,3 +1,5 @@
+import Reply from "./Reply"
+
 type UserComment = {
     id: number
     createdAt: string
@@ -17,78 +19,49 @@ type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
-function Layout(props: {
-    info: {
-        avatar: string
-        date: string
-        username: string
-    }
-    children: React.ReactNode
-}) {
-    return (
-        <div className="layout">
-            <div className="profile-header">
-                <div className="user">
-                    <div className="user-img">
-                        <img src={props.info.avatar} alt="" />
-                    </div>
-
-                    <h3>{props.info.username}</h3>
-                    <span className="comment-date">{props.info.date}</span>
-                </div>
-
-                <div className="actions">
-                    <button>
-                        <div className="icon-img">
-                            <img src="/images/icon-reply" alt="" />
-                        </div>
-
-                        Reply
-                    </button>
-                </div>
+export const ProfileHeader = (props: {
+    avatar: string
+    username: string
+    date: string
+}) => (
+    <div className="profile-header">
+        <div className="user">
+            <div className="user-img">
+                <img src={props.avatar} alt="" />
             </div>
 
-            {props.children}
+            <h3>{props.username}</h3>
+            <span className="comment-date">{props.date}</span>
         </div>
-    )
-}
 
-function Reply({
-    reply
-}: {
-    reply: UserReply
-}) {
-    return (
-        <div className="reply">
-            <Layout info={{
-                avatar: reply.user.image.png,
-                username: reply.user.username,
-                date: reply.createdAt
-            }}>
-                <p>
-                    <span className="replying-to">@{reply.replyingTo} </span>
-                    {reply.content}
-                </p>
-            </Layout>
+        <div className="actions">
+            <button>
+                <div className="icon-img">
+                    <img src="/images/icon-reply.svg" alt="" />
+                </div>
+
+                Reply
+            </button>
         </div>
-    )
-}
+    </div>
+)
 
 function Comment({
     comment
 }: {
     comment: UserComment
 }) {
+    const props = {
+        avatar: comment.user.image.png,
+        username: comment.user.username,
+        date: comment.createdAt
+    }
+
     return (
         <div className="comment-wrapper">
             <div className="comment">
-                <Layout info={{
-                    avatar: comment.user.image.png,
-                    username: comment.user.username,
-                    date: comment.createdAt
-                }}>
-                    <p>{comment.content}</p>
-                </Layout>
+                <ProfileHeader {...props} />
+                <p>{comment.content}</p>
             </div>
 
             <div className="replies-list">

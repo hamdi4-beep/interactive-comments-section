@@ -76,16 +76,21 @@ span.comment-date {
     color: var(--neutral-grey-500);
 }
 
-.score-wrapper {
+.score-component {
     background-color: var(--neutral-grey-50);
     margin-right: 1em;
-    padding: .5em;
+    padding: 1em .5em;
     text-align: center;
     border-radius: .5em;
     font-weight: bold;
     font-size: 1em;
     width: 2.5em;
     color: var(--primary-purple-600);
+}
+
+.score-component span {
+    display: block;
+    margin-block: .5em;
 }
 
 .profile-header, .user {
@@ -154,7 +159,7 @@ span.comment-date {
     padding-top: 1em;
     padding-inline: 1em;
     padding-bottom: 2em;
-    margin-right: 1em;
+    margin-inline: 1em;
     border: 1px solid var(--neutral-grey-100);
     border-radius: .5em;
     width: 100%;
