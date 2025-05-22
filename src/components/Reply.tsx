@@ -1,4 +1,6 @@
 import { ProfileHeader } from "./Comment"
+import FormComponent from "./FormComponent"
+import * as React from 'react'
 
 type Userreply = {
     id: number
@@ -24,6 +26,8 @@ function Reply({
 }: {
     reply: UserReply
 }) {
+    const [isReplying, setIsReplying] = React.useState(false)
+
     const props = {
         avatar: reply.user.image.png,
         username: reply.user.username,
@@ -31,13 +35,27 @@ function Reply({
     }
 
     return (
-        <div className="reply">
-            <ProfileHeader {...props} />
-            
-            <p>
-                <span className="replying-to">@{reply.replyingTo} </span>
-                {reply.content}
-            </p>
+        <div className="reply-wrapper">
+            <div className="reply">
+                <ProfileHeader {...props}>
+                    <div className="actions">
+                            <button onClick={e => setIsReplying(prev => !prev)}>
+                                <div className="icon-img">
+                                    <img src="/images/icon-reply.svg" alt="" />
+                                </div>
+
+                                Reply
+                            </button>
+                        </div>
+                </ProfileHeader>
+
+                <p>
+                    <span className="replying-to">@{reply.replyingTo} </span>
+                    {reply.content}
+                </p>
+            </div>
+
+            {isReplying && <FormComponent />}
         </div>
     )
 }
