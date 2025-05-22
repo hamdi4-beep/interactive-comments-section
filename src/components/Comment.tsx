@@ -37,8 +37,22 @@ export const ProfileHeader = (props: {
             <span className="comment-date">{props.date}</span>
         </div>
 
-        {props.children}
+        <div className="actions">
+            {props.children}
+        </div>
     </div>
+)
+
+export const ReplyButton = (props: {
+    toggleReply: React.MouseEventHandler
+}) => (
+    <button onClick={props.toggleReply}>
+        <div className="icon-img">
+            <img src="/images/icon-reply.svg" alt="" />
+        </div>
+
+        Reply
+    </button>
 )
 
 function Comment({
@@ -58,15 +72,7 @@ function Comment({
         <div className="comment-wrapper">
             <div className="comment">
                 <ProfileHeader {...props}>
-                    <div className="actions">
-                        <button onClick={e => setIsReplying(prev => !prev)}>
-                            <div className="icon-img">
-                                <img src="/images/icon-reply.svg" alt="" />
-                            </div>
-
-                            Reply
-                        </button>
-                    </div>
+                    <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
                 </ProfileHeader>
 
                 <p>{comment.content}</p>

@@ -1,4 +1,4 @@
-import { ProfileHeader } from "./Comment"
+import { ProfileHeader, ReplyButton } from "./Comment"
 import FormComponent from "./FormComponent"
 import * as React from 'react'
 
@@ -38,15 +38,7 @@ function Reply({
         <div className="reply-wrapper">
             <div className="reply">
                 <ProfileHeader {...props}>
-                    <div className="actions">
-                            <button onClick={e => setIsReplying(prev => !prev)}>
-                                <div className="icon-img">
-                                    <img src="/images/icon-reply.svg" alt="" />
-                                </div>
-
-                                Reply
-                            </button>
-                        </div>
+                    <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
                 </ProfileHeader>
 
                 <p>
