@@ -55,7 +55,11 @@ function App() {
         dispatch
       }}>
         <CommentsList />
-        <FormComponent />
+
+        <FormComponent dispatchHandler={(content: string) => dispatch({
+          type: 'ADD_COMMENT',
+          payload: content
+        })} />
       </Context.Provider>
     </div>
   )

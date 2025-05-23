@@ -47,7 +47,7 @@ function Comment({
 
     return (
         <div className="comment-wrapper">
-            <div className="card" onClick={e => console.log(comment)}>
+            <div className="card">
                 <ScoreComponent score={comment.score} />
 
                 <div className="content">
@@ -59,7 +59,7 @@ function Comment({
                 </div>
             </div>
 
-            {isReplying && <FormComponent />}
+            {isReplying && <FormComponent dispatchHandler={() => console.log('This method adds a reply to a comment.')} />}
 
             <div className="replies-list">
                 {comment.replies.map(reply => (

@@ -48,7 +48,7 @@ function Reply({
                 </div>
             </div>
 
-            {isReplying && <FormComponent />}
+            {isReplying && <FormComponent dispatchHandler={() => console.log('This method adds a reply to a reply.')} />}
         </div>
     )
 }

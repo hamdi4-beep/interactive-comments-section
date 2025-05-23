@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Context } from "../App"
 
-function FormComponent() {
-    const {dispatch} = React.useContext(Context)
+function FormComponent(props: {
+    dispatchHandler: Function
+}) {
     const textAreaRef = React.createRef<HTMLTextAreaElement>()
 
     const handleSubmit: React.FormEventHandler = e => {
@@ -11,10 +11,7 @@ function FormComponent() {
         const formElement = e.target as HTMLFormElement
         const formData = new FormData(formElement)
 
-        dispatch({
-            type: 'ADD_COMMENT',
-            payload: formData.get('comment') as string
-        })
+        props.dispatchHandler(formData.get('comment') as string)
 
         formElement.reset()
     }
