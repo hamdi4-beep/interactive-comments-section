@@ -34,7 +34,10 @@ function App() {
         const findGreatestInteger = (list: number[]) => Math.max.apply(null, list)
 
         return [...state, {
-          id: findGreatestInteger([...state.map(it => it.id), ...state.map(it => findGreatestInteger(it.replies.map(it => it.id)))]) + 1,
+          id: findGreatestInteger([
+            ...state.map(it => it.id),
+            ...state.map(it => findGreatestInteger(it.replies.map(it => it.id)))
+          ]) + 1,
           content: action.payload,
           score: 0,
           user: data.currentUser,
