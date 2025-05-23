@@ -54,6 +54,10 @@ button {
     border-radius: var(--rounded-corners);
 }
 
+.card .content {
+    width: 100%;
+}
+
 .actions {
     margin-left: auto;
 }
@@ -81,18 +85,17 @@ span.comment-date {
 .score-component {
     background-color: var(--neutral-grey-50);
     margin-right: 1em;
-    padding: 1em .5em;
+    padding: .5em;
     text-align: center;
     border-radius: .5em;
     font-weight: bold;
     font-size: 1em;
-    width: 2.5em;
     color: var(--primary-purple-600);
 }
 
 .score-component span {
     display: block;
-    margin-block: .5em;
+    margin: 0;
 }
 
 .profile-header, .user {
@@ -105,13 +108,13 @@ span.comment-date {
     margin-left: 4em;
 }
 
-.score-wrapper button {
+.score-component button {
     margin-block: .5em;
 }
 
 /* Reply Component */
 
-.reply .replying-to {
+.card .replying-to {
     color: var(--primary-purple-600);
     font-weight: bold;
 }

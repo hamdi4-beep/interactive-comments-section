@@ -47,7 +47,7 @@ function Comment({
 
     return (
         <div className="comment-wrapper">
-            <div className="card">
+            <div className="card" onClick={e => console.log(comment)}>
                 <ScoreComponent score={comment.score} />
 
                 <div className="content">

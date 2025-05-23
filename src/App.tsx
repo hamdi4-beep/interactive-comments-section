@@ -24,15 +24,24 @@ type UserReply = Omit<UserComment, 'replies'> & {
 
 const dispatch: React.ActionDispatch<[action: {
   type: string
-  id: number
+  payload: any
 }]> = () => {}
 
 function App() {
   const [comments, dispatch] = React.useReducer((state, action) => {
     switch (action.type) {
-      case 'delete':
-        console.log(action.id)
-        return state
+      case 'ADD_COMMENT': {
+        const findGreatestInteger = (list: number[]) => Math.max.apply(null, list)
+
+        return [...state, {
+          id: findGreatestInteger([...state.map(it => it.id), ...state.map(it => findGreatestInteger(it.replies.map(it => it.id)))]) + 1,
+          content: action.payload,
+          score: 0,
+          user: data.currentUser,
+          replies: [],
+          createdAt: 'now'
+        }]
+      }
         
       default:
         return state
