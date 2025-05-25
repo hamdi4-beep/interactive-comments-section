@@ -6,7 +6,7 @@ import * as React from 'react'
 import ScoreComponent from "./subcomponents/ScoreComponent"
 import { Context } from "../App"
 
-type Userreply = {
+type UserComment = {
     id: number
     createdAt: string
     score: number
@@ -21,7 +21,7 @@ type Userreply = {
     replies: UserReply[]
 }
 
-type UserReply = Omit<Userreply, 'replies'> & {
+type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
