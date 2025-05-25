@@ -4,6 +4,7 @@ import ReplyButton from "./subcomponents/ReplyButton"
 import FormComponent from "./FormComponent"
 import * as React from 'react'
 import ScoreComponent from "./subcomponents/ScoreComponent"
+import { Context } from "../App"
 
 type Userreply = {
     id: number
@@ -30,6 +31,7 @@ function Reply({
     reply: UserReply
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
+    const {dispatch} = React.useContext(Context)
 
     return (
         <div className="reply-wrapper">
@@ -48,7 +50,10 @@ function Reply({
                 </div>
             </div>
 
-            {isReplying && <FormComponent dispatchHandler={() => console.log('This method adds a reply to a reply.')} />}
+            {isReplying && <FormComponent dispatchHandler={() => dispatch({
+                type: 'REPLY_TO_REPLY',
+                id: reply.id
+            })} />}
         </div>
     )
 }

@@ -4,6 +4,7 @@ import ReplyButton from "./subcomponents/ReplyButton"
 import Reply from "./Reply"
 import * as React from 'react'
 import ScoreComponent from "./subcomponents/ScoreComponent"
+import { Context } from "../App"
 
 type UserComment = {
     id: number
@@ -44,6 +45,7 @@ function Comment({
     comment: UserComment
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
+    const {dispatch} = React.useContext(Context)
 
     return (
         <div className="comment-wrapper">
@@ -59,7 +61,11 @@ function Comment({
                 </div>
             </div>
 
-            {isReplying && <FormComponent dispatchHandler={() => console.log('This method adds a reply to a comment.')} />}
+            {isReplying && <FormComponent dispatchHandler={(content: string) => dispatch({
+                type: 'ADD_REPLY',
+                id: comment.id,
+                payload: content
+            })} />}
 
             <div className="replies-list">
                 {comment.replies.map(reply => (
