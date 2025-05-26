@@ -40,29 +40,44 @@ const findGreatestId = (arr: any[]) => {
 function App() {
   const [comments, dispatch] = React.useReducer((state, action) => {
     switch (action.type) {
-      case 'ADD_COMMENT': {
-        console.log(findGreatestId(state))
-        return state
-      }
+      case 'ADD_COMMENT':
+        return [...state, {
+          id: findGreatestId(state) + 1,
+          score: 0,
+          content: action.payload,
+          replies: [],
+          createdAt: 'now',
+          user: data.currentUser
+        }]
 
-      case 'ADD_REPLY': {
-        console.log(state.find(it => it.id == action.id))
-        return state
-      }
+      case 'ADD_REPLY':
+        return state.map(it => {
+          if (it.id === action.id) {
+            return {
+              ...it,
+              replies: [...it.replies, {
+                id: findGreatestId(state) + 1,
+                score: 0,
+                createdAt: 'now',
+                user: data.currentUser,
+                replyingTo: it.user.username,
+                content: action.payload
+              }]
+            }
+          }
 
-      case 'REPLY_TO_REPLY': {
-        for (const comment of state) {
-          const reply = comment.replies.find(it => it.id === action.id)
-          if (reply) console.log(reply)
-        }
+          return it
+        })
 
+      case 'REPLY_TO_REPLY':
         return state
-      }
         
       default:
         return state
     }
   }, data.comments)
+
+  console.log(comments)
 
   return (
     <div className="App">
