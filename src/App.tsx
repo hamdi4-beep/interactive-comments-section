@@ -30,19 +30,18 @@ const dispatch: React.ActionDispatch<[action: {
 
 // Make a recursive function that loops over the comments/arrays to find the one with the highest ID.
 
-const findGreatestId = (arr: any[]) => {
-  return Math.max.apply(null, [
-    ...arr.map(it => it.id),
-    ...arr.map(it => Math.max.apply(null, it.replies.map((it: UserReply) => it.id)))
+const getLastId = (comments: UserComment[]) =>
+  Math.max.apply(null, [
+    ...comments.map(it => it.id),
+    ...comments.map(it => Math.max.apply(null, it.replies.map(it => it.id)))
   ])
-}
 
 function App() {
   const [comments, dispatch] = React.useReducer((state, action) => {
     switch (action.type) {
       case 'ADD_COMMENT':
         return [...state, {
-          id: findGreatestId(state) + 1,
+          id: getLastId(state) + 1,
           score: 0,
           content: action.payload,
           replies: [],
@@ -56,7 +55,7 @@ function App() {
             return {
               ...it,
               replies: [...it.replies, {
-                id: findGreatestId(state) + 1,
+                id: getLastId(state) + 1,
                 score: 0,
                 createdAt: 'now',
                 user: data.currentUser,
@@ -77,7 +76,7 @@ function App() {
     }
   }, data.comments)
 
-  console.log(comments)
+  console.log(getLastId(data.comments))
 
   return (
     <div className="App">
