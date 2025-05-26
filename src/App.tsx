@@ -3,7 +3,7 @@ import CommentsList from "./components/CommentsList"
 import FormComponent from "./components/FormComponent"
 import data from '../src/data.json'
 
-type UserComment = {
+export type UserComment = {
     id: number
     createdAt: string
     score: number
@@ -18,7 +18,7 @@ type UserComment = {
     replies: UserReply[]
 }
 
-type UserReply = Omit<UserComment, 'replies'> & {
+export type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 

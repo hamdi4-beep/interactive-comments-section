@@ -6,24 +6,7 @@ import * as React from 'react'
 import ScoreComponent from "./subcomponents/ScoreComponent"
 import { Context } from "../App"
 
-type UserComment = {
-    id: number
-    createdAt: string
-    score: number
-    content: string
-    user: {
-        username: string
-        image: {
-            png: string
-            webp: string
-        }
-    }
-    replies: UserReply[]
-}
-
-type UserReply = Omit<UserComment, 'replies'> & {
-    replyingTo: string
-}
+import type { UserReply } from "../App"
 
 function Reply({
     reply
