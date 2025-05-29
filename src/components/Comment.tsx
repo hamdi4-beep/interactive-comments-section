@@ -22,6 +22,25 @@ export const createProps = (info: {
     date: info.createdAt
 })
 
+export const CurrentUserActions = (props: {
+    handleEditClick: React.MouseEventHandler
+    handleDeleteClick: React.MouseEventHandler
+}) => (
+    <>
+        <Button
+            label="Edit"
+            iconImage="/images/icon-edit.svg"
+            clickHandler={props.handleEditClick}
+        />
+
+        <Button
+            label="Delete"
+            iconImage="/images/icon-delete.svg"
+            clickHandler={props.handleDeleteClick}
+        />
+    </>
+)
+
 function Comment(props: {
     comment: UserComment
 }) {
@@ -44,18 +63,9 @@ function Comment(props: {
                         />
 
                         {isCurrentUser && (
-                            <Button
-                                clickHandler={e => {}}
-                                iconImage="/images/icon-edit.svg"
-                                label="Edit"
-                            />
-                        )}
-
-                        {isCurrentUser && (
-                            <Button
-                                clickHandler={e => {}}
-                                iconImage="/images/icon-delete.svg"
-                                label="Delete"
+                            <CurrentUserActions
+                                handleEditClick={e => console.log('The edit functionality.')}
+                                handleDeleteClick={e => console.log('The delete functionality.')}
                             />
                         )}
                     </ProfileHeader>

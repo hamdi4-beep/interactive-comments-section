@@ -1,4 +1,4 @@
-import { createProps } from "./Comment"
+import { CurrentUserActions, createProps } from "./Comment"
 import ProfileHeader from "./subcomponents/ProfileHeader"
 import Button from "./subcomponents/Button"
 import FormComponent from "./FormComponent"
@@ -32,18 +32,9 @@ function Reply({
                         />
 
                         {isCurrentUser && (
-                            <Button
-                                clickHandler={e => {}}
-                                iconImage="/images/icon-edit.svg"
-                                label="Edit"
-                            />
-                        )}
-
-                        {isCurrentUser && (
-                            <Button
-                                clickHandler={e => {}}
-                                iconImage="/images/icon-delete.svg"
-                                label="Delete"
+                            <CurrentUserActions
+                                handleEditClick={e => console.log('The edit functionality.')}
+                                handleDeleteClick={e => console.log('The delete functionality.')}
                             />
                         )}
                     </ProfileHeader>
