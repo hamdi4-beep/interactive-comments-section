@@ -58,6 +58,14 @@ button {
     width: 100%;
 }
 
+span.current-user {
+    background-color: var(--primary-purple-600);
+    padding: .1em .5em;
+    line-height: 1;
+    color: var(--neutral-white);
+    border-radius: 2px;
+}
+
 .actions {
     margin-left: auto;
 }
@@ -65,6 +73,7 @@ button {
 .actions button {
     color: var(--primary-purple-600);
     font-weight: bold;
+    margin-left: .4em;
 }
 
 .user-img {

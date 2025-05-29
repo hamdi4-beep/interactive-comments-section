@@ -1,10 +1,10 @@
 import { createProps } from "./Comment"
 import ProfileHeader from "./subcomponents/ProfileHeader"
-import ReplyButton from "./subcomponents/ReplyButton"
+import Button from "./subcomponents/Button"
 import FormComponent from "./FormComponent"
 import * as React from 'react'
 import ScoreComponent from "./subcomponents/ScoreComponent"
-import { Context } from "../App"
+import { Context, currentUser } from "../App"
 
 import type { UserReply } from "../App"
 
@@ -16,6 +16,8 @@ function Reply({
     const [isReplying, setIsReplying] = React.useState(false)
     const {dispatch} = React.useContext(Context)
 
+    const isCurrentUser = currentUser.username == reply.user.username
+
     return (
         <div className="reply-wrapper">
             <div className="card">
@@ -23,7 +25,27 @@ function Reply({
 
                 <div className="content">
                     <ProfileHeader {...createProps(reply)}>
-                        <ReplyButton toggleReply={e => setIsReplying(prev => !prev)} />
+                        <Button
+                            clickHandler={e => setIsReplying(prev => !prev)}
+                            iconImage="/images/icon-reply.svg"
+                            label="Reply"
+                        />
+
+                        {isCurrentUser && (
+                            <Button
+                                clickHandler={e => {}}
+                                iconImage="/images/icon-edit.svg"
+                                label="Edit"
+                            />
+                        )}
+
+                        {isCurrentUser && (
+                            <Button
+                                clickHandler={e => {}}
+                                iconImage="/images/icon-delete.svg"
+                                label="Delete"
+                            />
+                        )}
                     </ProfileHeader>
 
                     <p>
@@ -33,9 +55,10 @@ function Reply({
                 </div>
             </div>
 
-            {isReplying && <FormComponent dispatchHandler={() => dispatch({
+            {isReplying && <FormComponent dispatchHandler={(content: string) => dispatch({
                 type: 'REPLY_TO_REPLY',
-                id: reply.id
+                id: reply.id,
+                payload: content
             })} />}
         </div>
     )

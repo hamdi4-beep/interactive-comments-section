@@ -22,9 +22,11 @@ export type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
+export const currentUser = data.currentUser
+
 const dispatch: React.ActionDispatch<[action: {
   type: string
-  payload?: any
+  payload?: string
   id?: number
 }]> = () => {}
 
@@ -69,7 +71,26 @@ function App() {
         })
 
       case 'REPLY_TO_REPLY':
-        return state
+        const parentComment = state.find(it => it.replies.some(it => it.id === action.id))!
+        const reply = parentComment.replies.find(it => it.id === action.id)!
+
+        return state.map(it => {
+          if (it.id === parentComment.id) {
+            return {
+              ...it,
+              replies: [...it.replies, {
+                id: getLastId(state) + 1,
+                score: 0,
+                createdAt: 'now',
+                user: data.currentUser,
+                replyingTo: reply.user.username,
+                content: action.payload
+              }]
+            }
+          }
+
+          return it
+        })
         
       default:
         return state
