@@ -66,20 +66,27 @@ function App() {
         }]
 
       case 'ADD_REPLY':
-        for (const comment of state) {
-          for (const reply of comment.replies)
-            if (reply.id === action.id)
-              console.log(comment, reply)
-        }
+        return state.map(comment => {
+          if (comment.id === action.id)
+            return {
+              ...comment,
+              replies: [...comment.replies, {
+                id: getLastId(state) + 1,
+                content: action.payload,
+                createdAt: "now",
+                score: 0,
+                replyingTo: comment.user.username,
+                user: data.currentUser
+              }]
+            }
 
-        return state
+          return comment
+        })
         
       default:
         return state
     }
   }, data.comments)
-
-  console.log(getLastId(data.comments))
 
   return (
     <div className="App">
