@@ -43,11 +43,13 @@ function Card(props: {
 
                 <div className="content">
                     <ProfileHeader {...createProps(props.item)}>
-                        <Button
-                            clickHandler={e => setIsReplying(prev => !prev)}
-                            iconImage="/images/icon-reply.svg"
-                            label="Reply"
-                        />
+                        {!isCurrentUser && (
+                            <Button
+                                clickHandler={e => setIsReplying(prev => !prev)}
+                                iconImage="/images/icon-reply.svg"
+                                label="Reply"
+                            />
+                        )}
 
                         {isCurrentUser && (
                             <CurrentUserActions
