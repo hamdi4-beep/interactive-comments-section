@@ -24,6 +24,20 @@ export type UserReply = Omit<UserComment, 'replies'> & {
 
 export const currentUser = data.currentUser
 
+export const createProps = (info: {
+    user: {
+        image: {
+            png: string
+        }
+        username: string
+    }
+    createdAt: string
+}) => ({
+    avatar: info.user.image.png,
+    username: info.user.username,
+    date: info.createdAt
+})
+
 const dispatch: React.ActionDispatch<[action: {
   type: string
   payload?: string
