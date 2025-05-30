@@ -66,22 +66,34 @@ function App() {
         }]
 
       case 'ADD_REPLY':
-        return state.map(comment => {
-          if (comment.id === action.id)
-            return {
-              ...comment,
-              replies: [...comment.replies, {
-                id: getLastId(state) + 1,
-                content: action.payload,
-                createdAt: "now",
-                score: 0,
-                replyingTo: comment.user.username,
-                user: data.currentUser
-              }]
-            }
+        const parentComment = state.find(comment => comment.replies.find(reply => reply.id === action.id))
+        const comment = state.find(it => it.id === action.id)
 
-          return comment
-        })
+        const createReply = (user: UserComment['user']) =>
+          state.map(it => {
+              if (parentComment?.id === it.id || comment?.id === it.id)
+                return {
+                  ...it,
+                  replies: [...it.replies, {
+                    id: getLastId(state) + 1,
+                    content: action.payload,
+                    createdAt: "now",
+                    score: 0,
+                    replyingTo: user.username,
+                    user: data.currentUser
+                  }]
+                }
+
+              return it
+            })
+
+        if (parentComment) {
+          const reply = parentComment.replies.find(it => it.id === action.id)!
+          return createReply(reply.user)
+        }
+
+        if (comment)
+          return createReply(comment.user)
         
       default:
         return state
