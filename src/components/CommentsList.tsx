@@ -1,9 +1,9 @@
-import { Context } from '../App'
+import { CommentStateContext } from '../App'
 import Comment from './Comment'
 import * as React from 'react'
 
 function CommentsList() {
-    const {comments} = React.useContext(Context)
+    const {comments} = React.useContext(CommentStateContext)
 
     return (
         <div className="comments-list">

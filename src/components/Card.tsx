@@ -4,7 +4,7 @@ import ProfileHeader from "./subcomponents/ProfileHeader"
 import FormComponent from "./FormComponent"
 import ScoreComponent from "./subcomponents/ScoreComponent"
 import Button from "./subcomponents/Button"
-import { Context, currentUser, createProps } from "../App"
+import { CommentStateContext, currentUser, createProps } from "../App"
 
 import type { UserComment, UserReply } from '../App'
 
@@ -32,7 +32,7 @@ function Card(props: {
     children: React.ReactNode
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
-    const {dispatch} = React.useContext(Context)
+    const {dispatch} = React.useContext(CommentStateContext)
 
     const isCurrentUser = currentUser.username == props.item.user.username
 

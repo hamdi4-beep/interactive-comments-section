@@ -66,45 +66,13 @@ function App() {
         }]
 
       case 'ADD_REPLY':
-        return state.map(it => {
-          if (it.id === action.id) {
-            return {
-              ...it,
-              replies: [...it.replies, {
-                id: getLastId(state) + 1,
-                score: 0,
-                createdAt: 'now',
-                user: data.currentUser,
-                replyingTo: it.user.username,
-                content: action.payload
-              }]
-            }
-          }
+        for (const comment of state) {
+          for (const reply of comment.replies)
+            if (reply.id === action.id)
+              console.log(comment, reply)
+        }
 
-          return it
-        })
-
-      case 'REPLY_TO_REPLY':
-        const parentComment = state.find(it => it.replies.some(it => it.id === action.id))!
-        const reply = parentComment.replies.find(it => it.id === action.id)!
-
-        return state.map(it => {
-          if (it.id === parentComment.id) {
-            return {
-              ...it,
-              replies: [...it.replies, {
-                id: getLastId(state) + 1,
-                score: 0,
-                createdAt: 'now',
-                user: data.currentUser,
-                replyingTo: reply.user.username,
-                content: action.payload
-              }]
-            }
-          }
-
-          return it
-        })
+        return state
         
       default:
         return state
@@ -115,7 +83,7 @@ function App() {
 
   return (
     <div className="App">
-      <Context.Provider value={{
+      <CommentStateContext.Provider value={{
         comments,
         dispatch
       }}>
@@ -125,12 +93,12 @@ function App() {
           type: 'ADD_COMMENT',
           payload: content
         })} />
-      </Context.Provider>
+      </CommentStateContext.Provider>
     </div>
   )
 }
 
-export const Context = React.createContext({
+export const CommentStateContext = React.createContext({
   comments: data.comments,
   dispatch
 })
