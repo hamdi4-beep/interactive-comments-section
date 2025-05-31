@@ -22,6 +22,12 @@ export type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
+type ReducerActions = {
+  type: string
+  payload?: string
+  id?: number
+}
+
 export const currentUser = data.currentUser
 
 export const createProps = (info: {
@@ -38,11 +44,7 @@ export const createProps = (info: {
     date: info.createdAt
 })
 
-const dispatch: React.ActionDispatch<[action: {
-  type: string
-  payload?: string
-  id?: number
-}]> = () => {}
+const dispatch: React.ActionDispatch<[action: ReducerActions]> = () => {}
 
 // Make a recursive function that loops over the comments/arrays to find the one with the highest ID.
 
@@ -62,7 +64,7 @@ function App() {
           content: action.payload,
           replies: [],
           createdAt: 'now',
-          user: data.currentUser
+          user: currentUser
         }]
 
       case 'ADD_REPLY':
@@ -74,7 +76,7 @@ function App() {
         const createReply = (user: UserComment['user']) => ({
           id: getLastId(state) + 1,
           score: 0,
-          user: data.currentUser,
+          user: currentUser,
           replyingTo: user.username,
           createdAt: 'now',
           content: action.payload
@@ -84,7 +86,7 @@ function App() {
           const reply = findReplyById(parentComment)
 
           return state.map(comment => {
-            if (comment.id === parentComment.id && reply) {
+            if (parentComment.id === comment.id && reply) {
               return {
                 ...comment,
                 replies: [...comment.replies, createReply(reply?.user)]
@@ -95,14 +97,14 @@ function App() {
           })
         }
 
-        return state.map(it => {
-          if (it.id === action.id)
+        return state.map(comment => {
+          if (comment.id === action.id)
             return {
-              ...it,
-              replies: [...it.replies, createReply(it.user)]
+              ...comment,
+              replies: [...comment.replies, createReply(comment.user)]
             }
 
-          return it
+          return comment
         })
         
       default:
