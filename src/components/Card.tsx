@@ -53,8 +53,8 @@ function Card(props: {
 
                         {isCurrentUser && (
                             <CurrentUserActions
-                                handleEditClick={e => console.log('The edit functionality.')}
-                                handleDeleteClick={e => console.log('The delete functionality.')}
+                                handleEditClick={e => {}}
+                                handleDeleteClick={e => {}}
                             />
                         )}
                     </ProfileHeader>

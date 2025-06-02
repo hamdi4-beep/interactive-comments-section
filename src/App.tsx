@@ -72,6 +72,9 @@ function App() {
           comment.replies.find(reply => reply.id === action.id)
 
         const parentComment = state.find(comment => findReplyById(comment))
+        const targetUser = parentComment ? findReplyById(parentComment)?.user : state.find(it => it.id === action.id)?.user
+
+        const targetId = parentComment?.id || action.id
 
         const createReply = (user: UserComment['user']) => ({
           id: getLastId(state) + 1,
@@ -81,31 +84,20 @@ function App() {
           createdAt: 'now',
           content: action.payload
         })
-        
-        if (parentComment) {
-          const reply = findReplyById(parentComment)
-
-          return state.map(comment => {
-            if (parentComment.id === comment.id && reply) {
-              return {
-                ...comment,
-                replies: [...comment.replies, createReply(reply?.user)]
-              }
-            }
-
-            return comment
-          })
-        }
 
         return state.map(comment => {
-          if (comment.id === action.id)
+          if (targetUser && comment.id === targetId)
             return {
               ...comment,
-              replies: [...comment.replies, createReply(comment.user)]
+              replies: [...comment.replies, createReply(targetUser)]
             }
 
           return comment
         })
+
+      case 'EDIT':
+        console.log('The edit functionality goes here.')
+        return state
         
       default:
         return state
