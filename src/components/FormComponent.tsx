@@ -1,6 +1,7 @@
 import data from '../data.json'
 
 function FormComponent(props: {
+    children?: React.ReactNode
     dispatchHandler: Function
 }) {
     const handleSubmit: React.FormEventHandler = e => {
@@ -13,6 +14,8 @@ function FormComponent(props: {
 
         formElement.reset()
     }
+
+    console.log(props.dispatchHandler)
 
     return (
         <div className="form-component">

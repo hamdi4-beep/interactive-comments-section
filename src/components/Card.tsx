@@ -5,6 +5,7 @@ import FormComponent from "./FormComponent"
 import ScoreComponent from "./subcomponents/ScoreComponent"
 import Button from "./subcomponents/Button"
 import { CommentStateContext, currentUser, createProps } from "../App"
+import data from '../data.json'
 
 import type { UserComment, UserReply } from '../App'
 
@@ -27,11 +28,31 @@ const CurrentUserActions = (props: {
     </>
 )
 
+const EditForm = (props: {
+    value: string
+}) => {
+    return (
+        <div className="form-component">
+            <div className="current-user">
+                <div className="user-img">
+                    <img src={data.currentUser.image.png} alt="" />
+                </div>
+            </div>
+
+            <form action="#" onSubmit={e => {}}>
+                <textarea name="comment" id="comment" value={props.value} placeholder="Add a comment..."></textarea>
+                <button>Send</button>
+            </form>
+        </div>
+    )
+}
+
 function Card(props: {
     item: UserComment | UserReply
     children: React.ReactNode
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
+    const [isEditting, setIsEditting] = React.useState(false)
     const {dispatch} = React.useContext(CommentStateContext)
 
     const isCurrentUser = currentUser.username == props.item.user.username
@@ -53,7 +74,7 @@ function Card(props: {
 
                         {isCurrentUser && (
                             <CurrentUserActions
-                                handleEditClick={e => {}}
+                                handleEditClick={e => setIsEditting(prev => !prev)}
                                 handleDeleteClick={e => {}}
                             />
                         )}
@@ -68,6 +89,8 @@ function Card(props: {
                 id: props.item.id,
                 payload: content
             })} />}
+
+            {isEditting && <EditForm value={props.item.content} />}
         </div>
     )
 }
