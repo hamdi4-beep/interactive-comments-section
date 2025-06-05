@@ -5,7 +5,6 @@ import FormComponent from "./FormComponent"
 import ScoreComponent from "./subcomponents/ScoreComponent"
 import Button from "./subcomponents/Button"
 import { CommentStateContext, currentUser, createProps } from "../App"
-import data from '../data.json'
 
 import type { UserComment, UserReply } from '../App'
 
@@ -27,25 +26,6 @@ const CurrentUserActions = (props: {
         />
     </>
 )
-
-const EditForm = (props: {
-    value: string
-}) => {
-    return (
-        <div className="form-component">
-            <div className="current-user">
-                <div className="user-img">
-                    <img src={data.currentUser.image.png} alt="" />
-                </div>
-            </div>
-
-            <form action="#" onSubmit={e => {}}>
-                <textarea name="comment" id="comment" value={props.value} placeholder="Add a comment..."></textarea>
-                <button>Send</button>
-            </form>
-        </div>
-    )
-}
 
 function Card(props: {
     item: UserComment | UserReply
@@ -75,7 +55,7 @@ function Card(props: {
                         {isCurrentUser && (
                             <CurrentUserActions
                                 handleEditClick={e => setIsEditting(prev => !prev)}
-                                handleDeleteClick={e => {}}
+                                handleDeleteClick={e => console.log('This triggers the delete modal.')}
                             />
                         )}
                     </ProfileHeader>
@@ -84,13 +64,25 @@ function Card(props: {
                 </div>
             </div>
 
-            {isReplying && <FormComponent dispatchHandler={(content: string) => dispatch({
-                type: 'ADD_REPLY',
-                id: props.item.id,
-                payload: content
-            })} />}
+            {isReplying && <FormComponent dispatchHandler={(content: string) => {
+                dispatch({
+                    type: 'ADD_REPLY',
+                    id: props.item.id,
+                    payload: content
+                })
 
-            {isEditting && <EditForm value={props.item.content} />}
+                setIsReplying(false)
+            }} />}
+
+            {isEditting && <FormComponent defaultValue={props.item.content} dispatchHandler={(content: string) => {
+                dispatch({
+                    type: 'EDIT',
+                    id: props.item.id,
+                    payload: content
+                })
+
+                setIsEditting(false)
+            }} />}
         </div>
     )
 }

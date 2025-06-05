@@ -1,7 +1,7 @@
 import data from '../data.json'
 
 function FormComponent(props: {
-    children?: React.ReactNode
+    defaultValue?: string
     dispatchHandler: Function
 }) {
     const handleSubmit: React.FormEventHandler = e => {
@@ -15,8 +15,6 @@ function FormComponent(props: {
         formElement.reset()
     }
 
-    console.log(props.dispatchHandler)
-
     return (
         <div className="form-component">
             <div className="current-user">
@@ -26,7 +24,7 @@ function FormComponent(props: {
             </div>
 
             <form action="#" onSubmit={handleSubmit}>
-                <textarea name="comment" id="comment" placeholder="Add a comment..."></textarea>
+                <textarea name="comment" id="comment" defaultValue={props.defaultValue} placeholder="Add a comment..."></textarea>
                 <button>Send</button>
             </form>
         </div>

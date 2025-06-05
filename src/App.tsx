@@ -57,16 +57,19 @@ const getLastId = (comments: UserComment[]) =>
 function App() {
   const [comments, dispatch] = React.useReducer((state, action) => {
     const findReplyById = (comment: UserComment) =>
-          comment.replies.find(reply => reply.id === action.id)
+      comment.replies.find(reply => reply.id === action.id)
     
     const createReply = (user: UserComment['user']) => ({
-          id: getLastId(state) + 1,
-          score: 0,
-          user: currentUser,
-          replyingTo: user.username,
-          createdAt: 'now',
-          content: action.payload
-        })
+      id: getLastId(state) + 1,
+      score: 0,
+      user: currentUser,
+      replyingTo: user.username,
+      createdAt: 'now',
+      content: action.payload
+    })
+
+    const parentComment = state.find(comment => findReplyById(comment))
+    const targetId = parentComment?.id || action.id
 
     switch (action.type) {
       case 'ADD_COMMENT':
@@ -80,13 +83,10 @@ function App() {
         }]
 
       case 'ADD_REPLY':
-        const parentComment = state.find(comment => findReplyById(comment))
-        const targetId = parentComment?.id || action.id
-
         return state.map(comment => {
           const targetUser = parentComment ? findReplyById(parentComment)?.user : comment.user
 
-          if (targetUser && comment.id === targetId)
+          if (comment.id === targetId && targetUser)
             return {
               ...comment,
               replies: [...comment.replies, createReply(targetUser)]
@@ -96,8 +96,37 @@ function App() {
         })
 
       case 'EDIT':
-        console.log('The edit functionality goes here.')
-        return state
+        if (parentComment) {
+          const reply = findReplyById(parentComment)
+
+          return state.map(comment => {
+            if (!(parentComment.id == comment.id)) return comment
+
+            return {
+                ...comment,
+                replies: comment.replies.map(it => {
+                  if (!(it.id == reply?.id)) return it
+
+                  return {
+                      ...reply,
+                      content: action.payload
+                    }
+                })
+              }
+
+            return comment
+          })
+        }
+
+        return state.map(comment => {
+          if (comment.id == action.id)
+            return {
+              ...comment,
+              content: action.payload
+            }
+
+          return comment
+        })
         
       default:
         return state
