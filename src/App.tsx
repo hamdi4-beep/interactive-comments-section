@@ -58,15 +58,6 @@ function App() {
   const [comments, dispatch] = React.useReducer((state, action) => {
     const findReplyById = (comment: UserComment) =>
       comment.replies.find(reply => reply.id === action.id)
-    
-    const createReply = (user: UserComment['user']) => ({
-      id: getLastId(state) + 1,
-      score: 0,
-      user: currentUser,
-      replyingTo: user.username,
-      createdAt: 'now',
-      content: action.payload
-    })
 
     const editComment = (arr: any[]) =>
       arr.map(item => {
@@ -100,7 +91,14 @@ function App() {
           if (comment.id === targetId && targetUser)
             return {
               ...comment,
-              replies: [...comment.replies, createReply(targetUser)]
+              replies: [...comment.replies, {
+                id: getLastId(state) + 1,
+                score: 0,
+                user: currentUser,
+                replyingTo: targetUser.username,
+                createdAt: 'now',
+                content: action.payload
+              }]
             }
 
           return comment
