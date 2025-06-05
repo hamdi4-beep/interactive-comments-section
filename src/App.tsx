@@ -68,6 +68,17 @@ function App() {
       content: action.payload
     })
 
+    const editComment = (arr: any[]) =>
+      arr.map(item => {
+        if (item.id == action.id)
+          return {
+            ...item,
+            content: action.payload
+          }
+
+        return item
+      })
+
     const parentComment = state.find(comment => findReplyById(comment))
     const targetId = parentComment?.id || action.id
 
@@ -97,36 +108,17 @@ function App() {
 
       case 'EDIT':
         if (parentComment) {
-          const reply = findReplyById(parentComment)
-
           return state.map(comment => {
             if (!(parentComment.id == comment.id)) return comment
 
             return {
                 ...comment,
-                replies: comment.replies.map(it => {
-                  if (!(it.id == reply?.id)) return it
-
-                  return {
-                      ...reply,
-                      content: action.payload
-                    }
-                })
+                replies: editComment(comment.replies)
               }
-
-            return comment
           })
         }
 
-        return state.map(comment => {
-          if (comment.id == action.id)
-            return {
-              ...comment,
-              content: action.payload
-            }
-
-          return comment
-        })
+        return editComment(state)
         
       default:
         return state
