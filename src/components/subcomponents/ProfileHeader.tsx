@@ -12,7 +12,7 @@ function ProfileHeader(props: {
         <div className="profile-header">
             <div className="user">
                 <div className="user-img">
-                    <img src={props.avatar} alt="" />
+                    <img src={'/interactive-comments-section' + props.avatar} alt="" />
                 </div>
 
                 <h3>{props.username}</h3>

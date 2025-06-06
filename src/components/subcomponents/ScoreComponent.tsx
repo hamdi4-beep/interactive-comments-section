@@ -5,7 +5,7 @@ function ScoreComponent(props: {
         <div className="score-component">
             <button>
                 <div className="icon-img">
-                    <img src="/images/icon-plus.svg" alt="" />
+                    <img src="/interactive-comments-section/images/icon-plus.svg" alt="" />
                 </div>
             </button>
 
@@ -13,7 +13,7 @@ function ScoreComponent(props: {
 
             <button>
                 <div className="icon-img">
-                    <img src="/images/icon-minus.svg" alt="" />
+                    <img src="/interactive-comments-section/images/icon-minus.svg" alt="" />
                 </div>
             </button>
         </div>

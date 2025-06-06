@@ -15,13 +15,13 @@ const CurrentUserActions = (props: {
     <>
         <Button
             label="Edit"
-            iconImage="/images/icon-edit.svg"
+            iconImage="/interactive-comments-section/images/icon-edit.svg"
             clickHandler={props.handleEditClick}
         />
 
         <Button
             label="Delete"
-            iconImage="/images/icon-delete.svg"
+            iconImage="/interactive-comments-section/images/icon-delete.svg"
             clickHandler={props.handleDeleteClick}
         />
     </>
@@ -46,16 +46,16 @@ function Card(props: {
                     <ProfileHeader {...createProps(props.item)}>
                         {!isCurrentUser && (
                             <Button
-                                clickHandler={e => setIsReplying(prev => !prev)}
-                                iconImage="/images/icon-reply.svg"
+                                clickHandler={() => setIsReplying(prev => !prev)}
+                                iconImage="/interactive-comments-section/images/icon-reply.svg"
                                 label="Reply"
                             />
                         )}
 
                         {isCurrentUser && (
                             <CurrentUserActions
-                                handleEditClick={e => setIsEditting(prev => !prev)}
-                                handleDeleteClick={e => console.log('This triggers the delete modal.')}
+                                handleEditClick={() => setIsEditting(prev => !prev)}
+                                handleDeleteClick={() => console.log('This triggers the delete modal.')}
                             />
                         )}
                     </ProfileHeader>
