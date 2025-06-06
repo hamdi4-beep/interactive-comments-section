@@ -22,11 +22,27 @@ export type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
-type ReducerActions = {
-  type: string
-  payload?: string
-  id: number
+type AddCommentAction = {
+  type: 'ADD_COMMENT'
+  payload: string
 }
+
+type AddReplyAction = {
+  type: 'ADD_REPLY'
+  id: number
+  payload: string
+}
+
+type EditAction = {
+  type: 'EDIT'
+  id: number
+  payload: string
+}
+
+type ReducerActions =
+  | AddCommentAction
+  | AddReplyAction
+  | EditAction
 
 export const currentUser = data.currentUser
 
@@ -54,8 +70,6 @@ const getLastId = (arr: any[]): number =>
     it.replies?.length > 0 ? getLastId(it.replies) : it.id
   ))
 
-console.log(getLastId(data.comments))
-
 const editComment = (arr: any[], action: {
       id: number
       payload: string
@@ -74,10 +88,7 @@ const findReplyById = (comment: UserComment, id: number) =>
   comment.replies.find(reply => reply.id === id)
 
 function App() {
-  const [comments, dispatch] = React.useReducer((state, action) => {
-    const parentComment = state.find(comment => findReplyById(comment, action.id))
-    const targetId = parentComment?.id || action.id
-
+  const [comments, dispatch] = React.useReducer<UserComment[], [action: ReducerActions]>((state, action) => {
     switch (action.type) {
       case 'ADD_COMMENT':
         return [...state, {
@@ -90,6 +101,9 @@ function App() {
         }]
 
       case 'ADD_REPLY':
+        const parentComment = state.find(comment => findReplyById(comment, action.id))
+        const targetId = parentComment?.id || action.id
+
         return state.map(comment => {
           const targetUser = parentComment ? findReplyById(parentComment, action.id)?.user : comment.user
 
@@ -122,9 +136,6 @@ function App() {
         }
 
         return editComment(state, action)
-        
-      default:
-        return state
     }
   }, data.comments)
 
