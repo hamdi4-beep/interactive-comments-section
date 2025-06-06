@@ -15,13 +15,13 @@ const CurrentUserActions = (props: {
     <>
         <Button
             label="Edit"
-            iconImage="/interactive-comments-section/images/icon-edit.svg"
+            iconImage="/interactive-comment-section/images/icon-edit.svg"
             clickHandler={props.handleEditClick}
         />
 
         <Button
             label="Delete"
-            iconImage="/interactive-comments-section/images/icon-delete.svg"
+            iconImage="/interactive-comment-section/images/icon-delete.svg"
             clickHandler={props.handleDeleteClick}
         />
     </>
@@ -47,7 +47,7 @@ function Card(props: {
                         {!isCurrentUser && (
                             <Button
                                 clickHandler={() => setIsReplying(prev => !prev)}
-                                iconImage="/interactive-comments-section/images/icon-reply.svg"
+                                iconImage="/interactive-comment-section/images/icon-reply.svg"
                                 label="Reply"
                             />
                         )}

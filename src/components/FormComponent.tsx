@@ -19,7 +19,7 @@ function FormComponent(props: {
         <div className="form-component">
             <div className="current-user">
                 <div className="user-img">
-                    <img src={'/interactive-comments-section' + data.currentUser.image.png} alt="" />
+                    <img src={'/interactive-comment-section' + data.currentUser.image.png} alt="" />
                 </div>
             </div>
 
