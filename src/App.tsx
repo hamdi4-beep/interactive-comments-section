@@ -46,31 +46,36 @@ export const createProps = (info: {
 
 const dispatch: React.ActionDispatch<[action: ReducerActions]> = () => {}
 
-// Make a recursive function that loops over the comments/arrays to find the one with the highest ID.
+// This recursive definition assumes that replies will always have a higher ID number since they're created after the parent comment. IDs are sequential.
+// If the order in which comments/replies are created changes, a refactor is necessary and that includes factoring in the ID equation as well.
 
-const getLastId = (comments: UserComment[]) =>
-  Math.max.apply(null, [
-    ...comments.map(it => it.id),
-    ...comments.map(it => Math.max.apply(null, it.replies.map(it => it.id)))
-  ])
+const getLastId = (arr: any[]): number =>
+  Math.max.apply(null, arr.map(it =>
+    it.replies?.length > 0 ? getLastId(it.replies) : it.id
+  ))
+
+console.log(getLastId(data.comments))
+
+const editComment = (arr: any[], action: {
+      id: number
+      payload: string
+    }) =>
+  arr.map(item => {
+    if (item.id == action.id)
+      return {
+        ...item,
+        content: action.payload
+      }
+
+    return item
+  })
+
+const findReplyById = (comment: UserComment, id: number) =>
+  comment.replies.find(reply => reply.id === id)
 
 function App() {
   const [comments, dispatch] = React.useReducer((state, action) => {
-    const findReplyById = (comment: UserComment) =>
-      comment.replies.find(reply => reply.id === action.id)
-
-    const editComment = (arr: any[]) =>
-      arr.map(item => {
-        if (item.id == action.id)
-          return {
-            ...item,
-            content: action.payload
-          }
-
-        return item
-      })
-
-    const parentComment = state.find(comment => findReplyById(comment))
+    const parentComment = state.find(comment => findReplyById(comment, action.id))
     const targetId = parentComment?.id || action.id
 
     switch (action.type) {
@@ -86,7 +91,7 @@ function App() {
 
       case 'ADD_REPLY':
         return state.map(comment => {
-          const targetUser = parentComment ? findReplyById(parentComment)?.user : comment.user
+          const targetUser = parentComment ? findReplyById(parentComment, action.id)?.user : comment.user
 
           if (comment.id === targetId && targetUser)
             return {
@@ -111,12 +116,12 @@ function App() {
 
             return {
                 ...comment,
-                replies: editComment(comment.replies)
+                replies: editComment(comment.replies, action)
               }
           })
         }
 
-        return editComment(state)
+        return editComment(state, action)
         
       default:
         return state
