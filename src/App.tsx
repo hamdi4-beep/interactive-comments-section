@@ -39,10 +39,16 @@ type EditAction = {
   payload: string
 }
 
+type DeleteAction = {
+  type: 'DELETE'
+  id: number
+}
+
 type ReducerActions =
   | AddCommentAction
   | AddReplyAction
   | EditAction
+  | DeleteAction
 
 export const currentUser = data.currentUser
 
@@ -79,7 +85,7 @@ const findReplyById = (comment: UserComment, id: number) =>
 function App() {
   const [comments, dispatch] = React.useReducer<UserComment[], [action: ReducerActions]>((state, action) => {
     switch (action.type) {
-      case 'ADD_COMMENT':
+      case 'ADD_COMMENT': {
         return [...state, {
           id: getLastId(state) + 1,
           score: 0,
@@ -88,8 +94,9 @@ function App() {
           createdAt: 'now',
           user: currentUser
         }]
+      }
 
-      case 'ADD_REPLY':
+      case 'ADD_REPLY': {
         const parentComment = state.find(comment => findReplyById(comment, action.id))
         const targetId = parentComment?.id || action.id
 
@@ -111,8 +118,11 @@ function App() {
 
           return comment
         })
+      }
 
-      case 'EDIT':
+      case 'EDIT': {
+        const parentComment = state.find(comment => findReplyById(comment, action.id))
+
         if (parentComment) {
           return state.map(comment => {
             if (!(parentComment.id == comment.id)) return comment
@@ -125,6 +135,27 @@ function App() {
         }
 
         return editComment(state, action)
+      }
+
+      case 'DELETE': {
+        const parentComment = state.find(comment => findReplyById(comment, action.id))
+        
+        if (parentComment) {
+          const reply = findReplyById(parentComment, action.id)
+
+          return state.map(comment => {
+            if (parentComment.id === comment.id)
+              return {
+                ...parentComment,
+                replies: parentComment.replies.filter(it => reply?.id !== it.id)
+              }
+
+            return comment
+          })
+        }
+
+        return state.filter(comment => comment.id !== action.id)
+      }
     }
   }, data.comments)
 

@@ -59,7 +59,7 @@ function Card(props: {
                         {isCurrentUser && (
                             <CurrentUserActions
                                 handleEditClick={() => setIsEditting(prev => !prev)}
-                                handleDeleteClick={() => console.log('This triggers the delete modal.')}
+                                handleDeleteClick={() => dispatch({ type: 'DELETE', id: props.item.id })}
                             />
                         )}
                     </ProfileHeader>
