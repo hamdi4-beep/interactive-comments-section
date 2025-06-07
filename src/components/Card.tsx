@@ -4,7 +4,7 @@ import ProfileHeader from "./subcomponents/ProfileHeader"
 import FormComponent from "./FormComponent"
 import ScoreComponent from "./subcomponents/ScoreComponent"
 import Button from "./subcomponents/Button"
-import { CommentStateContext, currentUser, createProps } from "../App"
+import { CommentStateContext, currentUser } from "../App"
 
 import type { UserComment, UserReply } from '../App'
 
@@ -43,7 +43,11 @@ function Card(props: {
                 <ScoreComponent score={props.item.score} />
 
                 <div className="content">
-                    <ProfileHeader {...createProps(props.item)}>
+                    <ProfileHeader {...{
+                        avatar: props.item.user.image.png,
+                        username: props.item.user.username,
+                        date: props.item.createdAt
+                    }}>
                         {!isCurrentUser && (
                             <Button
                                 clickHandler={() => setIsReplying(prev => !prev)}

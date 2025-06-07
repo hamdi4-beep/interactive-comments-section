@@ -46,20 +46,6 @@ type ReducerActions =
 
 export const currentUser = data.currentUser
 
-export const createProps = (info: {
-    user: {
-        image: {
-            png: string
-        }
-        username: string
-    }
-    createdAt: string
-}) => ({
-    avatar: info.user.image.png,
-    username: info.user.username,
-    date: info.createdAt
-})
-
 const dispatch: React.ActionDispatch<[action: ReducerActions]> = () => {}
 
 // This recursive definition assumes that replies will always have a higher ID number since they're created after the parent comment. IDs are sequential.
