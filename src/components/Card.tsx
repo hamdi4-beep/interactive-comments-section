@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import ProfileHeader from "./subcomponents/ProfileHeader"
 import FormComponent from "./FormComponent"
 import { CommentStateContext, currentUser } from "../App"
 
@@ -28,6 +27,37 @@ const CurrentUserActions = (props: {
         </button>
     </div>
 )
+
+const ProfileHeader = (props: {
+    avatar: string
+    username: string
+    date: string,
+    children: React.ReactNode
+}) => {
+    const isCurrentUser = currentUser.username === props.username
+
+    return (
+        <div className="profile-header">
+            <div className="user">
+                <div className="user-img">
+                    <img src={'/interactive-comment-section' + props.avatar} alt="" />
+                </div>
+
+                <h3>{props.username}</h3>
+
+                {isCurrentUser && (
+                    <span className='current-user'>you</span>
+                )}
+
+                <span className="comment-date">{props.date}</span>
+            </div>
+
+            <div className="actions">
+                {props.children}
+            </div>
+        </div>
+    )
+}
 
 function Card(props: {
     item: UserComment | UserReply
