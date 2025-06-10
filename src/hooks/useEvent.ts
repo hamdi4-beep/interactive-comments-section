@@ -15,8 +15,7 @@ export const useEvent = <Payload>(eventName: keyof CustomEventMap, callback: Dis
 
         window.addEventListener(eventName, listener)
 
-        return () =>
-            window.removeEventListener(eventName, listener)
+        return () => window.removeEventListener(eventName, listener)
     }, [eventName, callback])
 
     const eventDispatch = useCallback(

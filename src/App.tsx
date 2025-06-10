@@ -33,10 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <CommentStateContext.Provider value={{
-        comments,
-        dispatch
-      }}>
+      <CommentStateContext.Provider value={{comments, dispatch}}>
         <CommentsList />
 
         <FormComponent
