@@ -3,7 +3,6 @@ import * as React from 'react'
 import ProfileHeader from "./subcomponents/ProfileHeader"
 import FormComponent from "./FormComponent"
 import ScoreComponent from "./subcomponents/ScoreComponent"
-import Button from "./subcomponents/Button"
 import { CommentStateContext, currentUser } from "../App"
 
 import type { UserComment, UserReply } from '../App'
@@ -13,17 +12,21 @@ const CurrentUserActions = (props: {
     handleDeleteClick: React.MouseEventHandler
 }) => (
     <>
-        <Button
-            label="Edit"
-            iconImage="/interactive-comment-section/images/icon-edit.svg"
-            clickHandler={props.handleEditClick}
-        />
+        <button onClick={props.handleEditClick}>
+            <div className="icon-img">
+                <img src='/interactive-comment-section/images/icon-edit.svg' alt="" />
+            </div>
+    
+            Edit
+        </button>
 
-        <Button
-            label="Delete"
-            iconImage="/interactive-comment-section/images/icon-delete.svg"
-            clickHandler={props.handleDeleteClick}
-        />
+        <button onClick={props.handleDeleteClick}>
+            <div className="icon-img">
+                <img src='/interactive-comment-section/images/icon-delete.svg' alt="" />
+            </div>
+    
+            Delete
+        </button>
     </>
 )
 
@@ -49,11 +52,13 @@ function Card(props: {
                         date: props.item.createdAt
                     }}>
                         {!isCurrentUser && (
-                            <Button
-                                clickHandler={() => setIsReplying(prev => !prev)}
-                                iconImage="/interactive-comment-section/images/icon-reply.svg"
-                                label="Reply"
-                            />
+                            <button onClick={() => setIsReplying(prev => !prev)}>
+                                <div className="icon-img">
+                                    <img src='/interactive-comment-section/images/icon-reply.svg' alt="" />
+                                </div>
+                        
+                                Reply
+                            </button>
                         )}
 
                         {isCurrentUser && (
