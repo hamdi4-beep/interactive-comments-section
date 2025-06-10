@@ -2,7 +2,6 @@ import * as React from 'react'
 
 import ProfileHeader from "./subcomponents/ProfileHeader"
 import FormComponent from "./FormComponent"
-import ScoreComponent from "./subcomponents/ScoreComponent"
 import { CommentStateContext, currentUser } from "../App"
 
 import type { UserComment, UserReply } from '../App'
@@ -11,7 +10,7 @@ const CurrentUserActions = (props: {
     handleEditClick: React.MouseEventHandler
     handleDeleteClick: React.MouseEventHandler
 }) => (
-    <>
+    <div className="current-user">
         <button onClick={props.handleEditClick}>
             <div className="icon-img">
                 <img src='/interactive-comment-section/images/icon-edit.svg' alt="" />
@@ -27,7 +26,7 @@ const CurrentUserActions = (props: {
     
             Delete
         </button>
-    </>
+    </div>
 )
 
 function Card(props: {
@@ -43,7 +42,21 @@ function Card(props: {
     return (
         <div className="container">
             <div className="card">
-                <ScoreComponent score={props.item.score} />
+                <div className="score-component">
+                    <button>
+                        <div className="icon-img">
+                            <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
+                        </div>
+                    </button>
+
+                    <span>{props.item.score}</span>
+
+                    <button>
+                        <div className="icon-img">
+                            <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />
+                        </div>
+                    </button>
+                </div>
 
                 <div className="content">
                     <ProfileHeader {...{
