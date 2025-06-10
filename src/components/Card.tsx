@@ -64,7 +64,12 @@ function Card(props: {
                         username: props.item.user.username,
                         date: props.item.createdAt
                     }}>
-                        {!isCurrentUser && (
+                        {isCurrentUser ? (
+                            <CurrentUserActions
+                                handleEditClick={() => setIsEditting(prev => !prev)}
+                                handleDeleteClick={() => dispatch({ type: 'DELETE', id: props.item.id })}
+                            />
+                        ) : (
                             <button onClick={() => setIsReplying(prev => !prev)}>
                                 <div className="icon-img">
                                     <img src='/interactive-comment-section/images/icon-reply.svg' alt="" />
@@ -72,13 +77,6 @@ function Card(props: {
                         
                                 Reply
                             </button>
-                        )}
-
-                        {isCurrentUser && (
-                            <CurrentUserActions
-                                handleEditClick={() => setIsEditting(prev => !prev)}
-                                handleDeleteClick={() => dispatch({ type: 'DELETE', id: props.item.id })}
-                            />
                         )}
                     </ProfileHeader>
 
