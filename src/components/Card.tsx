@@ -114,25 +114,35 @@ function Card(props: {
                 </div>
             </div>
 
-            {isReplying && <FormComponent dispatchHandler={(content: string) => {
-                dispatch({
-                    type: 'ADD_REPLY',
-                    id: props.item.id,
-                    payload: content
-                })
+            {isReplying && (
+                <FormComponent
+                    placeholderValue='Add a reply...'
+                    dispatchHandler={(content: string) => {
+                        dispatch({
+                            type: 'ADD_REPLY',
+                            id: props.item.id,
+                            payload: content
+                        })
 
-                setIsReplying(false)
-            }} />}
+                        setIsReplying(false)
+                    }}
+                />
+            )}
 
-            {isEditting && <FormComponent defaultValue={props.item.content} dispatchHandler={(content: string) => {
-                dispatch({
-                    type: 'EDIT',
-                    id: props.item.id,
-                    payload: content
-                })
+            {isEditting && (
+                <FormComponent
+                    placeholderValue='Edit a comment...'
+                    defaultValue={props.item.content} dispatchHandler={(content: string) => {
+                        dispatch({
+                            type: 'EDIT',
+                            id: props.item.id,
+                            payload: content
+                        })
 
-                setIsEditting(false)
-            }} />}
+                        setIsEditting(false)
+                    }}
+                />
+            )}
         </div>
     )
 }

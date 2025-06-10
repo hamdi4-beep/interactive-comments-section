@@ -39,10 +39,13 @@ function App() {
       }}>
         <CommentsList />
 
-        <FormComponent dispatchHandler={(content: string) => dispatch({
-          type: 'ADD_COMMENT',
-          payload: content
-        })} />
+        <FormComponent
+          placeholderValue='Add a comment...'
+          dispatchHandler={(content: string) => dispatch({
+            type: 'ADD_COMMENT',
+            payload: content
+          })}
+        />
       </CommentStateContext.Provider>
     </div>
   )

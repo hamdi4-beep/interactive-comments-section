@@ -2,6 +2,7 @@ import data from '../data.json'
 
 function FormComponent(props: {
     defaultValue?: string
+    placeholderValue: string
     dispatchHandler: Function
 }) {
     const handleSubmit: React.FormEventHandler = e => {
@@ -24,7 +25,7 @@ function FormComponent(props: {
             </div>
 
             <form action="#" onSubmit={handleSubmit}>
-                <textarea name="comment" id="comment" defaultValue={props.defaultValue} placeholder="Add a comment..."></textarea>
+                <textarea name="comment" id="comment" defaultValue={props.defaultValue} placeholder={props.placeholderValue}></textarea>
                 <button>Send</button>
             </form>
         </div>
