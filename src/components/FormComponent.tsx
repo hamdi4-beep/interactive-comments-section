@@ -1,3 +1,4 @@
+import * as React from 'react'
 import data from '../data.json'
 
 function FormComponent(props: {
@@ -5,6 +6,8 @@ function FormComponent(props: {
     placeholderValue: string
     dispatchHandler: Function
 }) {
+    const textAreaRef = React.createRef<HTMLTextAreaElement>()
+
     const handleSubmit: React.FormEventHandler = e => {
         e.preventDefault()
         
@@ -16,6 +19,11 @@ function FormComponent(props: {
         formElement.reset()
     }
 
+    React.useEffect(() => {
+        const textAreaElement = textAreaRef.current
+        textAreaElement?.focus()
+    }, [])
+
     return (
         <div className="form-component">
             <div className="current-user">
@@ -25,7 +33,7 @@ function FormComponent(props: {
             </div>
 
             <form action="#" onSubmit={handleSubmit}>
-                <textarea name="comment" id="comment" defaultValue={props.defaultValue} placeholder={props.placeholderValue}></textarea>
+                <textarea name="comment" id="comment" defaultValue={props.defaultValue} placeholder={props.placeholderValue} ref={textAreaRef}></textarea>
                 <button>Send</button>
             </form>
         </div>
