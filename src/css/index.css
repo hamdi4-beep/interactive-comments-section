@@ -105,6 +105,10 @@ button {
     width: 100%;
 }
 
+.card p {
+    padding-top: 1em;
+}
+
 span.current-user {
     background-color: var(--primary-purple-600);
     padding: .1em .5em;
