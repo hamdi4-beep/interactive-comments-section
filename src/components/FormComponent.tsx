@@ -2,7 +2,7 @@ import * as React from 'react'
 import data from '../data.json'
 
 function FormComponent(props: {
-    defaultValue?: string
+    value?: string
     placeholderValue: string
     dispatchHandler: Function
 }) {
@@ -33,7 +33,7 @@ function FormComponent(props: {
             </div>
 
             <form action="#" onSubmit={handleSubmit}>
-                <textarea name="comment" id="comment" defaultValue={props.defaultValue} placeholder={props.placeholderValue} ref={textAreaRef}></textarea>
+                <textarea name="comment" id="comment" defaultValue={props.value} placeholder={props.placeholderValue} ref={textAreaRef}></textarea>
                 <button>Send</button>
             </form>
         </div>

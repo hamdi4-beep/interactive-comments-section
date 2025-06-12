@@ -86,8 +86,8 @@ button {
 }
 
 .App {
-    width: 768px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 768px;
 }
 
 /* Comment Component */
@@ -97,6 +97,7 @@ button {
     align-items: flex-start;
     background-color: var(--neutral-white);
     padding: var(--spacing);
+    padding-bottom: 1.5em;
     margin-bottom: 1em;
     border-radius: var(--rounded-corners);
 }
@@ -184,15 +185,6 @@ span.comment-date {
     position: relative;
 }
 
-.replies-list:has(.reply)::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -2em;
-    border-left: 1px solid var(--neutral-grey-100);
-    height: 100%;
-}
-
 /* Form Component */
 
 .form-component {
@@ -229,7 +221,7 @@ span.comment-date {
     border: 1px solid var(--neutral-grey-100);
     border-radius: .5em;
     width: 100%;
-    color: var(--neutral-grey-500);
+    /* color: var(--neutral-grey-500); */
 }
 
 .form-component button {
@@ -238,4 +230,38 @@ span.comment-date {
     padding: .5em 1em;
     border-radius: .5em;
     text-transform: uppercase;
+}
+
+@media only screen and (max-width: 1024px) {
+    .App {
+        padding: 1em;
+    }
+    
+    .content {
+        position: relative;
+    }
+
+    .content .actions {
+        position: absolute;
+        right: 1em;
+        bottom: -4em;
+    }
+
+    .card {
+        flex-direction: column-reverse;
+    }
+
+    .score-component {
+        display: flex;
+        width: 5em;
+        gap: .8em;
+        align-items: center;
+        margin-top: 1.5em;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .replies-list {
+        margin-left: 1em;
+    }
 }
