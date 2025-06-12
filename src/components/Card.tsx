@@ -113,7 +113,8 @@ function Card(props: {
             {isEditting && (
                 <FormComponent
                     placeholderValue='Edit a comment...'
-                    defaultValue={props.item.content} dispatchHandler={(content: string) => {
+                    defaultValue={props.item.content}
+                    dispatchHandler={(content: string) => {
                         dispatch({
                             type: 'EDIT',
                             id: props.item.id,
