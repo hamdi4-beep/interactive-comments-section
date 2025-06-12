@@ -34,6 +34,8 @@ function Card(props: {
 }) {
     const [isReplying, setIsReplying] = React.useState(false)
     const [isEditting, setIsEditting] = React.useState(false)
+    const [isHidden, setIsHidden] = React.useState(true)
+
     const {dispatch} = React.useContext(CommentStateContext)
 
     const isCurrentUser = currentUser.username == props.item.user.username
@@ -77,7 +79,7 @@ function Card(props: {
                             {isCurrentUser ? (
                                 <CurrentUserActions
                                     handleEditClick={() => setIsEditting(prev => !prev)}
-                                    handleDeleteClick={() => dispatch({ type: 'DELETE', id: props.item.id })}
+                                    handleDeleteClick={() => setIsHidden(false)}
                                 />
                             ) : (
                                 <button onClick={() => setIsReplying(prev => !prev)}>
@@ -124,6 +126,18 @@ function Card(props: {
                         setIsEditting(false)
                     }}
                 />
+            )}
+
+            {!isHidden && (
+                <div className="modal-container">
+                    <h3>Delete comment</h3>
+                    <p>Are you sure you want to delete this comment? This will remove the comment and can't be undone.</p>
+                    
+                    <div className="buttons">
+                        <button className="cancel" onClick={() => setIsHidden(true)}>No, Cancel</button>
+                        <button className="confirm" onClick={() => dispatch({ type: 'DELETE', id: props.item.id })}>Yes, Confirm</button>
+                    </div>
+                </div>
             )}
         </div>
     )
