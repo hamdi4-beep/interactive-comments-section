@@ -124,7 +124,7 @@ span.current-user {
 .actions button {
     color: var(--primary-purple-600);
     font-weight: bold;
-    margin-left: .4em;
+    margin-left: 1em;
 }
 
 .user-img {
@@ -151,6 +151,7 @@ span.comment-date {
     font-weight: bold;
     font-size: 1em;
     color: var(--primary-purple-600);
+    width: 2.5em;
 }
 
 .score-component span {
