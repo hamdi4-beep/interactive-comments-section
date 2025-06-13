@@ -42,7 +42,7 @@ function Card(props: {
 
     return (
         <div className="container">
-            <div className="card">
+            <div className='card'>
                 <div className="score-component">
                     <button>
                         <div className="icon-img">
