@@ -27,8 +27,10 @@
     padding: 0;
 }
 
+/* Delete Modal */
+
 .modal-container {
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     background-color: var(--neutral-white);
@@ -37,6 +39,7 @@
     padding: 1.5em;
     padding-top: 2em;
     border-radius: var(--rounded-corners);
+    z-index: 9999;
 }
 
 .modal-container p {
@@ -62,10 +65,11 @@
 body:has(.modal-container)::before {
     content: '';
     display: block;
-    position: absolute;
+    position: fixed;
     background-color: black;
     opacity: .5;
     inset: 0;
+    z-index: 999;
 }
 
 body {
@@ -232,7 +236,7 @@ span.comment-date {
     text-transform: uppercase;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
     .App {
         padding: 1em;
     }
