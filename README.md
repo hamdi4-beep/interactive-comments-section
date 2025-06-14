@@ -1,6 +1,26 @@
 # Overview
 
-A comment section I'm working on that showcases my technical skills. The reason I'm building it is because I want to improve my critical thinking and problem solving skills in a space where I can make learning mistakes.
+This comment section is currently an MVP-only. I plan to run performance and memory tests on it to ensure a pleasant experience for users. As of now, it serves as a good example of how I approach components' design and structure.
+
+## Progress
+
+There's going to have to be a few couple things that need to be checked before I can consider the comment section as an MVP.
+
+As of yet, it's only possible to perform the following actions:
+
+[X] Create a comment
+
+[X] Reply to a comment
+
+[X] Reply to a reply with the username pointing to the reply's user's username.
+
+[X] Edit a comment or reply with the behavior being consistent regardless of what element will be modified.
+
+[X] Delete a comment/reply consistently.
+
+And these are the remaining actions:
+
+[] Upvote/downvote a comment/reply.
 
 ## Local Development
 

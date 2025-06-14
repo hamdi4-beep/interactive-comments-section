@@ -44,7 +44,12 @@ function Card(props: {
         <div className="container">
             <div className='card'>
                 <div className="score-component">
-                    <button>
+                    <button onClick={() =>
+                        dispatch({
+                            type: 'UP_VOTE',
+                            id: props.item.id
+                        })
+                    }>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
                         </div>
@@ -52,7 +57,10 @@ function Card(props: {
 
                     <span>{props.item.score}</span>
 
-                    <button>
+                    <button onClick={() => dispatch({
+                        type: 'DOWN_VOTE',
+                        id: props.item.id
+                    })}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />
                         </div>
