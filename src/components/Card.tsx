@@ -28,10 +28,10 @@ const CurrentUserActions = (props: {
     </div>
 )
 
-function Card(props: {
+const Card = React.memo((props: {
     item: UserComment | UserReply
     children: React.ReactNode
-}) {
+}) => {
     const [isReplying, setIsReplying] = React.useState(false)
     const [isEditting, setIsEditting] = React.useState(false)
     const [isHidden, setIsHidden] = React.useState(true)
@@ -149,6 +149,6 @@ function Card(props: {
             )}
         </div>
     )
-}
+})
 
 export default Card
