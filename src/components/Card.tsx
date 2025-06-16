@@ -29,10 +29,10 @@ const CurrentUserActions = (props: {
     </div>
 )
 
-const Card = React.memo((props: {
+const Card = React.memo(function Card(props: {
     item: UserComment | UserReply
     children: React.ReactNode
-}) => {
+}) {
     const [isReplying, setIsReplying] = React.useState(false)
     const [isEditting, setIsEditting] = React.useState(false)
     const [isHidden, setIsHidden] = React.useState(true)
