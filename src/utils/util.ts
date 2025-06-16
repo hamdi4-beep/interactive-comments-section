@@ -29,3 +29,15 @@ export const getLastId = (arr: {
   Math.max.apply(null, arr.map(it =>
     it.replies?.length > 0 ? getLastId(it.replies) : it.id
   ))
+
+export const update_vote = (arr: any[], id: number, score: number) => {
+  return arr.map(it => {
+    if (it.id === id)
+      return {
+        ...it,
+        score
+      }
+
+    return it
+  })
+}

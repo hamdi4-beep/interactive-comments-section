@@ -1,46 +1,8 @@
-import type { UserComment } from "../types/UserComment"
 import data from '../data.json'
-import { findReplyById, editComment, getLastId } from "../utils/util"
+import { findReplyById, editComment, getLastId, update_vote } from "../utils/util"
 
-type AddCommentAction = {
-  type: 'ADD_COMMENT'
-  payload: string
-}
-
-type AddReplyAction = {
-  type: 'ADD_REPLY'
-  id: number
-  payload: string
-}
-
-type EditAction = {
-  type: 'EDIT'
-  id: number
-  payload: string
-}
-
-type DeleteAction = {
-  type: 'DELETE'
-  id: number
-}
-
-type UpVoteAction = {
-  type: 'UP_VOTE'
-  id: number
-}
-
-type DownVoteAction = {
-  type: 'DOWN_VOTE'
-  id: number
-}
-
-export type ReducerActions =
-  | AddCommentAction
-  | AddReplyAction
-  | EditAction
-  | DeleteAction
-  | UpVoteAction
-  | DownVoteAction
+import type { UserComment } from "../types/UserComment"
+import type { ReducerActions } from '../types/ReducerActions'
 
 export function reducer(state: UserComment[], action: ReducerActions) {
   switch (action.type) {
@@ -117,39 +79,43 @@ export function reducer(state: UserComment[], action: ReducerActions) {
     }
 
     case 'UP_VOTE': {
-      const comment = state.find(it => action.id === it.id)
+      const parentComment = state.find(comment => findReplyById(comment, action.id))
 
-      if (comment)
-        return state.map(it => {
-          if (it.id === comment.id) {
-            return {
-              ...comment,
-              score: comment.score + 1
-            }
+      if (parentComment) {
+        const reply = findReplyById(parentComment, action.id)!
+
+        return state.map(comment => {
+          if (!(comment.id === parentComment.id))
+            return comment
+
+          return {
+            ...comment,
+            replies: update_vote(comment.replies, action.id, reply?.score + 1)
           }
-
-          return it
         })
+      }
 
-      return state
+      return update_vote(state, action.id, state.find(it => it.id === action.id)!.score + 1)
     }
 
     case 'DOWN_VOTE': {
-      const comment = state.find(it => action.id === it.id)
+      const parentComment = state.find(comment => findReplyById(comment, action.id))
 
-      if (comment)
-        return state.map(it => {
-          if (it.id === comment.id) {
-            return {
-              ...comment,
-              score: comment.score - 1
-            }
+      if (parentComment) {
+        const reply = findReplyById(parentComment, action.id)!
+
+        return state.map(comment => {
+          if (!(comment.id === parentComment.id))
+            return comment
+
+          return {
+            ...comment,
+            replies: update_vote(comment.replies, action.id, reply?.score - 1)
           }
-
-          return it
         })
+      }
 
-      return state
+      return update_vote(state, action.id, state.find(it => it.id === action.id)!.score - 1)
     }
   }
 }
