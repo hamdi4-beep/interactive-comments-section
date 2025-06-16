@@ -3,7 +3,7 @@ import * as React from 'react'
 import FormComponent from "./FormComponent"
 import { CommentStateContext, currentUser } from "../App"
 
-import type { UserComment, UserReply } from '../App'
+import type { UserComment, UserReply } from '../types/UserComment'
 
 const CurrentUserActions = (props: {
     handleEditClick: React.MouseEventHandler

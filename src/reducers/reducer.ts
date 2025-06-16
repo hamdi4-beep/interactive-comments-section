@@ -1,4 +1,4 @@
-import type { UserComment } from "../App"
+import type { UserComment } from "../types/UserComment"
 import { currentUser } from "../App"
 import { findReplyById, editComment, getLastId } from "../utils/util"
 

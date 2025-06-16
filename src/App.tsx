@@ -5,24 +5,7 @@ import data from '../src/data.json'
 import { reducer } from './reducers/reducer'
 import type { ReducerActions } from './reducers/reducer'
 
-export type UserComment = {
-  id: number
-  createdAt: string
-  score: number
-  content: string
-  user: {
-      username: string
-      image: {
-          png: string
-          webp: string
-      }
-  }
-  replies: UserReply[]
-}
-
-export type UserReply = Omit<UserComment, 'replies'> & {
-  replyingTo: string
-}
+import type { UserComment } from './types/UserComment'
 
 export const currentUser = data.currentUser
 
