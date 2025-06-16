@@ -4,23 +4,17 @@ This comment section is currently an MVP-only. I plan to run performance and mem
 
 ## Progress
 
-There's going to have to be a few couple things that need to be checked before I can consider the comment section as an MVP.
+I've implemented the essential features for the comment section. Everything's working properly without any side effects. This was the focus from the very beginning to prevent "feature creep" and ensure that a user is able to perform the necessary actions.
 
-As of yet, it's only possible to perform the following actions:
+Here's a list of the essential features included:
 
-[X] Create a comment
-
-[X] Reply to a comment
-
-[X] Reply to a reply with the username pointing to the reply's user's username.
-
-[X] Edit a comment or reply with the behavior being consistent regardless of what element will be modified.
-
-[X] Delete a comment/reply consistently.
-
-And these are the remaining actions:
-
-[] Upvote/downvote a comment/reply.
+- Create a comment
+- Reply to a comment
+- Reply to a reply with the username pointing to the right user
+- Edit a comment or reply with the behavior being consistent regardless of which element is modified
+- Delete a comment/reply
+- Upvote a comment/reply
+- Downvote a comment/reply
 
 ## Local Development
 
