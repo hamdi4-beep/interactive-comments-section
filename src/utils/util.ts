@@ -1,4 +1,4 @@
-import type { UserComment } from "../App"
+import type { UserComment } from "../types/UserComment"
 
 export const editComment = (arr: any[], action: {
       id: number
