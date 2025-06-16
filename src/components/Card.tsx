@@ -41,16 +41,22 @@ const Card = React.memo(function Card(props: {
 
     const isCurrentUser = data.currentUser.username == props.item.user.username
 
+    const upVoteBtnRef = React.createRef<HTMLButtonElement>()
+    const downVoteBtnRef = React.createRef<HTMLButtonElement>()
+
     return (
         <div className="container">
             <div className='card'>
                 <div className="score-component">
-                    <button onClick={() =>
+                    <button ref={upVoteBtnRef} onClick={() => {
+                        upVoteBtnRef.current?.setAttribute('disabled', 'true')
+                        downVoteBtnRef.current?.removeAttribute('disabled')
+
                         dispatch({
                             type: 'UP_VOTE',
                             id: props.item.id
                         })
-                    }>
+                    }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
                         </div>
@@ -58,10 +64,15 @@ const Card = React.memo(function Card(props: {
 
                     <span>{props.item.score}</span>
 
-                    <button onClick={() => dispatch({
-                        type: 'DOWN_VOTE',
-                        id: props.item.id
-                    })}>
+                    <button ref={downVoteBtnRef} onClick={() => {
+                        downVoteBtnRef.current?.setAttribute('disabled', 'true')
+                        upVoteBtnRef.current?.removeAttribute('disabled')
+
+                        dispatch({
+                            type: 'DOWN_VOTE',
+                            id: props.item.id
+                        })
+                    }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />
                         </div>
