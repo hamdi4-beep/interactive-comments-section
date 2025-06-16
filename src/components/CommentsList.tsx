@@ -1,6 +1,8 @@
-import { CommentStateContext } from '../App'
 import Comment from './Comment'
+
+import type { ReducerActions } from '../reducers/reducer'
 import * as React from 'react'
+import { CommentStateContext } from './CommentSection'
 
 function CommentsList() {
     const {comments} = React.useContext(CommentStateContext)

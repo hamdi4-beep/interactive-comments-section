@@ -1,5 +1,5 @@
 import type { UserComment } from "../types/UserComment"
-import { currentUser } from "../App"
+import data from '../data.json'
 import { findReplyById, editComment, getLastId } from "../utils/util"
 
 type AddCommentAction = {
@@ -51,7 +51,7 @@ export function reducer(state: UserComment[], action: ReducerActions) {
         content: action.payload,
         replies: [],
         createdAt: 'now',
-        user: currentUser
+        user: data.currentUser
       }]
     }
 
@@ -68,7 +68,7 @@ export function reducer(state: UserComment[], action: ReducerActions) {
             replies: [...comment.replies, {
               id: getLastId(state) + 1,
               score: 0,
-              user: currentUser,
+              user: data.currentUser,
               replyingTo: targetUser.username,
               createdAt: 'now',
               content: action.payload

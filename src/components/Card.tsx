@@ -1,7 +1,8 @@
 import * as React from 'react'
+import data from '../data.json'
 
 import FormComponent from "./FormComponent"
-import { CommentStateContext, currentUser } from "../App"
+import { CommentStateContext } from './CommentSection'
 
 import type { UserComment, UserReply } from '../types/UserComment'
 
@@ -38,7 +39,7 @@ const Card = React.memo((props: {
 
     const {dispatch} = React.useContext(CommentStateContext)
 
-    const isCurrentUser = currentUser.username == props.item.user.username
+    const isCurrentUser = data.currentUser.username == props.item.user.username
 
     return (
         <div className="container">

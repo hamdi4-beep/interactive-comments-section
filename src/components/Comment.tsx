@@ -1,7 +1,7 @@
 import Reply from "./Reply"
 import Card from './Card'
 
-import type { UserComment } from "../App"
+import type { UserComment } from "../types/UserComment"
 
 function Comment(props: {
     comment: UserComment

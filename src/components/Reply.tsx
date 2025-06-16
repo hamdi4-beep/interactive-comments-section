@@ -1,5 +1,5 @@
 import Card from "./Card"
-import type { UserReply } from "../App"
+import type { UserReply } from "../types/UserComment"
 
 function Reply({
     reply
