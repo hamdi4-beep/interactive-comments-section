@@ -1,6 +1,5 @@
 import { useComments } from '../hooks/useComments'
 import Card from './Card'
-import Reply from './Reply'
 
 function Comment(props: {
     id: string
@@ -13,15 +12,6 @@ function Comment(props: {
             <Card item={comment}>
                 <p>{comment.content}</p>
             </Card>
-
-            <div className="replies-list">
-                {comment.replies.map(id => (
-                    <Reply
-                        id={id}
-                        key={id}
-                    />
-                ))}
-            </div>
         </div>
     )
 }

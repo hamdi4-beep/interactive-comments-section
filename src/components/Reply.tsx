@@ -1,14 +1,11 @@
-import { useReplies } from "../hooks/useReplies"
 import Card from "./Card"
+import type { UserReply } from "../types/UserComment"
 
 function Reply({
-    id
+    reply
 }: {
-    id: number
+    reply: UserReply
 }) {
-    const {replies} = useReplies()
-    const reply = replies.byId[id]
-    
     return (
         <div className="reply-wrapper">
             <Card item={reply}>
