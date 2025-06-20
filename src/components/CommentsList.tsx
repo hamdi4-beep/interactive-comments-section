@@ -1,17 +1,15 @@
+import { useComments } from '../hooks/useComments'
 import Comment from './Comment'
 
-import * as React from 'react'
-import { CommentStateContext } from './CommentSection'
-
 function CommentsList() {
-    const {comments} = React.useContext(CommentStateContext)
+    const {comments} = useComments()
 
     return (
         <div className="comments-list">
-            {comments.map(comment => (
+            {comments.allId.map(id => (
                 <Comment
-                    comment={comment}
-                    key={comment.id}
+                    id={id.toString()}
+                    key={id}
                 />
             ))}
         </div>

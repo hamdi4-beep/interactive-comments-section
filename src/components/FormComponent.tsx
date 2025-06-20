@@ -24,11 +24,13 @@ function FormComponent(props: {
         textAreaElement?.focus()
     }, [])
 
+    console.log(data.users['byUsername']['juliusomo'])
+
     return (
         <div className="form-component">
             <div className="current-user">
                 <div className="user-img">
-                    <img src={'/interactive-comment-section' + data.currentUser.image.png} alt="" />
+                    <img src={'/interactive-comment-section' + data.users['byUsername']['juliusomo'].image.png} alt="" />
                 </div>
             </div>
 

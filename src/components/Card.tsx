@@ -1,10 +1,7 @@
 import * as React from 'react'
 import data from '../data.json'
-
 import FormComponent from "./FormComponent"
-import { CommentStateContext } from './CommentSection'
-
-import type { UserComment, UserReply } from '../types/UserComment'
+import { useUsers } from '../hooks/useUsers'
 
 const CurrentUserActions = (props: {
     handleEditClick: React.MouseEventHandler
@@ -30,16 +27,16 @@ const CurrentUserActions = (props: {
 )
 
 const Card = React.memo(function Card(props: {
-    item: UserComment | UserReply
+    item: any
     children: React.ReactNode
 }) {
+    const { users } = useUsers()
+
     const [isReplying, setIsReplying] = React.useState(false)
     const [isEditting, setIsEditting] = React.useState(false)
     const [isHidden, setIsHidden] = React.useState(true)
 
-    const {dispatch} = React.useContext(CommentStateContext)
-
-    const isCurrentUser = data.currentUser.username == props.item.user.username
+    const isCurrentUser = data.currentUser == props.item.user
 
     const upVoteBtnRef = React.createRef<HTMLButtonElement>()
     const downVoteBtnRef = React.createRef<HTMLButtonElement>()
@@ -51,11 +48,6 @@ const Card = React.memo(function Card(props: {
                     <button ref={upVoteBtnRef} onClick={() => {
                         upVoteBtnRef.current?.setAttribute('disabled', 'true')
                         downVoteBtnRef.current?.removeAttribute('disabled')
-
-                        dispatch({
-                            type: 'UP_VOTE',
-                            id: props.item.id
-                        })
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
@@ -67,11 +59,6 @@ const Card = React.memo(function Card(props: {
                     <button ref={downVoteBtnRef} onClick={() => {
                         downVoteBtnRef.current?.setAttribute('disabled', 'true')
                         upVoteBtnRef.current?.removeAttribute('disabled')
-
-                        dispatch({
-                            type: 'DOWN_VOTE',
-                            id: props.item.id
-                        })
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />
@@ -83,10 +70,10 @@ const Card = React.memo(function Card(props: {
                     <div className="profile-header">
                         <div className="user">
                             <div className="user-img">
-                                <img src={'/interactive-comment-section' + props.item.user.image.png} alt="" />
+                                <img src={'/interactive-comment-section' + users.byUsername[props.item.user].image.png} alt="" />
                             </div>
 
-                            <h3>{props.item.user.username}</h3>
+                            <h3>{props.item.user}</h3>
 
                             {isCurrentUser && (
                                 <span className='current-user'>you</span>
@@ -120,13 +107,7 @@ const Card = React.memo(function Card(props: {
             {isReplying && (
                 <FormComponent
                     placeholderValue='Add a reply...'
-                    dispatchHandler={(content: string) => {
-                        dispatch({
-                            type: 'ADD_REPLY',
-                            id: props.item.id,
-                            payload: content
-                        })
-
+                    dispatchHandler={() => {
                         setIsReplying(false)
                     }}
                 />
@@ -136,13 +117,7 @@ const Card = React.memo(function Card(props: {
                 <FormComponent
                     placeholderValue='Edit a comment...'
                     value={props.item.content}
-                    dispatchHandler={(content: string) => {
-                        dispatch({
-                            type: 'EDIT',
-                            id: props.item.id,
-                            payload: content
-                        })
-
+                    dispatchHandler={() => {
                         setIsEditting(false)
                     }}
                 />
@@ -155,7 +130,7 @@ const Card = React.memo(function Card(props: {
                     
                     <div className="buttons">
                         <button className="cancel" onClick={() => setIsHidden(true)}>No, Cancel</button>
-                        <button className="confirm" onClick={() => dispatch({ type: 'DELETE', id: props.item.id })}>Yes, Confirm</button>
+                        <button className="confirm" onClick={() => {}}>Yes, Confirm</button>
                     </div>
                 </div>
             )}

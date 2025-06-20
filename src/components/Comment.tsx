@@ -1,25 +1,17 @@
-import Reply from "./Reply"
+import { useComments } from '../hooks/useComments'
 import Card from './Card'
 
-import type { UserComment } from "../types/UserComment"
-
 function Comment(props: {
-    comment: UserComment
+    id: string
 }) {
+    const {comments} = useComments()
+    const comment = comments.byId[props.id]
+
     return (
         <div className="comment-wrapper">
-            <Card item={props.comment}>
-                <p>{props.comment.content}</p>
+            <Card item={comment}>
+                <p>{comment.content}</p>
             </Card>
-
-            <div className="replies-list">
-                {props.comment.replies.map(reply => (
-                    <Reply
-                        reply={reply}
-                        key={reply.id}
-                    />
-                ))}
-            </div>
         </div>
     )
 }
