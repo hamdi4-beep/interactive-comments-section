@@ -8,7 +8,7 @@ import data from '../data.json'
 import { reducer } from '../reducers/reducer'
 
 import type { UserComment } from '../types/UserComment'
-import type { ReducerActions } from '../reducers/reducer';
+import type { ReducerActions } from '../types/ReducerActions';
 
 export const CommentStateContext = React.createContext<{
     dispatch: React.ActionDispatch<[action: ReducerActions]>,
