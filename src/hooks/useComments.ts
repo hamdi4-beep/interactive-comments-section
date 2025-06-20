@@ -1,10 +1,24 @@
 import * as React from 'react'
-import type { ReducerActions } from "../types/ReducerActions"
 import data from '../data.json'
-import type { Comments } from "../types/UserComment"
+
+export interface Comments {
+  byId: {
+    [x: string]: Comment
+  }
+  allId: number[]
+}
+
+export type Comment = {
+    id: number
+    createdAt: string
+    score: number
+    content: string
+    user: string
+    replies: number[]
+}
 
 export function useComments() {
-  const [comments, dispatch] = React.useReducer<Comments, [action: ReducerActions]>((state: Comments, action: ReducerActions) => {
+  const [comments, dispatch] = React.useReducer((state: Comments, action) => {
     switch (action.type) {
       default:
         return state

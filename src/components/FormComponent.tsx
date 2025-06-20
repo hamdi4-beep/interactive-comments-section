@@ -1,12 +1,15 @@
 import * as React from 'react'
 import data from '../data.json'
+import { useUsers } from '../hooks/useUsers'
+
+const textAreaRef = React.createRef<HTMLTextAreaElement>()
 
 function FormComponent(props: {
     value?: string
     placeholderValue: string
     dispatchHandler: Function
 }) {
-    const textAreaRef = React.createRef<HTMLTextAreaElement>()
+    const {users} = useUsers()
 
     const handleSubmit: React.FormEventHandler = e => {
         e.preventDefault()
@@ -24,13 +27,11 @@ function FormComponent(props: {
         textAreaElement?.focus()
     }, [])
 
-    console.log(data.users['byUsername']['juliusomo'])
-
     return (
         <div className="form-component">
             <div className="current-user">
                 <div className="user-img">
-                    <img src={'/interactive-comment-section' + data.users['byUsername']['juliusomo'].image.png} alt="" />
+                    <img src={'/interactive-comment-section' + users.byUsername[data.currentUser]} alt="" />
                 </div>
             </div>
 
