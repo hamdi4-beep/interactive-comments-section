@@ -132,6 +132,11 @@ h3.current-user {
     margin-left: 1em;
 }
 
+.view-replies-btn {
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+
 .user-img {
     width: 3em;
     height: 3em;
@@ -171,7 +176,7 @@ span.comment-date {
 }
 
 .replies-list {
-    margin-left: 4em;
+    margin-left: 1em;
 }
 
 .score-component button {

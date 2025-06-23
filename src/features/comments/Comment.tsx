@@ -1,3 +1,4 @@
+import * as React from 'react'
 import Card from '../../components/Card'
 import Reply from '../replies/Reply'
 import { useAppSelector } from '../../hooks'
@@ -5,6 +6,7 @@ import { useAppSelector } from '../../hooks'
 function Comment(props: {
     id: string
 }) {
+    const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
 
     return (
@@ -13,15 +15,19 @@ function Comment(props: {
                 <p>{comment.content}</p>
             </Card>
 
-            <div className="replies-list">
-                {comment.replies.map(id => (
-                    <Reply
-                        id={id}
-                        parentCommentId={comment.id}
-                        key={id}
-                    />
-                ))}
-            </div>
+            {comment.replies.length > 0 && <button className='view-replies-btn' onClick={() => setIsRepliesHidden(prev => !prev)}>{comment.replies.length} replies</button>}
+
+            {!isRepliesHidden && (
+                <div className="replies-list">
+                    {comment.replies.map(id => (
+                        <Reply
+                            id={id}
+                            parentCommentId={comment.id}
+                            key={id}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }
