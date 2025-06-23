@@ -114,9 +114,9 @@ button {
     padding-top: 1em;
 }
 
-span.current-user {
+.current-user {
     background-color: var(--primary-purple-600);
-    padding: .1em .5em;
+    padding: .2em .3em;
     line-height: 1;
     color: var(--neutral-white);
     border-radius: 2px;

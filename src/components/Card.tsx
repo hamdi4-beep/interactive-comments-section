@@ -73,11 +73,7 @@ const Card = React.memo(function Card(props: {
                                 <img src={'/interactive-comment-section' + users.byUsername[props.item.user].image.png} alt="" />
                             </div>
 
-                            <h3>{props.item.user}</h3>
-
-                            {isCurrentUser && (
-                                <span className='current-user'>you</span>
-                            )}
+                            <h3 className={isCurrentUser ? 'current-user' : ''}>{props.item.user}</h3>
 
                             <span className="comment-date">{props.item.createdAt}</span>
                         </div>
