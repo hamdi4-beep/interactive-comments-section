@@ -1,12 +1,12 @@
-import { useComments } from '../hooks/useComments'
-import Comment from './Comment'
+import Comment from '../features/comments/Comment'
+import { useAppSelector } from '../hooks'
 
 function CommentsList() {
-    const {comments} = useComments()
+    const allCommentIds = useAppSelector(state => state.comments.allId)
 
     return (
         <div className="comments-list">
-            {comments.allId.map(id => (
+            {allCommentIds.map(id => (
                 <Comment
                     id={id.toString()}
                     key={id}

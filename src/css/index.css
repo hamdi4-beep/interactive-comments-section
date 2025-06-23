@@ -114,7 +114,7 @@ button {
     padding-top: 1em;
 }
 
-.current-user {
+h3.current-user {
     background-color: var(--primary-purple-600);
     padding: .2em .3em;
     line-height: 1;

@@ -1,12 +1,11 @@
-import { useComments } from '../hooks/useComments'
-import Card from './Card'
-import Reply from './Reply'
+import Card from '../../components/Card'
+import Reply from '../replies/Reply'
+import { useAppSelector } from '../../hooks'
 
 function Comment(props: {
     id: string
 }) {
-    const {comments} = useComments()
-    const comment = comments.byId[props.id]
+    const comment = useAppSelector(state => state.comments.byId[props.id])
 
     return (
         <div className="comment-wrapper">

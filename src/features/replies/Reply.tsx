@@ -1,5 +1,5 @@
-import { useReplies } from "../hooks/useReplies"
-import Card from "./Card"
+import { useAppSelector } from "../../hooks"
+import Card from "../../components/Card"
 
 function Reply({
     id,
@@ -8,9 +8,7 @@ function Reply({
     id: number
     parentCommentId: number
 }) {
-    const {replies} = useReplies()
-    const reply = replies.byId[id]
-
+    const reply = useAppSelector(state => state.replies.byId[id])
     console.log(parentCommentId)
 
     return (
