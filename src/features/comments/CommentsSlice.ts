@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from '../../data.json'
+import { initialRepliesState } from "../replies/RepliesSlice";
 
 export type Comment = {
     id: number
@@ -17,12 +18,29 @@ export interface CommentState {
     allId: number[]
 }
 
-const initialState: CommentState = data.comments
+const initialCommentsState: CommentState = data.comments
 
 const CommentsSlice = createSlice({
     name: 'comments',
-    initialState,
-    reducers: {}
+    initialState: initialCommentsState,
+    reducers: {
+        createComment(state, action) {
+            const nextId = Math.max.apply(null, [...initialCommentsState.allId, ...initialRepliesState.allId]) + 1
+
+            state.byId[nextId] = {
+                id: nextId,
+                createdAt: 'now',
+                score: 0,
+                content: action.payload,
+                user: data.currentUser,
+                replies: []
+            }
+
+            state.allId.push(nextId)
+        }
+    }
 })
+
+export const {createComment} = CommentsSlice.actions
 
 export default CommentsSlice.reducer

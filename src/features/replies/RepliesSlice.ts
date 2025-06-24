@@ -13,11 +13,11 @@ export interface ReplyState {
     allId: number[]
 }
 
-const initialState: ReplyState = data.replies
+export const initialRepliesState: ReplyState = data.replies
 
 const RepliesSlice = createSlice({
     name: 'replies',
-    initialState,
+    initialState: initialRepliesState,
     reducers: {}
 })
 
