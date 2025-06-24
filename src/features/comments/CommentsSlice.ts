@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from '../../data.json'
-import { initialRepliesState } from "../replies/RepliesSlice";
 
 export type Comment = {
     id: number
@@ -24,24 +23,22 @@ const CommentsSlice = createSlice({
     name: 'comments',
     initialState: initialCommentsState,
     reducers: {
-        createComment(state, action) {
-            const nextId = Math.max.apply(null, [...initialCommentsState.allId, ...initialRepliesState.allId]) + 1
-
-            state.byId[nextId] = {
-                id: nextId,
+        commentCreated(state, action) {
+            state.byId[action.payload.id] = {
+                id: action.payload.id,
                 createdAt: 'now',
                 score: 0,
-                content: action.payload,
+                content: action.payload.content,
                 // this works just fine when the information about the current user is stored in a local file, but needs to be updated if it's retreived from a remote resource.
                 user: data.currentUser,
                 replies: []
             }
 
-            state.allId.push(nextId)
+            state.allId.push(action.payload.id)
         }
     }
 })
 
-export const {createComment} = CommentsSlice.actions
+export const {commentCreated} = CommentsSlice.actions
 
 export default CommentsSlice.reducer
