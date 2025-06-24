@@ -1,7 +1,7 @@
 import * as React from 'react'
 import data from '../data.json'
 import FormComponent from "./FormComponent"
-import { useUsers } from '../hooks/useUsers'
+import { useAppSelector } from '../hooks'
 
 const CurrentUserActions = (props: {
     handleEditClick: React.MouseEventHandler
@@ -30,7 +30,7 @@ const Card = React.memo(function Card(props: {
     item: any
     children: React.ReactNode
 }) {
-    const { users } = useUsers()
+    const users = useAppSelector(state => state.users)
 
     const [isReplying, setIsReplying] = React.useState(false)
     const [isEditting, setIsEditting] = React.useState(false)

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import data from '../data.json'
-import { useUsers } from '../hooks/useUsers'
+import { useAppSelector } from '../hooks'
 
 const textAreaRef = React.createRef<HTMLTextAreaElement>()
 
@@ -9,8 +9,8 @@ function FormComponent(props: {
     placeholderValue: string
     dispatchHandler: Function
 }) {
-    const {users} = useUsers()
-
+    const users = useAppSelector(state => state.users)
+    
     const handleSubmit: React.FormEventHandler = e => {
         e.preventDefault()
         

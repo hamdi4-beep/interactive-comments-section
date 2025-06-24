@@ -1,5 +1,5 @@
 import { createComment } from "../features/comments/CommentsSlice";
-import { useAppDispatch } from "../hooks";
+import { useAppDispatch, useIds } from "../hooks";
 import CommentsList from "./CommentsList";
 import FormComponent from "./FormComponent";
 

@@ -32,6 +32,7 @@ const CommentsSlice = createSlice({
                 createdAt: 'now',
                 score: 0,
                 content: action.payload,
+                // this works just fine when the information about the current user is stored in a local file, but needs to be updated if it's retreived from a remote resource.
                 user: data.currentUser,
                 replies: []
             }
