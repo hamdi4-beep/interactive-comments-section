@@ -109,6 +109,8 @@ const Card = React.memo(function Card(props: {
                 <FormComponent
                     placeholderValue='Add a reply...'
                     dispatchHandler={(content: string) => {
+                        if (!content) return
+                        
                         dispatch(replyCreated({
                             id: nextId,
                             parentCommentId: props.item.id,
