@@ -4,10 +4,12 @@ import Reply from '../replies/Reply'
 import { useAppSelector } from '../../hooks'
 
 function Comment(props: {
-    id: string
+    id: number
 }) {
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
+
+    console.log(comment)
 
     return (
         <div className="comment-wrapper">
