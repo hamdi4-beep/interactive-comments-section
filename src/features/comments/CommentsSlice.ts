@@ -41,7 +41,10 @@ const CommentsSlice = createSlice({
     extraReducers: builder =>
         builder
             .addCase(replyCreated, (state, action) => {
-                state.byId[action.payload.parentCommentId].replies.push(action.payload.id)
+                const commentID = state.allId.find(id => action.payload.parentCommentId === id)
+                
+                if (commentID)
+                    state.byId[commentID].replies.push(action.payload.id)
             })
 })
 
