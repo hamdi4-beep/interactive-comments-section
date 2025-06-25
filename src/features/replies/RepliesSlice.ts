@@ -18,7 +18,22 @@ export const initialRepliesState: ReplyState = data.replies
 const RepliesSlice = createSlice({
     name: 'replies',
     initialState: initialRepliesState,
-    reducers: {}
+    reducers: {
+        replyCreated(state, action) {
+            state.byId[action.payload.id] = {
+                id: action.payload.id,
+                createdAt: 'now',
+                user: data.currentUser,
+                score: 0,
+                content: action.payload.content,
+                replyingTo: action.payload.user
+            }
+
+            state.allId.push(action.payload.id)
+        }
+    }
 })
+
+export const { replyCreated } = RepliesSlice.actions
 
 export default RepliesSlice.reducer

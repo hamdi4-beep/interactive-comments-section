@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from '../../data.json'
+import { replyCreated } from "../replies/RepliesSlice";
 
 export type Comment = {
     id: number
@@ -35,14 +36,15 @@ const CommentsSlice = createSlice({
             }
 
             state.allId.push(action.payload.id)
-        },
-        replyCreated(state) {
-            console.log(state)
-            state = state
         }
-    }
+    },
+    extraReducers: builder =>
+        builder
+            .addCase(replyCreated, (state, action) => {
+                state.byId[action.payload.parentCommentId].replies.push(action.payload.id)
+            })
 })
 
-export const {commentCreated, replyCreated} = CommentsSlice.actions
+export const {commentCreated} = CommentsSlice.actions
 
 export default CommentsSlice.reducer

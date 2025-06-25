@@ -2,7 +2,8 @@ import * as React from 'react'
 import data from '../data.json'
 import FormComponent from "./FormComponent"
 import { useAppDispatch, useAppSelector, useNextId } from '../hooks'
-import { replyAdded } from '../features/replies/RepliesSlice'
+import { replyCreated, type Reply } from '../features/replies/RepliesSlice'
+import type { Comment } from '../features/comments/CommentsSlice'
 
 const CurrentUserActions = (props: {
     handleEditClick: React.MouseEventHandler
@@ -28,7 +29,7 @@ const CurrentUserActions = (props: {
 )
 
 const Card = React.memo(function Card(props: {
-    item: any
+    item: Comment | Reply
     children: React.ReactNode
 }) {
     const users = useAppSelector(state => state.users)
@@ -107,8 +108,14 @@ const Card = React.memo(function Card(props: {
             {isReplying && (
                 <FormComponent
                     placeholderValue='Add a reply...'
-                    dispatchHandler={() => {
-                        dispatch(replyAdded({ id: nextId }))
+                    dispatchHandler={(content: string) => {
+                        dispatch(replyCreated({
+                            id: nextId,
+                            parentCommentId: props.item.id,
+                            content,
+                            user: props.item.user
+                        }))
+
                         setIsReplying(false)
                     }}
                 />
