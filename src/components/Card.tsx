@@ -113,7 +113,7 @@ const Card = React.memo(function Card(props: {
                         
                         dispatch(replyCreated({
                             id: nextId,
-                            parentCommentId: props.item.id,
+                            itemId: props.item.id,
                             content,
                             user: props.item.user
                         }))
