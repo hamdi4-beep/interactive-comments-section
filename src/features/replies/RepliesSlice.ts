@@ -6,11 +6,11 @@ export type Reply = Omit<Comment, 'replies'> & {
     replyingTo: string
 }
 
+type ReplyID = Reply['id']
+
 export interface ReplyState {
-    byId: {
-        [x: string]: Reply
-    }
-    allId: number[]
+    byId: Record<ReplyID, Reply>
+    allId: ReplyID[]
 }
 
 export const initialRepliesState: ReplyState = data.replies

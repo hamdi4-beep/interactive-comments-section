@@ -10,11 +10,11 @@ export type Comment = {
     replies: number[]
 }
 
+type CommentID = Comment['id']
+
 export interface CommentState {
-    byId: {
-        [x: string]: Comment
-    }
-    allId: number[]
+    byId: Record<CommentID, Comment>
+    allId: CommentID[]
 }
 
 const initialCommentsState: CommentState = data.comments
@@ -35,10 +35,14 @@ const CommentsSlice = createSlice({
             }
 
             state.allId.push(action.payload.id)
+        },
+        replyCreated(state) {
+            console.log(state)
+            state = state
         }
     }
 })
 
-export const {commentCreated} = CommentsSlice.actions
+export const {commentCreated, replyCreated} = CommentsSlice.actions
 
 export default CommentsSlice.reducer

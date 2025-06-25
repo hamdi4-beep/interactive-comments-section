@@ -2,14 +2,11 @@ import { useAppSelector } from "../../hooks"
 import Card from "../../components/Card"
 
 function Reply({
-    id,
-    parentCommentId
+    id
 }: {
     id: number
-    parentCommentId: number
 }) {
     const reply = useAppSelector(state => state.replies.byId[id])
-    console.log(parentCommentId)
 
     return (
         <div className="reply-wrapper">

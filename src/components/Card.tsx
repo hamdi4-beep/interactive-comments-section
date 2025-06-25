@@ -1,7 +1,8 @@
 import * as React from 'react'
 import data from '../data.json'
 import FormComponent from "./FormComponent"
-import { useAppSelector } from '../hooks'
+import { useAppDispatch, useAppSelector, useNextId } from '../hooks'
+import { replyAdded } from '../features/replies/RepliesSlice'
 
 const CurrentUserActions = (props: {
     handleEditClick: React.MouseEventHandler
@@ -31,6 +32,9 @@ const Card = React.memo(function Card(props: {
     children: React.ReactNode
 }) {
     const users = useAppSelector(state => state.users)
+    const dispatch = useAppDispatch()
+
+    const nextId = useNextId()
 
     const [isReplying, setIsReplying] = React.useState(false)
     const [isEditting, setIsEditting] = React.useState(false)
@@ -104,6 +108,7 @@ const Card = React.memo(function Card(props: {
                 <FormComponent
                     placeholderValue='Add a reply...'
                     dispatchHandler={() => {
+                        dispatch(replyAdded({ id: nextId }))
                         setIsReplying(false)
                     }}
                 />
