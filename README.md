@@ -27,5 +27,3 @@ pnpm i
 ```
 pnpm run dev
 ```
-
-3. Enjoy!
