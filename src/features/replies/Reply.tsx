@@ -14,7 +14,7 @@ function Reply({
     const nextId = useNextId()
     const reply = useAppSelector(state => state.replies.byId[id])
 
-    const handleReply = (content: string) =>
+    const replyToReply = (content: string) =>
         dispatch(replyCreated({
             id: nextId,
             itemId: parentCommentId,
@@ -24,7 +24,7 @@ function Reply({
 
     return (
         <div className="reply-wrapper">
-            <Card item={reply} handleDispatch={handleReply}>
+            <Card item={reply} handleDispatch={replyToReply}>
                 <p>
                     <span className="replying-to">@{reply.replyingTo} </span>
                     {reply.content}
