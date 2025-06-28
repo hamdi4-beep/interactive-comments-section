@@ -1,19 +1,30 @@
 import * as React from 'react'
 import Card from '../../components/Card'
 import Reply from '../replies/Reply'
-import { useAppSelector } from '../../hooks'
+import { useAppDispatch, useAppSelector, useNextId } from '../../hooks'
+import type { UserComment } from './CommentsSlice'
+import { replyCreated } from '../replies/RepliesSlice'
 
 function Comment(props: {
-    id: number
+    id: UserComment['id']
 }) {
+    const dispatch = useAppDispatch()
+    const nextId = useNextId()
+
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
 
-    console.log(comment)
+    const handleComment = (content: string) =>
+        dispatch(replyCreated({
+            id: nextId,
+            itemId: props.id,
+            content,
+            user: comment.user
+        }))
 
     return (
         <div className="comment-wrapper">
-            <Card item={comment}>
+            <Card item={comment} handleDispatch={handleComment}>
                 <p>{comment.content}</p>
             </Card>
 

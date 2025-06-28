@@ -1,23 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { Comment } from "../comments/CommentsSlice";
+import type { UserComment } from "../comments/CommentsSlice";
 import data from '../../data.json'
 
-export type Reply = Omit<Comment, 'replies'> & {
+export type UserReply = Omit<UserComment, 'replies'> & {
     replyingTo: string
 }
 
-type ReplyID = Reply['id']
+type ReplyID = UserReply['id']
 
 export interface ReplyState {
-    byId: Record<ReplyID, Reply>
+    byId: Record<ReplyID, UserReply>
     allId: ReplyID[]
 }
 
-export const initialRepliesState: ReplyState = data.replies
+export const initialState: ReplyState = data.replies
 
 const RepliesSlice = createSlice({
     name: 'replies',
-    initialState: initialRepliesState,
+    initialState,
     reducers: {
         replyCreated(state, action) {
             state.byId[action.payload.id] = {

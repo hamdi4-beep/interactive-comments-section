@@ -8,7 +8,7 @@ function CommentsList() {
         <div className="comments-list">
             {allCommentIds.map(id => (
                 <Comment
-                    id={id.toString()}
+                    id={id}
                     key={id}
                 />
             ))}

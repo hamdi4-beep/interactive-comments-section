@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import data from '../../data.json'
 import { replyCreated } from "../replies/RepliesSlice";
 
-export type Comment = {
+export type UserComment = {
     id: number
     createdAt: string
     score: number
@@ -11,10 +11,10 @@ export type Comment = {
     replies: number[]
 }
 
-type CommentID = Comment['id']
+type CommentID = UserComment['id']
 
 export interface CommentState {
-    byId: Record<CommentID, Comment>
+    byId: Record<CommentID, UserComment>
     allId: CommentID[]
 }
 
@@ -30,7 +30,7 @@ const CommentsSlice = createSlice({
                 createdAt: 'now',
                 score: 0,
                 content: action.payload.content,
-                // this works just fine when the information about the current user is stored in a local file, but needs to be updated if it's retreived from a remote resource.
+                // this works just fine when the information about the current user is stored in a local file, but needs to be updated if it's retrieved from a remote resource.
                 user: data.currentUser,
                 replies: []
             }
