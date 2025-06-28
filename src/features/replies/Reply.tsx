@@ -1,16 +1,26 @@
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector, useNextId } from "../../hooks"
 import Card from "../../components/Card"
-import type { UserReply } from "./RepliesSlice"
+import { replyCreated, type UserReply } from "./RepliesSlice"
+import type { UserComment } from "../comments/CommentsSlice"
 
 function Reply({
-    id
+    id,
+    parentCommentId
 }: {
     id: UserReply['id']
+    parentCommentId: UserComment['id']
 }) {
+    const dispatch = useAppDispatch()
+    const nextId = useNextId()
     const reply = useAppSelector(state => state.replies.byId[id])
 
-    const handleReply = () =>
-        console.log('This action is handled by the Reply component!')
+    const handleReply = (content: string) =>
+        dispatch(replyCreated({
+            id: nextId,
+            itemId: parentCommentId,
+            content,
+            user: reply.user
+        }))
 
     return (
         <div className="reply-wrapper">

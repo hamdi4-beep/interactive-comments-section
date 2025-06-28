@@ -35,6 +35,7 @@ function Comment(props: {
                     {comment.replies.map(id => (
                         <Reply
                             id={id}
+                            parentCommentId={comment.id}
                             key={id}
                         />
                     ))}
