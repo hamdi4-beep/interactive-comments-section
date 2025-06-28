@@ -14,7 +14,7 @@ function Comment(props: {
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
 
-    const handleComment = (content: string) =>
+    const replyToComment = (content: string) =>
         dispatch(replyCreated({
             id: nextId,
             itemId: props.id,
@@ -24,7 +24,7 @@ function Comment(props: {
 
     return (
         <div className="comment-wrapper">
-            <Card item={comment} handleDispatch={handleComment}>
+            <Card item={comment} handleDispatch={replyToComment}>
                 <p>{comment.content}</p>
             </Card>
 
