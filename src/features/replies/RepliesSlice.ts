@@ -30,10 +30,14 @@ const RepliesSlice = createSlice({
             }
 
             state.allId.push(action.payload.id)
+        },
+        replyEdited(state, action) {
+            const reply = state.byId[action.payload.id]
+            reply.content = action.payload.content
         }
     }
 })
 
-export const { replyCreated } = RepliesSlice.actions
+export const { replyCreated, replyEdited } = RepliesSlice.actions
 
 export default RepliesSlice.reducer

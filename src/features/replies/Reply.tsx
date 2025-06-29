@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector, useNextId } from "../../hooks"
 import Card from "../../components/Card"
-import { replyCreated, type UserReply } from "./RepliesSlice"
+import { replyCreated, replyEdited, type UserReply } from "./RepliesSlice"
 import type { UserComment } from "../comments/CommentsSlice"
 import React from "react"
 
@@ -26,9 +26,18 @@ function Reply({
         []
     )
 
+    const editReply = React.useCallback(
+        (content: string) =>
+            dispatch(replyEdited({
+                id,
+                content
+            })),
+        []
+    )
+
     return (
         <div className="reply-wrapper">
-            <Card item={reply} handleDispatch={replyToReply}>
+            <Card item={reply} handleReplyDispatch={replyToReply} handleEditDispatch={editReply}>
                 <p>
                     <span className="replying-to">@{reply.replyingTo} </span>
                     {reply.content}

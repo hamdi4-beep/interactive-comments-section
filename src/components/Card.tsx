@@ -30,7 +30,8 @@ const CurrentUserActions = (props: {
 
 const Card = React.memo(function Card(props: {
     item: UserComment | UserReply,
-    handleDispatch: (content: string) => void
+    handleReplyDispatch: (content: string) => void,
+    handleEditDispatch: (content: string) => void
     children: React.ReactNode
 }) {
     const users = useAppSelector(state => state.users)
@@ -108,7 +109,7 @@ const Card = React.memo(function Card(props: {
                     placeholderValue='Add a reply...'
                     dispatchHandler={(content: string) => {
                         if (content) {
-                            props.handleDispatch(content)
+                            props.handleReplyDispatch(content)
                             setIsReplying(false)
                         }
                     }}
@@ -119,8 +120,11 @@ const Card = React.memo(function Card(props: {
                 <FormComponent
                     placeholderValue='Edit a comment...'
                     value={props.item.content}
-                    dispatchHandler={() => {
-                        setIsEditting(false)
+                    dispatchHandler={(content: string) => {
+                        if (content) {
+                            props.handleEditDispatch(content)
+                            setIsEditting(false)
+                        }
                     }}
                 />
             )}

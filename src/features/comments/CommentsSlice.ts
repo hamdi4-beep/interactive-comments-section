@@ -36,6 +36,10 @@ const CommentsSlice = createSlice({
             }
 
             state.allId.push(action.payload.id)
+        },
+        commentEdited(state, action) {
+            const comment = state.byId[action.payload.id]
+            comment.content = action.payload.content
         }
     },
     extraReducers: builder =>
@@ -48,6 +52,6 @@ const CommentsSlice = createSlice({
             })
 })
 
-export const {commentCreated} = CommentsSlice.actions
+export const {commentCreated, commentEdited} = CommentsSlice.actions
 
 export default CommentsSlice.reducer

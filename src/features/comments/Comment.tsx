@@ -2,7 +2,7 @@ import * as React from 'react'
 import Card from '../../components/Card'
 import Reply from '../replies/Reply'
 import { useAppDispatch, useAppSelector, useNextId } from '../../hooks'
-import type { UserComment } from './CommentsSlice'
+import { commentEdited, type UserComment } from './CommentsSlice'
 import { replyCreated } from '../replies/RepliesSlice'
 
 function Comment(props: {
@@ -25,9 +25,18 @@ function Comment(props: {
         []
     )
 
+    const editComment = React.useCallback(
+        (content: string) =>
+            dispatch(commentEdited({
+                id: props.id,
+                content
+            })),
+        []
+    )
+
     return (
         <div className="comment-wrapper">
-            <Card item={comment} handleDispatch={replyToComment}>
+            <Card item={comment} handleReplyDispatch={replyToComment} handleEditDispatch={editComment}>
                 <p>{comment.content}</p>
             </Card>
 
