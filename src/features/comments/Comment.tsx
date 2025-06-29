@@ -14,7 +14,7 @@ function Comment(props: {
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
 
-    const replyToComment = React.useCallback(
+    const replyToCommentHandler = React.useCallback(
         (content: string) =>
             dispatch(replyCreated({
                 id: nextId,
@@ -25,7 +25,7 @@ function Comment(props: {
         []
     )
 
-    const editComment = React.useCallback(
+    const editCommentHandler = React.useCallback(
         (content: string) =>
             dispatch(commentEdited({
                 id: props.id,
@@ -34,7 +34,7 @@ function Comment(props: {
         []
     )
 
-    const deleteComment = React.useCallback(
+    const deleteCommentHandler = React.useCallback(
         () =>
             dispatch(commentDeleted({
                 id: props.id
@@ -44,7 +44,12 @@ function Comment(props: {
 
     return (
         <div className="comment-wrapper">
-            <Card item={comment} handleReplyDispatch={replyToComment} handleEditDispatch={editComment} handleDeleteDispatch={deleteComment}>
+            <Card
+                item={comment}
+                handleReplyDispatch={replyToCommentHandler}
+                handleEditDispatch={editCommentHandler}
+                handleDeleteDispatch={deleteCommentHandler}
+            >
                 <p>{comment.content}</p>
             </Card>
 

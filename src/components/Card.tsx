@@ -5,6 +5,9 @@ import { useAppSelector } from '../hooks'
 import { type UserReply } from '../features/replies/RepliesSlice'
 import type { UserComment } from '../features/comments/CommentsSlice'
 
+const upVoteBtnRef = React.createRef<HTMLButtonElement>()
+const downVoteBtnRef = React.createRef<HTMLButtonElement>()
+
 const CurrentUserActions = (props: {
     handleEditToggle: React.MouseEventHandler
     handleDeleteToggle: React.MouseEventHandler
@@ -42,9 +45,6 @@ const Card = React.memo(function Card(props: {
     const [isHidden, setIsHidden] = React.useState(true)
 
     const isCurrentUser = data.currentUser == props.item.user
-
-    const upVoteBtnRef = React.createRef<HTMLButtonElement>()
-    const downVoteBtnRef = React.createRef<HTMLButtonElement>()
 
     return (
         <div className="container">
