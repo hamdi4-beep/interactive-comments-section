@@ -40,6 +40,10 @@ const CommentsSlice = createSlice({
         commentEdited(state, action) {
             const comment = state.byId[action.payload.id]
             comment.content = action.payload.content
+        },
+        commentDeleted(state, action) {
+            delete state.byId[action.payload.id]
+            state.allId = state.allId.filter(id => action.payload.id !== id)
         }
     },
     extraReducers: builder =>
@@ -52,6 +56,6 @@ const CommentsSlice = createSlice({
             })
 })
 
-export const {commentCreated, commentEdited} = CommentsSlice.actions
+export const {commentCreated, commentEdited, commentDeleted} = CommentsSlice.actions
 
 export default CommentsSlice.reducer

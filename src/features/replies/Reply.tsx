@@ -37,7 +37,7 @@ function Reply({
 
     return (
         <div className="reply-wrapper">
-            <Card item={reply} handleReplyDispatch={replyToReply} handleEditDispatch={editReply}>
+            <Card item={reply} handleReplyDispatch={replyToReply} handleEditDispatch={editReply} handleDeleteDispatch={() => {}}>
                 <p>
                     <span className="replying-to">@{reply.replyingTo} </span>
                     {reply.content}

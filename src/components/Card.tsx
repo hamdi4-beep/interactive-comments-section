@@ -1,16 +1,16 @@
 import * as React from 'react'
 import data from '../data.json'
 import FormComponent from "./FormComponent"
-import { useAppDispatch, useAppSelector, useNextId } from '../hooks'
-import { replyCreated, type UserReply } from '../features/replies/RepliesSlice'
+import { useAppSelector } from '../hooks'
+import { type UserReply } from '../features/replies/RepliesSlice'
 import type { UserComment } from '../features/comments/CommentsSlice'
 
 const CurrentUserActions = (props: {
-    handleEditClick: React.MouseEventHandler
-    handleDeleteClick: React.MouseEventHandler
+    handleEditToggle: React.MouseEventHandler
+    handleDeleteToggle: React.MouseEventHandler
 }) => (
     <div className="user-actions">
-        <button onClick={props.handleEditClick}>
+        <button onClick={props.handleEditToggle}>
             <div className="icon-img">
                 <img src='/interactive-comment-section/images/icon-edit.svg' alt="" />
             </div>
@@ -18,7 +18,7 @@ const CurrentUserActions = (props: {
             Edit
         </button>
 
-        <button onClick={props.handleDeleteClick}>
+        <button onClick={props.handleDeleteToggle}>
             <div className="icon-img">
                 <img src='/interactive-comment-section/images/icon-delete.svg' alt="" />
             </div>
@@ -31,7 +31,8 @@ const CurrentUserActions = (props: {
 const Card = React.memo(function Card(props: {
     item: UserComment | UserReply,
     handleReplyDispatch: (content: string) => void,
-    handleEditDispatch: (content: string) => void
+    handleEditDispatch: (content: string) => void,
+    handleDeleteDispatch: () => void
     children: React.ReactNode
 }) {
     const users = useAppSelector(state => state.users)
@@ -85,8 +86,8 @@ const Card = React.memo(function Card(props: {
                         <div className="actions">
                             {isCurrentUser ? (
                                 <CurrentUserActions
-                                    handleEditClick={() => setIsEditting(prev => !prev)}
-                                    handleDeleteClick={() => setIsHidden(false)}
+                                    handleEditToggle={() => setIsEditting(prev => !prev)}
+                                    handleDeleteToggle={() => setIsHidden(false)}
                                 />
                             ) : (
                                 <button onClick={() => setIsReplying(prev => !prev)}>
@@ -136,7 +137,7 @@ const Card = React.memo(function Card(props: {
                     
                     <div className="buttons">
                         <button className="cancel" onClick={() => setIsHidden(true)}>No, Cancel</button>
-                        <button className="confirm" onClick={() => {}}>Yes, Confirm</button>
+                        <button className="confirm" onClick={() => props.handleDeleteDispatch()}>Yes, Confirm</button>
                     </div>
                 </div>
             )}
