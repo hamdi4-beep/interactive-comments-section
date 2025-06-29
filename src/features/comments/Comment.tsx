@@ -14,13 +14,16 @@ function Comment(props: {
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
 
-    const replyToComment = (content: string) =>
-        dispatch(replyCreated({
-            id: nextId,
-            itemId: props.id,
-            content,
-            user: comment.user
-        }))
+    const replyToComment = React.useCallback(
+        (content: string) =>
+            dispatch(replyCreated({
+                id: nextId,
+                itemId: props.id,
+                content,
+                user: comment.user
+            })),
+        []
+    )
 
     return (
         <div className="comment-wrapper">

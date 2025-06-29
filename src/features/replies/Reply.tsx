@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector, useNextId } from "../../hooks"
 import Card from "../../components/Card"
 import { replyCreated, type UserReply } from "./RepliesSlice"
 import type { UserComment } from "../comments/CommentsSlice"
+import React from "react"
 
 function Reply({
     id,
@@ -14,13 +15,16 @@ function Reply({
     const nextId = useNextId()
     const reply = useAppSelector(state => state.replies.byId[id])
 
-    const replyToReply = (content: string) =>
-        dispatch(replyCreated({
-            id: nextId,
-            itemId: parentCommentId,
-            content,
-            user: reply.user
-        }))
+    const replyToReply = React.useCallback(
+        (content: string) =>
+            dispatch(replyCreated({
+                id: nextId,
+                itemId: parentCommentId,
+                content,
+                user: reply.user
+            })),
+        []
+    )
 
     return (
         <div className="reply-wrapper">

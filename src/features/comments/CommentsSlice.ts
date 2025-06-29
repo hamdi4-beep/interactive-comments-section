@@ -18,11 +18,11 @@ export interface CommentState {
     allId: CommentID[]
 }
 
-const initialCommentsState: CommentState = data.comments
+const initialState: CommentState = data.comments
 
 const CommentsSlice = createSlice({
     name: 'comments',
-    initialState: initialCommentsState,
+    initialState,
     reducers: {
         commentCreated(state, action) {
             state.byId[action.payload.id] = {
