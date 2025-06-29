@@ -19,7 +19,7 @@ function Reply({
         (content: string) =>
             dispatch(replyCreated({
                 id: nextId,
-                itemId: parentCommentId,
+                parentCommentId,
                 content,
                 user: reply.user
             })),

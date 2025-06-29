@@ -18,7 +18,7 @@ function Comment(props: {
         (content: string) =>
             dispatch(replyCreated({
                 id: nextId,
-                itemId: props.id,
+                parentCommentId: props.id,
                 content,
                 user: comment.user
             })),
