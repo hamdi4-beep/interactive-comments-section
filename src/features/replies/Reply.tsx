@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector, useNextId } from "../../hooks"
 import Card from "../../components/Card"
-import { replyCreated, replyEdited, type UserReply } from "./RepliesSlice"
+import { replyCreated, replyDeleted, replyEdited, type UserReply } from "./RepliesSlice"
 import type { UserComment } from "../comments/CommentsSlice"
 import React from "react"
 
@@ -15,7 +15,7 @@ function Reply({
     const nextId = useNextId()
     const reply = useAppSelector(state => state.replies.byId[id])
 
-    const replyToReply = React.useCallback(
+    const replyToReplyHandler = React.useCallback(
         (content: string) =>
             dispatch(replyCreated({
                 id: nextId,
@@ -26,7 +26,7 @@ function Reply({
         []
     )
 
-    const editReply = React.useCallback(
+    const editReplyHandler = React.useCallback(
         (content: string) =>
             dispatch(replyEdited({
                 id,
@@ -35,9 +35,18 @@ function Reply({
         []
     )
 
+    const deleteReplyHandler = React.useCallback(
+        () =>
+            dispatch(replyDeleted({
+                id,
+                parentCommentId
+            })),
+        []
+    )
+
     return (
         <div className="reply-wrapper">
-            <Card item={reply} handleReplyDispatch={replyToReply} handleEditDispatch={editReply} handleDeleteDispatch={() => {}}>
+            <Card item={reply} handleReplyDispatch={replyToReplyHandler} handleEditDispatch={editReplyHandler} handleDeleteDispatch={deleteReplyHandler}>
                 <p>
                     <span className="replying-to">@{reply.replyingTo} </span>
                     {reply.content}

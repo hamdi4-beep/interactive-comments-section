@@ -13,6 +13,7 @@ function Comment(props: {
 
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
+    const allReplyIds = useAppSelector(state => state.replies.allId)
 
     const replyToCommentHandler = React.useCallback(
         (content: string) =>
@@ -57,13 +58,16 @@ function Comment(props: {
 
             {!isRepliesHidden && (
                 <div className="replies-list">
-                    {comment.replies.map(id => (
-                        <Reply
-                            id={id}
-                            parentCommentId={comment.id}
-                            key={id}
-                        />
-                    ))}
+                    {comment.replies.map(id => {
+                        if (allReplyIds.find(replyId => replyId === id))
+                            return (
+                                <Reply
+                                    id={id}
+                                    parentCommentId={comment.id}
+                                    key={id}
+                                />
+                            )
+                    })}
                 </div>
             )}
         </div>

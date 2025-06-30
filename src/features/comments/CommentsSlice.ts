@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import data from '../../data.json'
-import { replyCreated } from "../replies/RepliesSlice";
+import { replyCreated, replyDeleted } from "../replies/RepliesSlice";
 
 export type UserComment = {
     id: number
@@ -53,6 +53,12 @@ const CommentsSlice = createSlice({
                 
                 if (commentID)
                     state.byId[commentID].replies.push(action.payload.id)
+            })
+            .addCase(replyDeleted, (state, action) => {
+                const commentID = state.allId.find(id => action.payload.parentCommentId === id)
+
+                if (commentID)
+                    state.byId[commentID].replies = state.byId[commentID].replies.filter(replyId => replyId !== action.payload.id)
             })
 })
 

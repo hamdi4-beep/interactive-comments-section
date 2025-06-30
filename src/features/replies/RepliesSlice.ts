@@ -34,10 +34,14 @@ const RepliesSlice = createSlice({
         replyEdited(state, action) {
             const reply = state.byId[action.payload.id]
             reply.content = action.payload.content
+        },
+        replyDeleted(state, action) {
+            delete state.byId[action.payload.id]
+            state.allId = state.allId.filter(id => action.payload.id !== id)
         }
     }
 })
 
-export const { replyCreated, replyEdited } = RepliesSlice.actions
+export const { replyCreated, replyEdited, replyDeleted } = RepliesSlice.actions
 
 export default RepliesSlice.reducer
