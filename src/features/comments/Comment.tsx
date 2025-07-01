@@ -2,7 +2,7 @@ import * as React from 'react'
 import Card from '../../components/Card'
 import Reply from '../replies/Reply'
 import { useAppDispatch, useAppSelector, useNextId } from '../../hooks'
-import { commentDeleted, commentEdited, type UserComment } from './CommentsSlice'
+import { commentDeleted, commentEdited, commentScoreUpdated, type UserComment } from './CommentsSlice'
 import { replyCreated } from '../replies/RepliesSlice'
 
 const Comment = React.memo(function Comment(props: {
@@ -43,6 +43,15 @@ const Comment = React.memo(function Comment(props: {
         []
     )
 
+    const voteCommentHandler = React.useCallback(
+        (score: number) =>
+            dispatch(commentScoreUpdated({
+                id: props.id,
+                score
+            })),
+        []
+    )
+
     return (
         <div className="comment-wrapper">
             <Card
@@ -50,6 +59,7 @@ const Comment = React.memo(function Comment(props: {
                 handleReplyDispatch={replyToCommentHandler}
                 handleEditDispatch={editCommentHandler}
                 handleDeleteDispatch={deleteCommentHandler}
+                handleVoteDispatch={voteCommentHandler}
             >
                 <p>{comment.content}</p>
             </Card>

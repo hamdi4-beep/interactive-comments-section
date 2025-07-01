@@ -35,7 +35,8 @@ const Card = React.memo(function Card(props: {
     item: UserComment | UserReply,
     handleReplyDispatch: (content: string) => void,
     handleEditDispatch: (content: string) => void,
-    handleDeleteDispatch: () => void
+    handleDeleteDispatch: () => void,
+    handleVoteDispatch: (score: number) => void
     children: React.ReactNode
 }) {
     const users = useAppSelector(state => state.users)
@@ -53,6 +54,7 @@ const Card = React.memo(function Card(props: {
                     <button ref={upVoteBtnRef} onClick={() => {
                         upVoteBtnRef.current?.setAttribute('disabled', 'true')
                         downVoteBtnRef.current?.removeAttribute('disabled')
+                        props.handleVoteDispatch(props.item.score + 1)
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
@@ -64,6 +66,7 @@ const Card = React.memo(function Card(props: {
                     <button ref={downVoteBtnRef} onClick={() => {
                         downVoteBtnRef.current?.setAttribute('disabled', 'true')
                         upVoteBtnRef.current?.removeAttribute('disabled')
+                        props.handleVoteDispatch(props.item.score - 1)
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />

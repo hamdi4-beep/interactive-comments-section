@@ -39,6 +39,9 @@ type UpdateCommentScorePayload = {
 
 const initialState: CommentState = data.comments
 
+const findCommentId = (state: CommentState, targetId: CommentID) =>
+    state.allId.find(id => targetId === id)
+
 const CommentsSlice = createSlice({
     name: 'comments',
     initialState,
@@ -72,19 +75,19 @@ const CommentsSlice = createSlice({
     extraReducers: builder =>
         builder
             .addCase(replyCreated, (state, action) => {
-                const commentID = state.allId.find(id => action.payload.parentCommentId === id)
+                const commentID = findCommentId(state, action.payload.parentCommentId)
                 
                 if (commentID)
                     state.byId[commentID].replies.push(action.payload.id)
             })
             .addCase(replyDeleted, (state, action) => {
-                const commentID = state.allId.find(id => action.payload.parentCommentId === id)
+                const commentID = findCommentId(state, action.payload.parentCommentId)
 
                 if (commentID)
                     state.byId[commentID].replies = state.byId[commentID].replies.filter(replyId => replyId !== action.payload.id)
             })
 })
 
-export const {commentCreated, commentEdited, commentDeleted} = CommentsSlice.actions
+export const {commentCreated, commentEdited, commentDeleted, commentScoreUpdated} = CommentsSlice.actions
 
 export default CommentsSlice.reducer
