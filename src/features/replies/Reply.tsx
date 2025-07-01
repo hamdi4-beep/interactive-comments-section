@@ -44,6 +44,8 @@ function Reply({
         []
     )
 
+    if (!reply) return
+
     return (
         <div className="reply-wrapper">
             <Card item={reply} handleReplyDispatch={replyToReplyHandler} handleEditDispatch={editReplyHandler} handleDeleteDispatch={deleteReplyHandler}>

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { UserComment } from "../comments/CommentsSlice";
 import data from '../../data.json'
 
@@ -7,6 +7,23 @@ export type UserReply = Omit<UserComment, 'replies'> & {
 }
 
 type ReplyID = UserReply['id']
+
+type CreateReplyAction = {
+    id: ReplyID
+    content: string
+    user: string
+    parentCommentId: number
+}
+
+type EditReplyAction = {
+    id: ReplyID
+    content: string
+}
+
+type DeleteReplyAction = {
+    id: ReplyID
+    parentCommentId: number
+}
 
 export interface ReplyState {
     byId: Record<ReplyID, UserReply>
@@ -19,7 +36,7 @@ const RepliesSlice = createSlice({
     name: 'replies',
     initialState,
     reducers: {
-        replyCreated(state, action) {
+        replyCreated(state, action: PayloadAction<CreateReplyAction>) {
             state.byId[action.payload.id] = {
                 id: action.payload.id,
                 createdAt: 'now',
@@ -31,11 +48,11 @@ const RepliesSlice = createSlice({
 
             state.allId.push(action.payload.id)
         },
-        replyEdited(state, action) {
+        replyEdited(state, action: PayloadAction<EditReplyAction>) {
             const reply = state.byId[action.payload.id]
             reply.content = action.payload.content
         },
-        replyDeleted(state, action) {
+        replyDeleted(state, action: PayloadAction<DeleteReplyAction>) {
             delete state.byId[action.payload.id]
             state.allId = state.allId.filter(id => action.payload.id !== id)
         }
