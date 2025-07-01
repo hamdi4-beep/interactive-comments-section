@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector, useNextId } from '../../hooks'
 import { commentDeleted, commentEdited, type UserComment } from './CommentsSlice'
 import { replyCreated } from '../replies/RepliesSlice'
 
-function Comment(props: {
+const Comment = React.memo(function Comment(props: {
     id: UserComment['id']
 }) {
     const dispatch = useAppDispatch()
@@ -72,6 +72,6 @@ function Comment(props: {
             )}
         </div>
     )
-}
+})
 
 export default Comment

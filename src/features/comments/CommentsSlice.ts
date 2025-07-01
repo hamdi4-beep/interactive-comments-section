@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import data from '../../data.json'
 import { replyCreated, replyDeleted } from "../replies/RepliesSlice";
 
@@ -18,13 +18,32 @@ export interface CommentState {
     allId: CommentID[]
 }
 
+type CreateCommentPayload = {
+    id: CommentID
+    content: string
+}
+
+type EditCommentPayload = {
+    id: CommentID
+    content: string
+}
+
+type DeleteCommentPayload = {
+    id: CommentID
+}
+
+type UpdateCommentScorePayload = {
+    id: number
+    score: number
+}
+
 const initialState: CommentState = data.comments
 
 const CommentsSlice = createSlice({
     name: 'comments',
     initialState,
     reducers: {
-        commentCreated(state, action) {
+        commentCreated(state, action: PayloadAction<CreateCommentPayload>) {
             state.byId[action.payload.id] = {
                 id: action.payload.id,
                 createdAt: 'now',
@@ -37,13 +56,17 @@ const CommentsSlice = createSlice({
 
             state.allId.push(action.payload.id)
         },
-        commentEdited(state, action) {
+        commentEdited(state, action: PayloadAction<EditCommentPayload>) {
             const comment = state.byId[action.payload.id]
             comment.content = action.payload.content
         },
-        commentDeleted(state, action) {
+        commentDeleted(state, action: PayloadAction<DeleteCommentPayload>) {
             delete state.byId[action.payload.id]
             state.allId = state.allId.filter(id => action.payload.id !== id)
+        },
+        commentScoreUpdated(state, action: PayloadAction<UpdateCommentScorePayload>) {
+            const comment = state.byId[action.payload.id]
+            comment.score = action.payload.score
         }
     },
     extraReducers: builder =>

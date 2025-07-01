@@ -2,9 +2,9 @@ import { useAppDispatch, useAppSelector, useNextId } from "../../hooks"
 import Card from "../../components/Card"
 import { replyCreated, replyDeleted, replyEdited, type UserReply } from "./RepliesSlice"
 import type { UserComment } from "../comments/CommentsSlice"
-import React from "react"
+import * as React from 'react'
 
-function Reply({
+const Reply = React.memo(function Reply({
     id,
     parentCommentId
 }: {
@@ -56,6 +56,6 @@ function Reply({
             </Card>
         </div>
     )
-}
+})
 
 export default Reply
