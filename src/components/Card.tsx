@@ -45,9 +45,9 @@ const Card = React.memo(function Card(props: {
     const [isEditting, setIsEditting] = React.useState(false)
     const [isHidden, setIsHidden] = React.useState(true)
 
-    const isCurrentUser = data.currentUser == props.item.user
-
     if (!props.item) return
+
+    const isCurrentUser = data.currentUser == props.item.user
 
     return (
         <div className="container">

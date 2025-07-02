@@ -63,8 +63,8 @@ const Reply = React.memo(function Reply({
                 handleScoreUpdateDispatch={voteReplyHandler}
             >
                 <p>
-                    <span className="replying-to">@{reply.replyingTo} </span>
-                    {reply.content}
+                    <span className="replying-to">@{reply?.replyingTo} </span>
+                    {reply?.content}
                 </p>
             </Card>
         </div>
