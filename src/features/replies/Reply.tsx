@@ -53,8 +53,6 @@ const Reply = React.memo(function Reply({
         []
     )
 
-    if (!reply) return
-
     return (
         <div className="reply-wrapper">
             <Card
@@ -62,7 +60,7 @@ const Reply = React.memo(function Reply({
                 handleReplyDispatch={replyToReplyHandler}
                 handleEditDispatch={editReplyHandler}
                 handleDeleteDispatch={deleteReplyHandler}
-                handleVoteDispatch={voteReplyHandler}
+                handleScoreUpdateDispatch={voteReplyHandler}
             >
                 <p>
                     <span className="replying-to">@{reply.replyingTo} </span>

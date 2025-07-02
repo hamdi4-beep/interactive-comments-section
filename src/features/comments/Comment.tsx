@@ -43,7 +43,7 @@ const Comment = React.memo(function Comment(props: {
         []
     )
 
-    const voteCommentHandler = React.useCallback(
+    const updateCommentScoreHandler = React.useCallback(
         (score: number) =>
             dispatch(commentScoreUpdated({
                 id: props.id,
@@ -59,7 +59,7 @@ const Comment = React.memo(function Comment(props: {
                 handleReplyDispatch={replyToCommentHandler}
                 handleEditDispatch={editCommentHandler}
                 handleDeleteDispatch={deleteCommentHandler}
-                handleVoteDispatch={voteCommentHandler}
+                handleScoreUpdateDispatch={updateCommentScoreHandler}
             >
                 <p>{comment.content}</p>
             </Card>
