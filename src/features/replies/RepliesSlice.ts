@@ -9,7 +9,7 @@ export type UserReply = Omit<UserComment, 'replies'> & {
 type ReplyID = UserReply['id']
 
 type CreateReplyPayload = {
-    id: ReplyID
+    replyId: ReplyID
     content: string
     user: string
     parentCommentId: number
@@ -21,11 +21,11 @@ type EditReplyPayload = {
 }
 
 type DeleteReplyPayload = {
-    id: ReplyID
+    replyId: ReplyID
     parentCommentId: number
 }
 
-type VoteReplyPayload = {
+type UpdateReplyScorePayload = {
     id: ReplyID
     score: number
 }
@@ -42,8 +42,8 @@ const RepliesSlice = createSlice({
     initialState,
     reducers: {
         replyCreated(state, action: PayloadAction<CreateReplyPayload>) {
-            state.byId[action.payload.id] = {
-                id: action.payload.id,
+            state.byId[action.payload.replyId] = {
+                id: action.payload.replyId,
                 createdAt: 'now',
                 user: data.currentUser,
                 score: 0,
@@ -51,17 +51,17 @@ const RepliesSlice = createSlice({
                 replyingTo: action.payload.user
             }
 
-            state.allId.push(action.payload.id)
+            state.allId.push(action.payload.replyId)
         },
         replyEdited(state, action: PayloadAction<EditReplyPayload>) {
             const reply = state.byId[action.payload.id]
             reply.content = action.payload.content
         },
         replyDeleted(state, action: PayloadAction<DeleteReplyPayload>) {
-            delete state.byId[action.payload.id]
-            state.allId = state.allId.filter(id => action.payload.id !== id)
+            delete state.byId[action.payload.replyId]
+            state.allId = state.allId.filter(id => action.payload.replyId !== id)
         },
-        replyScoreUpdated(state, action: PayloadAction<VoteReplyPayload>) {
+        replyScoreUpdated(state, action: PayloadAction<UpdateReplyScorePayload>) {
             const reply = state.byId[action.payload.id]
             reply.score = action.payload.score
         }

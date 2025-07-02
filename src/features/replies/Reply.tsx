@@ -18,7 +18,7 @@ const Reply = React.memo(function Reply({
     const replyToReplyHandler = React.useCallback(
         (content: string) =>
             dispatch(replyCreated({
-                id: nextId,
+                replyId: nextId,
                 parentCommentId,
                 content,
                 user: reply.user
@@ -38,13 +38,13 @@ const Reply = React.memo(function Reply({
     const deleteReplyHandler = React.useCallback(
         () =>
             dispatch(replyDeleted({
-                id,
+                replyId: id,
                 parentCommentId
             })),
         []
     )
 
-    const voteReplyHandler = React.useCallback(
+    const updateReplyScoreHandler = React.useCallback(
         (score: number) =>
             dispatch(replyScoreUpdated({
                 id,
@@ -60,7 +60,7 @@ const Reply = React.memo(function Reply({
                 handleReplyDispatch={replyToReplyHandler}
                 handleEditDispatch={editReplyHandler}
                 handleDeleteDispatch={deleteReplyHandler}
-                handleScoreUpdateDispatch={voteReplyHandler}
+                handleScoreUpdateDispatch={updateReplyScoreHandler}
             >
                 <p>
                     <span className="replying-to">@{reply?.replyingTo} </span>
