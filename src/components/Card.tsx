@@ -5,9 +5,6 @@ import { useAppSelector } from '../hooks'
 import { type UserReply } from '../features/replies/RepliesSlice'
 import type { UserComment } from '../features/comments/CommentsSlice'
 
-const upVoteBtnRef = React.createRef<HTMLButtonElement>()
-const downVoteBtnRef = React.createRef<HTMLButtonElement>()
-
 const CurrentUserActions = (props: {
     handleEditToggle: React.MouseEventHandler
     handleDeleteToggle: React.MouseEventHandler
@@ -39,6 +36,7 @@ const Card = React.memo(function Card(props: {
     handleScoreUpdateDispatch: (score: number) => void
     children: React.ReactNode
 }) {
+    const voteDiffRef = React.useRef(0)
     const users = useAppSelector(state => state.users)
 
     const [isReplying, setIsReplying] = React.useState(false)
@@ -53,10 +51,9 @@ const Card = React.memo(function Card(props: {
         <div className="container">
             <div className='card'>
                 <div className="score-component">
-                    <button ref={upVoteBtnRef} onClick={() => {
-                        upVoteBtnRef.current?.setAttribute('disabled', 'true')
-                        downVoteBtnRef.current?.removeAttribute('disabled')
-                        props.handleScoreUpdateDispatch(props.item.score + 1)
+                    <button onClick={() => {
+                        voteDiffRef.current = voteDiffRef.current <= 0 ? voteDiffRef.current + 1 : voteDiffRef.current
+                        props.handleScoreUpdateDispatch(voteDiffRef.current)
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
@@ -65,10 +62,9 @@ const Card = React.memo(function Card(props: {
 
                     <span>{props.item.score}</span>
 
-                    <button ref={downVoteBtnRef} onClick={() => {
-                        downVoteBtnRef.current?.setAttribute('disabled', 'true')
-                        upVoteBtnRef.current?.removeAttribute('disabled')
-                        props.handleScoreUpdateDispatch(props.item.score - 1)
+                    <button onClick={() => {
+                        voteDiffRef.current = voteDiffRef.current >= 0 ? voteDiffRef.current - 1 : voteDiffRef.current
+                        props.handleScoreUpdateDispatch(voteDiffRef.current)
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />
