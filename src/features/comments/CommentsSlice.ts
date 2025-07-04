@@ -18,23 +18,20 @@ export interface CommentState {
     allId: CommentID[]
 }
 
-type CreateCommentPayload = {
+interface CreateCommentPayload {
     id: CommentID
-    content: string
+    content: UserComment['content']
 }
 
-type EditCommentPayload = {
-    id: CommentID
-    content: string
-}
+interface EditCommentPayload extends CreateCommentPayload {}
 
-type DeleteCommentPayload = {
+interface DeleteCommentPayload {
     id: CommentID
 }
 
-type UpdateCommentScorePayload = {
-    id: number
-    score: number
+interface UpdateCommentScorePayload {
+    id: CommentID
+    score: UserComment['score']
 }
 
 const initialState: CommentState = data.comments
