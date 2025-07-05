@@ -1,14 +1,14 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import data from '../../data.json'
 import { replyCreated, replyDeleted } from "../replies/RepliesSlice";
 
 export type UserComment = {
-    id: number
+    id: string
     createdAt: string
     score: number
     content: string
     user: string
-    replies: number[]
+    replies: UserComment['id'][]
 }
 
 type CommentID = UserComment['id']
@@ -43,18 +43,30 @@ const CommentsSlice = createSlice({
     name: 'comments',
     initialState,
     reducers: {
-        commentCreated(state, action: PayloadAction<CreateCommentPayload>) {
-            state.byId[action.payload.id] = {
-                id: action.payload.id,
-                createdAt: 'now',
-                score: 0,
-                content: action.payload.content,
-                // this works just fine when the information about the current user is stored in a local file, but needs to be updated if it's retrieved from a remote resource.
-                user: data.currentUser,
-                replies: []
-            }
+        commentCreated: {
+            reducer: (state, action: PayloadAction<CreateCommentPayload>) => {
+                state.byId[action.payload.id] = {
+                    id: action.payload.id,
+                    createdAt: 'now',
+                    score: 0,
+                    content: action.payload.content,
+                    // this works just fine when the information about the current user is stored in a local file, but needs to be updated if it's retrieved from a remote resource.
+                    user: data.currentUser,
+                    replies: []
+                }
 
-            state.allId.push(action.payload.id)
+                state.allId.push(action.payload.id)
+            },
+            prepare: (content: string) => {
+                console.log(nanoid())
+
+                return {
+                    payload: {
+                        content,
+                        id: nanoid()
+                    }
+                }
+            }
         },
         commentEdited(state, action: PayloadAction<EditCommentPayload>) {
             const comment = state.byId[action.payload.id]

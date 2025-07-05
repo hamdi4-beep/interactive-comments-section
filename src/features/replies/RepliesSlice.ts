@@ -12,7 +12,7 @@ type CreateReplyPayload = {
     replyId: ReplyID
     content: string
     user: string
-    parentCommentId: number
+    parentCommentId: UserComment['id']
 }
 
 type EditReplyPayload = {
@@ -22,7 +22,7 @@ type EditReplyPayload = {
 
 type DeleteReplyPayload = {
     replyId: ReplyID
-    parentCommentId: number
+    parentCommentId: UserComment['id']
 }
 
 type UpdateReplyScorePayload = {
