@@ -53,7 +53,7 @@ const Card = React.memo(function Card(props: {
                 <div className="score-component">
                     <button onClick={() => {
                         voteDiffRef.current = voteDiffRef.current <= 0 ? voteDiffRef.current + 1 : voteDiffRef.current
-                        props.handleScoreUpdateDispatch(props.item.score + voteDiffRef.current)
+                        props.handleScoreUpdateDispatch(voteDiffRef.current)
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-plus.svg" alt="" />
@@ -64,7 +64,7 @@ const Card = React.memo(function Card(props: {
 
                     <button onClick={() => {
                         voteDiffRef.current = voteDiffRef.current >= 0 ? voteDiffRef.current - 1 : voteDiffRef.current
-                        props.handleScoreUpdateDispatch(props.item.score + voteDiffRef.current)
+                        props.handleScoreUpdateDispatch(voteDiffRef.current)
                     }}>
                         <div className="icon-img">
                             <img src="/interactive-comment-section/images/icon-minus.svg" alt="" />

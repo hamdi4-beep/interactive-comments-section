@@ -45,10 +45,10 @@ const Reply = React.memo(function Reply({
     )
 
     const updateReplyScoreHandler = React.useCallback(
-        (score: number) =>
+        (voteDiff: number) =>
             dispatch(replyScoreUpdated({
                 id,
-                score
+                score: reply.score + voteDiff
             })),
         []
     )
