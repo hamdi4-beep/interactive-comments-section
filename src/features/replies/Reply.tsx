@@ -23,7 +23,7 @@ const Reply = React.memo(function Reply({
     const editReplyHandler = React.useCallback(
         (content: string) =>
             dispatch(replyEdited({
-                id,
+                replyId: id,
                 content
             })),
         []
@@ -41,7 +41,7 @@ const Reply = React.memo(function Reply({
     const updateReplyScoreHandler = React.useCallback(
         (voteDiff: number) =>
             dispatch(replyScoreUpdated({
-                id,
+                replyId: id,
                 score: reply.score + voteDiff
             })),
         []

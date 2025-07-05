@@ -19,18 +19,18 @@ export interface CommentState {
 }
 
 interface CreateCommentPayload {
-    id: CommentID
+    commentId: CommentID
     content: UserComment['content']
 }
 
 interface EditCommentPayload extends CreateCommentPayload {}
 
 interface DeleteCommentPayload {
-    id: CommentID
+    commentId: CommentID
 }
 
 interface UpdateCommentScorePayload {
-    id: CommentID
+    commentId: CommentID
     score: UserComment['score']
 }
 
@@ -45,8 +45,8 @@ const CommentsSlice = createSlice({
     reducers: {
         commentCreated: {
             reducer: (state, action: PayloadAction<CreateCommentPayload>) => {
-                state.byId[action.payload.id] = {
-                    id: action.payload.id,
+                state.byId[action.payload.commentId] = {
+                    id: action.payload.commentId,
                     createdAt: 'now',
                     score: 0,
                     content: action.payload.content,
@@ -55,29 +55,27 @@ const CommentsSlice = createSlice({
                     replies: []
                 }
 
-                state.allId.push(action.payload.id)
+                state.allId.push(action.payload.commentId)
             },
             prepare: (content: string) => {
-                console.log(nanoid())
-
                 return {
                     payload: {
                         content,
-                        id: nanoid()
+                        commentId: nanoid()
                     }
                 }
             }
         },
         commentEdited(state, action: PayloadAction<EditCommentPayload>) {
-            const comment = state.byId[action.payload.id]
+            const comment = state.byId[action.payload.commentId]
             comment.content = action.payload.content
         },
         commentDeleted(state, action: PayloadAction<DeleteCommentPayload>) {
-            delete state.byId[action.payload.id]
-            state.allId = state.allId.filter(id => action.payload.id !== id)
+            delete state.byId[action.payload.commentId]
+            state.allId = state.allId.filter(id => action.payload.commentId !== id)
         },
         commentScoreUpdated(state, action: PayloadAction<UpdateCommentScorePayload>) {
-            const comment = state.byId[action.payload.id]
+            const comment = state.byId[action.payload.commentId]
             comment.score = action.payload.score
         }
     },

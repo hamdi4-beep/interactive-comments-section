@@ -16,7 +16,7 @@ type CreateReplyPayload = {
 }
 
 type EditReplyPayload = {
-    id: ReplyID
+    replyId: ReplyID
     content: string
 }
 
@@ -26,7 +26,7 @@ type DeleteReplyPayload = {
 }
 
 type UpdateReplyScorePayload = {
-    id: ReplyID
+    replyId: ReplyID
     score: number
 }
 
@@ -66,7 +66,7 @@ const RepliesSlice = createSlice({
             }
         },
         replyEdited(state, action: PayloadAction<EditReplyPayload>) {
-            const reply = state.byId[action.payload.id]
+            const reply = state.byId[action.payload.replyId]
             reply.content = action.payload.content
         },
         replyDeleted(state, action: PayloadAction<DeleteReplyPayload>) {
@@ -74,7 +74,7 @@ const RepliesSlice = createSlice({
             state.allId = state.allId.filter(id => action.payload.replyId !== id)
         },
         replyScoreUpdated(state, action: PayloadAction<UpdateReplyScorePayload>) {
-            const reply = state.byId[action.payload.id]
+            const reply = state.byId[action.payload.replyId]
             reply.score = action.payload.score
         }
     }
