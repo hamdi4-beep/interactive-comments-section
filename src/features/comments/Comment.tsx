@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Card from '../../components/Card'
 import Reply from '../replies/Reply'
-import { useAppDispatch, useAppSelector, useNextId } from '../../hooks'
+import { useAppDispatch, useAppSelector } from '../../hooks'
 import { commentDeleted, commentEdited, commentScoreUpdated, type UserComment } from './CommentsSlice'
 import { replyCreated } from '../replies/RepliesSlice'
 
@@ -9,7 +9,6 @@ const Comment = React.memo(function Comment(props: {
     id: UserComment['id']
 }) {
     const dispatch = useAppDispatch()
-    const nextId = useNextId()
 
     const [isRepliesHidden, setIsRepliesHidden] = React.useState(true)
     const comment = useAppSelector(state => state.comments.byId[props.id])
