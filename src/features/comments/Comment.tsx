@@ -17,12 +17,7 @@ const Comment = React.memo(function Comment(props: {
 
     const replyToCommentHandler = React.useCallback(
         (content: string) =>
-            dispatch(replyCreated({
-                replyId: nextId,
-                parentCommentId: props.id,
-                content,
-                user: comment.user
-            })),
+            dispatch(replyCreated(content, comment.user, comment.id)),
         []
     )
 

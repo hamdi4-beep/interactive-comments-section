@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 import type { UserComment } from "../comments/CommentsSlice";
 import data from '../../data.json'
 
@@ -41,17 +41,29 @@ const RepliesSlice = createSlice({
     name: 'replies',
     initialState,
     reducers: {
-        replyCreated(state, action: PayloadAction<CreateReplyPayload>) {
-            state.byId[action.payload.replyId] = {
-                id: action.payload.replyId,
-                createdAt: 'now',
-                user: data.currentUser,
-                score: 0,
-                content: action.payload.content,
-                replyingTo: action.payload.user
-            }
+        replyCreated: {
+            reducer(state, action: PayloadAction<CreateReplyPayload>) {
+                state.byId[action.payload.replyId] = {
+                    id: action.payload.replyId,
+                    createdAt: 'now',
+                    user: data.currentUser,
+                    score: 0,
+                    content: action.payload.content,
+                    replyingTo: action.payload.user
+                }
 
-            state.allId.push(action.payload.replyId)
+                state.allId.push(action.payload.replyId)
+            },
+            prepare(content: string, user: string, parentCommentId: string) {
+                return {
+                    payload: {
+                        content,
+                        replyId: nanoid(),
+                        user,
+                        parentCommentId
+                    }
+                }
+            }
         },
         replyEdited(state, action: PayloadAction<EditReplyPayload>) {
             const reply = state.byId[action.payload.id]

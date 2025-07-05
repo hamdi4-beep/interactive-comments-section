@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector, useNextId } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import Card from "../../components/Card"
 import { replyCreated, replyDeleted, replyEdited, replyScoreUpdated, type UserReply } from "./RepliesSlice"
 import type { UserComment } from "../comments/CommentsSlice"
@@ -12,17 +12,11 @@ const Reply = React.memo(function Reply({
     parentCommentId: UserComment['id']
 }) {
     const dispatch = useAppDispatch()
-    const nextId = useNextId()
     const reply = useAppSelector(state => state.replies.byId[id])
 
     const replyToReplyHandler = React.useCallback(
         (content: string) =>
-            dispatch(replyCreated({
-                replyId: nextId,
-                parentCommentId,
-                content,
-                user: reply.user
-            })),
+            dispatch(replyCreated(content, reply.user, parentCommentId)),
         []
     )
 
