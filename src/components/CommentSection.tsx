@@ -15,7 +15,7 @@ function CommentSection() {
 
             <FormComponent
                 placeholderValue='Add a comment...'
-                dispatchHandler={(content: string) => dispatch(commentCreated({content, id: nextId}))}
+                dispatchHandler={(content: string) => content && dispatch(commentCreated({content, id: nextId}))}
             />
         </div>
     )
